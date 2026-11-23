@@ -1,6 +1,10 @@
 /**
- * Birthday Surprise Engine - Phase 2 Romantic Edition
- * محرك موقع مفاجأة عيد ميلاد رفوووووق — جواب حب وورد، ظرف ٢٣ نوفمبر، وألبوم الذكريات
+ * Birthday Surprise Engine - Phase 3: Engagement Envelope & Love Letter Albums
+ * محرك موقع مفاجأة عيد ميلاد رفوووووق
+ * - ظرف يوم خطوبتنا (مستقل - ينفتح بداية ٢٥ نوفمبر بتوقيت القاهرة)
+ * - عدّاد عيد الميلاد (ينتهي مع بداية ٢ ديسمبر بتوقيت القاهرة)
+ * - ظرف ٢٣ نوفمبر وجواب الحب وألبوم ذكريات صلاة الدبل (ينفتح عند الصفر في ٢ ديسمبر)
+ * - دعم كامل للاستجابة على الموبايل، تقليل الحركة، وتحكم منفصل في الألبومات
  */
 
 (function () {
@@ -8,6 +12,7 @@
 
   // التحقق من وجود ملف الإعدادات
   const config = typeof BIRTHDAY_CONFIG !== 'undefined' ? BIRTHDAY_CONFIG : {
+    engagementDateCairo: "2026-11-25T00:00:00+02:00",
     targetDateCairo: "2026-12-02T00:00:00+02:00",
     title: "يا رفووووووق ❤️",
     subtitle: "فاضل شوية على عيد ميلادك… وقبل ما ييجي، عايز أرجع معاكي ليوم بحبه أوي",
@@ -16,9 +21,20 @@
     birthdayCelebrationTitle: "كل سنة وإنتِ طيبة يا رفووووووق ❤️",
     birthdayCelebrationSubtitle: "يا رب كل سنة وإحنا سوا وفي حضن بعض، ودايمًا منورة حياتي ومفرّحة قلبي 💍✨",
     heroImage: "assets/images/hero-selfie-rings.jpg",
+    engagementEnvelope: {
+      name: "يوم خطوبتنا",
+      lockedText: "يتفتح يوم ٢٥ نوفمبر",
+      buttonText: "افتحي ظرف الخطوبة",
+      subtitle: "ألبوم ذكريات اليوم اللي لبسنا فيه الدبل وشاركنا أحلى فرحة سوا 💍✨",
+      letterDedication: "يا رفووووووق، يوم ٢٥ نوفمبر مش مجرد تاريخ، ده اليوم اللي لبسنا فيه دبل بعض ووعدنا بعض نكمل العمر سوا 💍❤️",
+      closingMessage: "أحلى خطوبة وأجمل بداية… وكل لحظة معاكي بتأكدلي إني اخترت صح. بحبك يا رفووووووق ❤️",
+      signature: "بحبك"
+    },
+    engagementPhotos: [
+      { id: 1, title: "أحلى ليلة خطوبة", caption: "يوم خطوبتنا… اليوم اللي بدأنا فيه حكايتنا رسمي ولبسنا دبل بعض قدام الكل 💍💐", src: "assets/images/engagement-photo-1.jpg", isGroupPhoto: false, dateBadge: "٢٥ نوفمبر" }
+    ],
     envelope: {
       name: "ظرف ٢٣ نوفمبر",
-      envelopeLabel: "لرفووووووق",
       buttonText: "افتحي الجواب يا رفووووووق",
       subtitle: "ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا",
       letterDedication: "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ نوفمبر هييجي في بالي على طول. ❤️",
@@ -26,22 +42,21 @@
       signature: "بحبك"
     },
     albumPhotos: [
-      { id: 1, title: "الصورة الجماعية مع أبونا", caption: "يوم ما أبونا صلّى على الدبل", src: "assets/images/photo-4-group-father.jpg", isGroupPhoto: true },
-      { id: 2, title: "صورة المراية", caption: "أنا وإنتِ يوم ٢٣ نوفمبر", src: "assets/images/photo-1-mirror.jpg", isGroupPhoto: false },
-      { id: 3, title: "السيلفي اللي في الافتتاح", caption: "وبعدها نزلنا أول ديت", src: "assets/images/hero-selfie-rings.jpg", isGroupPhoto: false },
-      { id: 4, title: "السيلفي التانية بالدبل", caption: "كل ما أبص للصور دي ببتسم. بحبك يا رفووووووق ❤️", src: "assets/images/photo-3-selfie-rings-2.jpg", isGroupPhoto: false }
+      { id: 1, title: "الصورة الجماعية مع أبونا", caption: "يوم ما أبونا صلّى على الدبل", src: "assets/images/photo-4-group-father.jpg", isGroupPhoto: true, dateBadge: "٢٣ نوفمبر" }
     ],
     timerLabels: { days: "يوم", hours: "ساعة", minutes: "دقيقة", seconds: "ثانية" }
   };
 
   // عناصر واجهة المستخدم
   const elements = {
+    // ترويسة وصورة الافتتاح
     pageTitle: document.getElementById('pageTitle'),
     pageSubtitle: document.getElementById('pageSubtitle'),
     heroImage: document.getElementById('heroImage'),
     photoDateBadge: document.getElementById('photoDateBadge'),
     photoMemoryCaption: document.getElementById('photoMemoryCaption'),
     
+    // عدّاد عيد الميلاد
     countdownSection: document.getElementById('countdownSection'),
     timerGrid: document.getElementById('timerGrid'),
     celebrationSection: document.getElementById('celebrationSection'),
@@ -66,43 +81,78 @@
     openEnvelopeBtn: document.getElementById('openEnvelopeBtn'),
     petalsContainer: document.getElementById('petalsContainer'),
 
-    // مكوّنات ألبوم جواب الحب
+    // مكوّنات ظرف يوم خطوبتنا (مستقل)
+    engagementEnvelopeSection: document.getElementById('engagementEnvelopeSection'),
+    engagementCard: document.getElementById('engagementCard'),
+    engagementEnvelopeContainer: document.getElementById('engagementEnvelopeContainer'),
+    engagementEnvelopeOuter: document.getElementById('engagementEnvelopeOuter'),
+    engagementEnvelopeFlap: document.getElementById('engagementEnvelopeFlap'),
+    engagementEnvelopeSeal: document.getElementById('engagementEnvelopeSeal'),
+    engagementLockedBadge: document.getElementById('engagementLockedBadge'),
+    engagementLockedText: document.getElementById('engagementLockedText'),
+    openEngagementBtn: document.getElementById('openEngagementBtn'),
+    engagementStatusDesc: document.getElementById('engagementStatusDesc'),
+    engagementSectionSubtitle: document.getElementById('engagementSectionSubtitle'),
+
+    // شاشة ألبوم الصور والجواب المنبثقة (مشتركة للألبومين مع دعم السياق)
     memoryAlbumOverlay: document.getElementById('memoryAlbumOverlay'),
     albumBackdrop: document.getElementById('albumBackdrop'),
     loveLetterCard: document.getElementById('loveLetterCard'),
+    albumPrefaceCard: document.getElementById('albumPrefaceCard'),
+    albumStampIcon: document.getElementById('albumStampIcon'),
+    albumModalHeaderTag: document.getElementById('albumModalHeaderTag'),
     closeAlbumBtn: document.getElementById('closeAlbumBtn'),
     letterDedicationQuote: document.getElementById('letterDedicationQuote'),
+    albumScrollPromptText: document.getElementById('albumScrollPromptText'),
+    
     albumPhotoViewport: document.getElementById('albumPhotoViewport'),
     albumCurrentImg: document.getElementById('albumCurrentImg'),
+    placeholderNoticeBadge: document.getElementById('placeholderNoticeBadge'),
     albumCurrentCaption: document.getElementById('albumCurrentCaption'),
+    albumFrameDateBadge: document.getElementById('albumFrameDateBadge'),
+    albumDateBadgeText: document.getElementById('albumDateBadgeText'),
+    
     currentPhotoNum: document.getElementById('currentPhotoNum'),
     totalPhotosNum: document.getElementById('totalPhotosNum'),
+    albumPhotoTitleHint: document.getElementById('albumPhotoTitleHint'),
     albumPrevBtn: document.getElementById('albumPrevBtn'),
     albumNextBtn: document.getElementById('albumNextBtn'),
     albumDotsContainer: document.getElementById('albumDotsContainer'),
     albumPhotoFrame: document.getElementById('albumPhotoFrame'),
+    
+    albumClosingLetter: document.getElementById('albumClosingLetter'),
     albumClosingMsg: document.getElementById('albumClosingMsg'),
+    albumClosingSignature: document.getElementById('albumClosingSignature'),
+    albumSignatureText: document.getElementById('albumSignatureText'),
 
     sparklesCanvas: document.getElementById('sparklesCanvas'),
 
-    // أدوات الاختبار
+    // أدوات المعاينة والاختبار للمطور
     devTestPanel: document.getElementById('devTestPanel'),
     devToggleBtn: document.getElementById('devToggleBtn'),
     btnTestNormal: document.getElementById('btnTestNormal'),
-    btnTest3Sec: document.getElementById('btnTest3Sec'),
-    btnTestZero: document.getElementById('btnTestZero'),
-    btnTestAlbumDirect: document.getElementById('btnTestAlbumDirect'),
+    btnTestNov25Live: document.getElementById('btnTestNov25Live'),
+    btnTestNov25Unlocked: document.getElementById('btnTestNov25Unlocked'),
+    btnTestDec2Live: document.getElementById('btnTestDec2Live'),
+    btnTestBirthdayActive: document.getElementById('btnTestBirthdayActive'),
+    btnTestEngagementModal: document.getElementById('btnTestEngagementModal'),
+    btnTestNov23Modal: document.getElementById('btnTestNov23Modal'),
     devStatusText: document.getElementById('devStatusText')
   };
 
   // حالة النظام
   let timerInterval = null;
-  let simulatedTargetTime = null;
+  let simulatedBirthdayTime = null;
+  let simulatedEngagementTime = null;
   let isCelebrationActive = false;
-  let currentAlbumIndex = 0;
+  let isEngagementUnlocked = false;
   let hasTransitionedFromCountdown = false;
   let hasLaunchedPetals = false;
   let isOpeningEnvelope = false;
+
+  // الألبوم النشط في الـ Modal ('engagement' أو 'nov23')
+  let activeAlbumType = 'nov23';
+  let currentAlbumIndex = 0;
 
   /**
    * فحص بيئة التشغيل: هل هي بيئة محلية للمطور؟
@@ -122,7 +172,7 @@
   }
 
   /**
-   * تطبيق النصوص والإعدادات على عناصر DOM
+   * تطبيق الإعدادات الأولية على واجهة المستخدم
    */
   function applyConfiguration() {
     if (elements.pageSubtitle && config.subtitle) {
@@ -148,11 +198,15 @@
       const btnText = elements.openEnvelopeBtn.querySelector('.btn-text');
       if (btnText) btnText.textContent = config.envelope.buttonText;
     }
-    if (elements.letterDedicationQuote && config.envelope && config.envelope.letterDedication) {
-      elements.letterDedicationQuote.textContent = `«${config.envelope.letterDedication.replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+    if (elements.openEngagementBtn && config.engagementEnvelope && config.engagementEnvelope.buttonText) {
+      const btnText = elements.openEngagementBtn.querySelector('.btn-text');
+      if (btnText) btnText.textContent = config.engagementEnvelope.buttonText;
     }
-    if (elements.albumClosingMsg && config.envelope && config.envelope.closingMessage) {
-      elements.albumClosingMsg.textContent = `«${config.envelope.closingMessage.replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+    if (elements.engagementLockedText && config.engagementEnvelope && config.engagementEnvelope.lockedText) {
+      elements.engagementLockedText.textContent = config.engagementEnvelope.lockedText;
+    }
+    if (elements.engagementSectionSubtitle && config.engagementEnvelope && config.engagementEnvelope.subtitle) {
+      elements.engagementSectionSubtitle.textContent = config.engagementEnvelope.subtitle;
     }
     if (config.timerLabels) {
       if (elements.daysLabel) elements.daysLabel.textContent = config.timerLabels.days || "يوم";
@@ -160,17 +214,15 @@
       if (elements.minutesLabel) elements.minutesLabel.textContent = config.timerLabels.minutes || "دقيقة";
       if (elements.secondsLabel) elements.secondsLabel.textContent = config.timerLabels.seconds || "ثانية";
     }
-
-    initAlbumDots();
   }
 
   /**
-   * حساب الوقت المتبقي بالنسبة لتوقيت القاهرة الثابت (+02:00)
+   * حساب الوقت المتبقي بالنسبة لموعد عيد الميلاد (٢ ديسمبر ٢٠٢٦ بتوقيت القاهرة)
    */
-  function getRemainingTime() {
+  function getRemainingBirthdayTime() {
     let targetMs;
-    if (simulatedTargetTime !== null) {
-      targetMs = simulatedTargetTime;
+    if (simulatedBirthdayTime !== null) {
+      targetMs = simulatedBirthdayTime;
     } else {
       targetMs = new Date(config.targetDateCairo).getTime();
     }
@@ -191,18 +243,102 @@
     return { total: diffMs, days, hours, minutes, seconds, isZero: false };
   }
 
+  /**
+   * حساب حالة موعد فتح ظرف الخطوبة (٢٥ نوفمبر ٢٠٢٦ بتوقيت القاهرة)
+   */
+  function getRemainingEngagementTime() {
+    let targetMs;
+    if (simulatedEngagementTime !== null) {
+      targetMs = simulatedEngagementTime;
+    } else {
+      targetMs = new Date(config.engagementDateCairo).getTime();
+    }
+
+    const nowMs = Date.now();
+    const diffMs = targetMs - nowMs;
+
+    if (diffMs <= 0) {
+      return { total: 0, isZero: true };
+    }
+    return { total: diffMs, isZero: false };
+  }
+
   function formatNumber(num) {
     return String(num).padStart(2, '0');
   }
 
   /**
-   * تحديث واجهة العدّاد وضبط لحظة الصفر السلسة
+   * تحديث حالة ظرف الخطوبة (مغلق قبل ٢٥ نوفمبر / متاح بعدها)
+   * يتم استدعاؤها مع كل ثانية لتوفير الانتقال التلقائي إذا كانت الصفحة مفتوحة عند منتصف الليل
+   */
+  function updateEngagementEnvelopeState() {
+    const engagementTime = getRemainingEngagementTime();
+
+    if (engagementTime.isZero) {
+      // وصل الموعد أو بعده: فك قفل ظرف الخطوبة
+      if (!isEngagementUnlocked) {
+        isEngagementUnlocked = true;
+        unlockEngagementEnvelope(true);
+      }
+    } else {
+      // قبل ٢٥ نوفمبر: قفل الظرف وإظهار الشارة المعتمدة
+      if (isEngagementUnlocked) {
+        isEngagementUnlocked = false;
+      }
+      lockEngagementEnvelope();
+    }
+  }
+
+  /**
+   * فك قفل ظرف الخطوبة وإظهار زر «افتحي ظرف الخطوبة»
+   */
+  function unlockEngagementEnvelope(animate = false) {
+    if (elements.engagementLockedBadge) {
+      elements.engagementLockedBadge.classList.add('hidden');
+    }
+    if (elements.openEngagementBtn) {
+      elements.openEngagementBtn.classList.remove('hidden');
+    }
+    if (elements.engagementStatusDesc) {
+      elements.engagementStatusDesc.textContent = "جاهز للفتح الآن! اضغطي لفتح ألبوم ذكريات يوم خطوبتنا 💍✨";
+    }
+    if (elements.engagementEnvelopeOuter) {
+      elements.engagementEnvelopeOuter.classList.remove('is-locked');
+      elements.engagementEnvelopeOuter.setAttribute('title', 'اضغطي لفتح ظرف يوم خطوبتنا');
+    }
+  }
+
+  /**
+   * قفل ظرف الخطوبة وإظهار شارة «يتفتح يوم ٢٥ نوفمبر»
+   */
+  function lockEngagementEnvelope() {
+    if (elements.engagementLockedBadge) {
+      elements.engagementLockedBadge.classList.remove('hidden');
+    }
+    if (elements.openEngagementBtn) {
+      elements.openEngagementBtn.classList.add('hidden');
+    }
+    if (elements.engagementStatusDesc) {
+      elements.engagementStatusDesc.textContent = "ظرف خاص بذكرى يوم خطوبتنا… هيتفتح تلقائيًا مع بداية يوم ٢٥ نوفمبر";
+    }
+    if (elements.engagementEnvelopeOuter) {
+      elements.engagementEnvelopeOuter.classList.add('is-locked');
+      elements.engagementEnvelopeOuter.classList.remove('is-open', 'is-breaking-seal');
+      elements.engagementEnvelopeOuter.setAttribute('title', 'يتفتح يوم ٢٥ نوفمبر');
+    }
+  }
+
+  /**
+   * تحديث شاشة العدّاد التنازلي لعيد الميلاد (٢ ديسمبر)
    */
   function updateCountdownDisplay() {
-    const time = getRemainingTime();
+    const time = getRemainingBirthdayTime();
+
+    // تحديث ظرف الخطوبة دائماً
+    updateEngagementEnvelopeState();
 
     if (time.isZero) {
-      // عرض الأصفار أولاً للتطابق مع لحظة الوصول للصفر
+      // الوصول إلى الصفر: عيد الميلاد
       if (elements.daysVal) elements.daysVal.textContent = "00";
       if (elements.hoursVal) elements.hoursVal.textContent = "00";
       if (elements.minutesVal) elements.minutesVal.textContent = "00";
@@ -212,7 +348,6 @@
         elements.timerGrid.classList.add('zero-pulse');
       }
 
-      // إذا كانت الصفحة مفتوحة أثناء العدّاد، ننتظر 450ms ليرى الزائر الصفر ثم يفتح الاحتفال
       if (hasTransitionedFromCountdown) {
         setTimeout(() => {
           triggerCelebration(true);
@@ -232,16 +367,11 @@
   }
 
   /**
-   * تفعيل حالة الاحتفال عند الصفر
+   * تفعيل حالة الاحتفال عند الصفر في ٢ ديسمبر (مع بقاء ظرف الخطوبة متاحاً)
    */
   function triggerCelebration(animate = false) {
     if (isCelebrationActive) return;
     isCelebrationActive = true;
-
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
 
     if (elements.countdownSection) {
       if (animate) {
@@ -263,6 +393,9 @@
         }, 300);
       }
     }
+
+    // التأكد التام من أن ظرف الخطوبة يظل متاحاً
+    unlockEngagementEnvelope(false);
 
     launchCelebrationParticles();
   }
@@ -295,73 +428,135 @@
       elements.envelopeOuter.classList.remove('is-open', 'is-breaking-seal');
     }
 
+    if (elements.engagementEnvelopeOuter) {
+      elements.engagementEnvelopeOuter.classList.remove('is-open', 'is-breaking-seal');
+    }
+
     if (elements.memoryAlbumOverlay) {
       elements.memoryAlbumOverlay.classList.add('hidden');
     }
 
-    if (timerInterval) {
-      clearInterval(timerInterval);
-    }
-
     updateCountdownDisplay();
-    timerInterval = setInterval(updateCountdownDisplay, 1000);
   }
 
   /**
-   * حركة متسلسلة واحدة لفتح الجواب وظرف ٢٣ نوفمبر
+   * إعداد أحداث فتح الظرفين (ظرف الخطوبة وظرف ٢٣ نوفمبر)
    */
   function setupEnvelopeEvents() {
-    function executeOpenSequence() {
+    // -------------------------------------------------------------
+    // ١. حدث فتح ظرف يوم خطوبتنا (مستقل)
+    // -------------------------------------------------------------
+    function executeOpenEngagementSequence() {
+      // إذا كان الظرف مغلقاً لم يحن موعده، لا يفتح
+      if (!isEngagementUnlocked) {
+        return;
+      }
       if (isOpeningEnvelope) return;
       isOpeningEnvelope = true;
 
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // إذا كان تقليل الحركة مفعلاً، يتم فتح الجواب والألبوم فوراً
       if (prefersReduced) {
-        if (elements.envelopeOuter) {
-          elements.envelopeOuter.classList.add('is-open');
+        if (elements.engagementEnvelopeOuter) {
+          elements.engagementEnvelopeOuter.classList.add('is-open');
         }
-        openAlbumModal(0);
+        openAlbumModal('engagement', 0);
         isOpeningEnvelope = false;
         return;
       }
 
-      // الحركة المتسلسلة:
-      // ١. تفكيك الختم الوردي الغامق
+      // حركة متسلسلة لظرف الخطوبة: تفكيك ختم القلب -> فتح الغطاء -> بتلات ورد رقيقة -> فتح الألبوم
+      if (elements.engagementEnvelopeOuter) {
+        elements.engagementEnvelopeOuter.classList.add('is-breaking-seal');
+      }
+
+      setTimeout(() => {
+        if (elements.engagementEnvelopeOuter) {
+          elements.engagementEnvelopeOuter.classList.add('is-open');
+        }
+      }, 200);
+
+      setTimeout(() => {
+        launchRosePetals();
+      }, 350);
+
+      setTimeout(() => {
+        openAlbumModal('engagement', 0);
+        isOpeningEnvelope = false;
+      }, 650);
+    }
+
+    if (elements.openEngagementBtn) {
+      elements.openEngagementBtn.addEventListener('click', executeOpenEngagementSequence);
+    }
+    if (elements.engagementEnvelopeOuter) {
+      elements.engagementEnvelopeOuter.addEventListener('click', () => {
+        if (isEngagementUnlocked) {
+          executeOpenEngagementSequence();
+        }
+      });
+      elements.engagementEnvelopeOuter.addEventListener('keydown', (e) => {
+        if (isEngagementUnlocked && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          executeOpenEngagementSequence();
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // ٢. حدث فتح ظرف ٢٣ نوفمبر وجواب الحب (المتاح مع عيد الميلاد)
+    // -------------------------------------------------------------
+    function executeOpenNov23Sequence() {
+      if (isOpeningEnvelope) return;
+      isOpeningEnvelope = true;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReduced) {
+        if (elements.envelopeOuter) {
+          elements.envelopeOuter.classList.add('is-open');
+        }
+        openAlbumModal('nov23', 0);
+        isOpeningEnvelope = false;
+        return;
+      }
+
       if (elements.envelopeOuter) {
         elements.envelopeOuter.classList.add('is-breaking-seal');
       }
 
-      // ٢. فتح غطاء الظرف
       setTimeout(() => {
         if (elements.envelopeOuter) {
           elements.envelopeOuter.classList.add('is-open');
         }
       }, 200);
 
-      // ٣. إطلاق بتلات الورد المتطايرة على الجانبين (مرة واحدة فقط)
       setTimeout(() => {
         launchRosePetals();
       }, 350);
 
-      // ٤. انبثاق الجواب وظهور الألبوم
       setTimeout(() => {
-        openAlbumModal(0);
+        openAlbumModal('nov23', 0);
         isOpeningEnvelope = false;
       }, 650);
     }
 
     if (elements.openEnvelopeBtn) {
-      elements.openEnvelopeBtn.addEventListener('click', executeOpenSequence);
+      elements.openEnvelopeBtn.addEventListener('click', executeOpenNov23Sequence);
     }
     if (elements.envelopeOuter) {
-      elements.envelopeOuter.addEventListener('click', executeOpenSequence);
+      elements.envelopeOuter.addEventListener('click', executeOpenNov23Sequence);
+      elements.envelopeOuter.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          executeOpenNov23Sequence();
+        }
+      });
     }
   }
 
   /**
-   * إطلاق بتلات الورد على جانبي الشاشة (مرة واحدة عند فتح الظرف)
+   * إطلاق بتلات الورد على جانبي الشاشة وحول الإطار (مرة واحدة عند فتح أي ظرف)
    */
   function launchRosePetals() {
     if (hasLaunchedPetals || !elements.petalsContainer) return;
@@ -377,13 +572,12 @@
       const petal = document.createElement('div');
       petal.className = 'rose-petal';
       
-      // التوزيع على الجانبين الأيمن والأيسر بعيداً عن منتصف المحتوى
       const isLeft = i % 2 === 0;
       const leftPercent = isLeft 
-        ? Math.random() * 20 + 2  // بين 2% و 22% على اليسار
-        : Math.random() * 20 + 78; // بين 78% و 98% على اليمين
+        ? Math.random() * 20 + 2
+        : Math.random() * 20 + 78;
 
-      const size = Math.random() * 12 + 12; // بين 12px و 24px
+      const size = Math.random() * 12 + 12;
       const delay = Math.random() * 0.8;
       const duration = Math.random() * 1.5 + 2.5;
 
@@ -396,12 +590,22 @@
       elements.petalsContainer.appendChild(petal);
     }
 
-    // تنظيف البتلات بعد انتهاء الحركة
     setTimeout(() => {
       if (elements.petalsContainer) {
         elements.petalsContainer.innerHTML = '';
       }
+      hasLaunchedPetals = false; // السماح بإطلاقها مرة أخرى عند فتح الظرف الآخر
     }, 4500);
+  }
+
+  /**
+   * جلب مصفوفة الصور للألبوم النشط
+   */
+  function getActivePhotos() {
+    if (activeAlbumType === 'engagement') {
+      return config.engagementPhotos || [];
+    }
+    return config.albumPhotos || [];
   }
 
   /**
@@ -410,7 +614,7 @@
   function initAlbumDots() {
     if (!elements.albumDotsContainer) return;
     elements.albumDotsContainer.innerHTML = '';
-    const photos = config.albumPhotos || [];
+    const photos = getActivePhotos();
 
     if (elements.totalPhotosNum) {
       elements.totalPhotosNum.textContent = String(photos.length);
@@ -419,7 +623,7 @@
     photos.forEach((photo, idx) => {
       const dot = document.createElement('button');
       dot.type = 'button';
-      dot.className = `album-dot ${idx === 0 ? 'active' : ''}`;
+      dot.className = `album-dot ${idx === currentAlbumIndex ? 'active' : ''}`;
       dot.setAttribute('aria-label', `الانتقال إلى صورة ${idx + 1}`);
       dot.addEventListener('click', () => {
         showAlbumPhoto(idx);
@@ -429,13 +633,66 @@
   }
 
   /**
-   * فتح نافذة ألبوم الذكريات وجواب الحب
+   * فتح نافذة ألبوم الذكريات وضبط المحتوى حسب نوع الظرف ('engagement' أو 'nov23')
    */
-  function openAlbumModal(index = 0) {
+  function openAlbumModal(albumType = 'nov23', index = 0) {
     if (!elements.memoryAlbumOverlay) return;
+
+    activeAlbumType = albumType;
+    currentAlbumIndex = index;
+
+    // ضبط نصوص وتفاصيل الـ Modal حسب نوع الظرف
+    if (albumType === 'engagement') {
+      const env = config.engagementEnvelope || {};
+      if (elements.albumModalHeaderTag) elements.albumModalHeaderTag.textContent = "💍 ظرف يوم خطوبتنا";
+      if (elements.albumStampIcon) elements.albumStampIcon.innerHTML = '<span class="rose-emoji">💍</span>';
+      if (elements.letterDedicationQuote) {
+        elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+      }
+      if (elements.albumScrollPromptText) {
+        elements.albumScrollPromptText.textContent = "صور الخطوبة مطبوعة جوا الظرف… اقلبي وشوفيها واحدة واحدة";
+      }
+      if (elements.albumPhotoTitleHint) {
+        elements.albumPhotoTitleHint.textContent = "ذكريات ليلة خطوبتنا";
+      }
+      if (elements.albumDateBadgeText) {
+        elements.albumDateBadgeText.textContent = "٢٥ نوفمبر";
+      }
+      if (elements.albumClosingMsg) {
+        elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+      }
+      if (elements.albumSignatureText) {
+        elements.albumSignatureText.textContent = env.signature || "بحبك";
+      }
+    } else {
+      const env = config.envelope || {};
+      if (elements.albumModalHeaderTag) elements.albumModalHeaderTag.textContent = "💌 ظرف ٢٣ نوفمبر";
+      if (elements.albumStampIcon) elements.albumStampIcon.innerHTML = '<span class="rose-emoji">🌹</span>';
+      if (elements.letterDedicationQuote) {
+        elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+      }
+      if (elements.albumScrollPromptText) {
+        elements.albumScrollPromptText.textContent = "الصور مطبوعة جوا الجواب… اقلبي وشوفيها واحدة واحدة";
+      }
+      if (elements.albumPhotoTitleHint) {
+        elements.albumPhotoTitleHint.textContent = "ذكريات ٢٣ نوفمبر";
+      }
+      if (elements.albumDateBadgeText) {
+        elements.albumDateBadgeText.textContent = "٢٣ نوفمبر";
+      }
+      if (elements.albumClosingMsg) {
+        elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+      }
+      if (elements.albumSignatureText) {
+        elements.albumSignatureText.textContent = env.signature || "بحبك";
+      }
+    }
+
+    initAlbumDots();
+    showAlbumPhoto(index);
+
     elements.memoryAlbumOverlay.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    showAlbumPhoto(index);
   }
 
   /**
@@ -448,10 +705,10 @@
   }
 
   /**
-   * عرض صورة محددة في الألبوم وتحديث التنسيق والنصوص
+   * عرض صورة محددة في الألبوم النشط
    */
   function showAlbumPhoto(index) {
-    const photos = config.albumPhotos || [];
+    const photos = getActivePhotos();
     if (!photos.length) return;
 
     if (index < 0) index = 0;
@@ -460,12 +717,13 @@
     currentAlbumIndex = index;
     const photo = photos[index];
 
-    // تحديث رقم الصورة الحالية
     if (elements.currentPhotoNum) {
       elements.currentPhotoNum.textContent = String(index + 1);
     }
+    if (elements.totalPhotosNum) {
+      elements.totalPhotosNum.textContent = String(photos.length);
+    }
 
-    // تطبيق الصورة والنص
     if (elements.albumCurrentImg) {
       elements.albumCurrentImg.src = photo.src;
       elements.albumCurrentImg.alt = photo.title || photo.caption;
@@ -475,7 +733,20 @@
       elements.albumCurrentCaption.textContent = photo.caption;
     }
 
-    // تخصيص عرض الصورة الجماعية لظهور كل الأشخاص
+    if (elements.albumDateBadgeText) {
+      elements.albumDateBadgeText.textContent = photo.dateBadge || (activeAlbumType === 'engagement' ? "٢٥ نوفمبر" : "٢٣ نوفمبر");
+    }
+
+    // إظهار شارة بانتظار استلام باقي الصور إذا كانت الصورة تجريبية
+    if (elements.placeholderNoticeBadge) {
+      if (photo.isPlaceholder) {
+        elements.placeholderNoticeBadge.classList.remove('hidden');
+      } else {
+        elements.placeholderNoticeBadge.classList.add('hidden');
+      }
+    }
+
+    // تخصيص العرض للصورة الجماعية لظهور كل الأشخاص
     if (elements.albumPhotoViewport) {
       if (photo.isGroupPhoto) {
         elements.albumPhotoViewport.classList.add('is-group-photo');
@@ -484,7 +755,7 @@
       }
     }
 
-    // تحديث حالة أزرار التنقل (السابق / التالي)
+    // تحديث أزرار التنقل (السابق / التالي)
     if (elements.albumPrevBtn) {
       elements.albumPrevBtn.disabled = (index === 0);
     }
@@ -516,7 +787,6 @@
       elements.albumBackdrop.addEventListener('click', closeAlbumModal);
     }
 
-    // أزرار السابق والتالي (في RTL: السابق يعود للوراء، والتالي يتقدم للأمام)
     if (elements.albumPrevBtn) {
       elements.albumPrevBtn.addEventListener('click', () => {
         if (currentAlbumIndex > 0) {
@@ -526,7 +796,7 @@
     }
     if (elements.albumNextBtn) {
       elements.albumNextBtn.addEventListener('click', () => {
-        const photos = config.albumPhotos || [];
+        const photos = getActivePhotos();
         if (currentAlbumIndex < photos.length - 1) {
           showAlbumPhoto(currentAlbumIndex + 1);
         }
@@ -541,13 +811,13 @@
       if (e.key === 'Escape') {
         closeAlbumModal();
       } else if (e.key === 'ArrowLeft') {
-        // في RTL، السهم لليسار هو الاتجاه للأمام (التالي)
-        const photos = config.albumPhotos || [];
+        // في RTL، السهم لليسار هو للأمام (التالي)
+        const photos = getActivePhotos();
         if (currentAlbumIndex < photos.length - 1) {
           showAlbumPhoto(currentAlbumIndex + 1);
         }
       } else if (e.key === 'ArrowRight') {
-        // في RTL، السهم لليمين هو الاتجاه للوراء (السابق)
+        // في RTL، السهم لليمين هو للوراء (السابق)
         if (currentAlbumIndex > 0) {
           showAlbumPhoto(currentAlbumIndex - 1);
         }
@@ -575,14 +845,12 @@
 
       if (Math.abs(swipeDistance) < minSwipe) return;
 
-      const photos = config.albumPhotos || [];
+      const photos = getActivePhotos();
       if (swipeDistance < 0) {
-        // سحب لليسار -> التالي
         if (currentAlbumIndex < photos.length - 1) {
           showAlbumPhoto(currentAlbumIndex + 1);
         }
       } else {
-        // سحب لليمين -> السابق
         if (currentAlbumIndex > 0) {
           showAlbumPhoto(currentAlbumIndex - 1);
         }
@@ -721,7 +989,7 @@
   }
 
   /**
-   * فحص معلمات الرابط (?test=...) للتحكم في الحالات للاختبار (محلياً فقط)
+   * فحص معلمات الرابط (?test=...) للتحكم في الحالات للاختبار المؤتمت
    */
   function handleUrlOverrides() {
     if (isVisitorMode()) {
@@ -734,26 +1002,52 @@
     const params = new URLSearchParams(window.location.search);
     const testMode = params.get('test') || params.get('preview') || params.get('state');
 
-    if (testMode === 'ended' || testMode === 'zero' || testMode === 'celebration') {
-      simulatedTargetTime = Date.now() - 1000;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة عند الصفر (عبر الرابط)";
-      setActiveDevButton(elements.btnTestZero);
-    } else if (testMode === '3s' || testMode === '5s' || testMode === 'countdown') {
-      const secs = testMode === '3s' ? 3000 : 5000;
-      simulatedTargetTime = Date.now() + secs;
-      if (elements.devStatusText) elements.devStatusText.textContent = `الحالة: تجربة عدّاد ${secs/1000} ثوانٍ`;
-      setActiveDevButton(elements.btnTest3Sec);
-    } else if (testMode === 'album' || testMode === 'letter') {
-      simulatedTargetTime = Date.now() - 1000;
+    if (testMode === 'normal' || testMode === 'before_nov25') {
+      simulatedBirthdayTime = null;
+      simulatedEngagementTime = null;
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ نوفمبر)";
+      setActiveDevButton(elements.btnTestNormal);
+    } else if (testMode === 'nov25_live') {
+      // تجربة عبور ليل ٢٥ نوفمبر بعد ٣ ثوانٍ
+      simulatedEngagementTime = Date.now() + 3000;
+      simulatedBirthdayTime = Date.now() + 600000;
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة عبور منتصف ليل ٢٥ نوفمبر بعد ٣ ثوانٍ";
+      setActiveDevButton(elements.btnTestNov25Live);
+    } else if (testMode === 'nov25_unlocked' || testMode === 'after_nov25') {
+      // محاكاة ما بعد ٢٥ نوفمبر وقبل ٢ ديسمبر
+      simulatedEngagementTime = Date.now() - 1000;
+      simulatedBirthdayTime = Date.now() + 600000;
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ نوفمبر (ظرف الخطوبة متاح والعدّاد يعمل)";
+      setActiveDevButton(elements.btnTestNov25Unlocked);
+    } else if (testMode === 'dec2_live' || testMode === '3s') {
+      // تجربة عبور ليل ٢ ديسمبر بعد ٣ ثوانٍ
+      simulatedEngagementTime = Date.now() - 1000;
+      simulatedBirthdayTime = Date.now() + 3000;
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة عبور ليل ٢ ديسمبر بعد ٣ ثوانٍ";
+      setActiveDevButton(elements.btnTestDec2Live);
+    } else if (testMode === 'after_dec2' || testMode === 'zero' || testMode === 'celebration') {
+      // محاكاة عيد الميلاد
+      simulatedEngagementTime = Date.now() - 2000;
+      simulatedBirthdayTime = Date.now() - 1000;
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢ ديسمبر (عيد الميلاد والظرفين متاحين)";
+      setActiveDevButton(elements.btnTestBirthdayActive);
+    } else if (testMode === 'open_engagement' || testMode === 'engagement') {
+      simulatedEngagementTime = Date.now() - 1000;
+      unlockEngagementEnvelope(false);
+      openAlbumModal('engagement', 0);
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: ظرف الخطوبة مفتوح مباشرة";
+      setActiveDevButton(elements.btnTestEngagementModal);
+    } else if (testMode === 'open_nov23' || testMode === 'album' || testMode === 'letter') {
+      simulatedBirthdayTime = Date.now() - 1000;
       triggerCelebration(false);
-      openAlbumModal(0);
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: الجواب مفتوح مباشرة";
-      setActiveDevButton(elements.btnTestAlbumDirect);
+      openAlbumModal('nov23', 0);
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: ظرف ٢٣ نوفمبر مفتوح مباشرة";
+      setActiveDevButton(elements.btnTestNov23Modal);
     }
   }
 
   /**
-   * إعداد لوحة أدوات المراجعة المحلية
+   * إعداد لوحة أدوات المراجعة السريعة للمطور
    */
   function setupDevPanel() {
     if (!elements.devTestPanel) return;
@@ -771,44 +1065,86 @@
 
     if (elements.btnTestNormal) {
       elements.btnTestNormal.addEventListener('click', () => {
-        simulatedTargetTime = null;
+        simulatedBirthdayTime = null;
+        simulatedEngagementTime = null;
         setActiveDevButton(elements.btnTestNormal);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل الموعد)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ نوفمبر - مقفول)";
         resetToCountdown();
       });
     }
 
-    if (elements.btnTest3Sec) {
-      elements.btnTest3Sec.addEventListener('click', () => {
-        simulatedTargetTime = Date.now() + 3000;
-        setActiveDevButton(elements.btnTest3Sec);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة ٣ ثوانٍ للصفر";
+    if (elements.btnTestNov25Live) {
+      elements.btnTestNov25Live.addEventListener('click', () => {
+        simulatedEngagementTime = Date.now() + 3000;
+        simulatedBirthdayTime = Date.now() + 600000;
+        setActiveDevButton(elements.btnTestNov25Live);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: عبور ليل ٢٥ نوفمبر (٣ ثوانٍ للفتح التلقائي)";
         resetToCountdown();
       });
     }
 
-    if (elements.btnTestZero) {
-      elements.btnTestZero.addEventListener('click', () => {
-        simulatedTargetTime = Date.now() - 1000;
-        setActiveDevButton(elements.btnTestZero);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: معاينة عند الصفر (الظرف والختم)";
+    if (elements.btnTestNov25Unlocked) {
+      elements.btnTestNov25Unlocked.addEventListener('click', () => {
+        simulatedEngagementTime = Date.now() - 1000;
+        simulatedBirthdayTime = Date.now() + 600000;
+        setActiveDevButton(elements.btnTestNov25Unlocked);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ نوفمبر (ظرف الخطوبة متاح)";
+        resetToCountdown();
+      });
+    }
+
+    if (elements.btnTestDec2Live) {
+      elements.btnTestDec2Live.addEventListener('click', () => {
+        simulatedEngagementTime = Date.now() - 1000;
+        simulatedBirthdayTime = Date.now() + 3000;
+        setActiveDevButton(elements.btnTestDec2Live);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: عبور ليل ٢ ديسمبر (٣ ثوانٍ للصفر)";
+        resetToCountdown();
+      });
+    }
+
+    if (elements.btnTestBirthdayActive) {
+      elements.btnTestBirthdayActive.addEventListener('click', () => {
+        simulatedEngagementTime = Date.now() - 2000;
+        simulatedBirthdayTime = Date.now() - 1000;
+        setActiveDevButton(elements.btnTestBirthdayActive);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢ ديسمبر (عيد الميلاد والظرفين متاحين)";
         triggerCelebration(true);
       });
     }
 
-    if (elements.btnTestAlbumDirect) {
-      elements.btnTestAlbumDirect.addEventListener('click', () => {
-        simulatedTargetTime = Date.now() - 1000;
-        setActiveDevButton(elements.btnTestAlbumDirect);
+    if (elements.btnTestEngagementModal) {
+      elements.btnTestEngagementModal.addEventListener('click', () => {
+        simulatedEngagementTime = Date.now() - 1000;
+        setActiveDevButton(elements.btnTestEngagementModal);
+        unlockEngagementEnvelope(false);
+        openAlbumModal('engagement', 0);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: فتح ألبوم الخطوبة مباشرة";
+      });
+    }
+
+    if (elements.btnTestNov23Modal) {
+      elements.btnTestNov23Modal.addEventListener('click', () => {
+        simulatedBirthdayTime = Date.now() - 1000;
+        setActiveDevButton(elements.btnTestNov23Modal);
         triggerCelebration(false);
-        openAlbumModal(0);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: الجواب مفتوح مباشرة";
+        openAlbumModal('nov23', 0);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: فتح ظرف ٢٣ نوفمبر مباشرة";
       });
     }
   }
 
   function setActiveDevButton(btn) {
-    [elements.btnTestNormal, elements.btnTest3Sec, elements.btnTestZero, elements.btnTestAlbumDirect].forEach(b => {
+    const allBtns = [
+      elements.btnTestNormal,
+      elements.btnTestNov25Live,
+      elements.btnTestNov25Unlocked,
+      elements.btnTestDec2Live,
+      elements.btnTestBirthdayActive,
+      elements.btnTestEngagementModal,
+      elements.btnTestNov23Modal
+    ];
+    allBtns.forEach(b => {
       if (b) b.classList.remove('active');
     });
     if (btn) btn.classList.add('active');
@@ -826,9 +1162,7 @@
     initSparklesCanvas();
 
     updateCountdownDisplay();
-    if (!isCelebrationActive) {
-      timerInterval = setInterval(updateCountdownDisplay, 1000);
-    }
+    timerInterval = setInterval(updateCountdownDisplay, 1000);
   }
 
   if (document.readyState === 'loading') {

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>يا رفووووووق ❤️ | جواب حب وذكرى ٢٣ نوفمبر</title>
-  <meta name="description" content="مفاجأة شخصية لعيد ميلاد رفوووووق مع عدّاد تنازلي وجواب حب وورد يحكي ذكريات ٢٣ نوفمبر.">
+  <title>يا رفووووووق ❤️ | جواب حب وألبوم الذكريات</title>
+  <meta name="description" content="مفاجأة شخصية لعيد ميلاد رفوووووق مع عدّاد تنازلي، ظرف يوم خطوبتنا، وجواب حب وورد يحكي ذكريات ٢٣ نوفمبر.">
   <meta name="theme-color" content="#070d1e">
 
   <!-- Google Fonts: Alexandria, Cairo, & Amiri with fallback -->
@@ -25,7 +25,7 @@
     <canvas id="sparklesCanvas" class="sparkles-canvas"></canvas>
   </div>
 
-  <!-- حاوية بتلات الورد المتطايرة على الجانبين عند فتح الجواب -->
+  <!-- حاوية بتلات الورد المتطايرة على الجانبين عند فتح الظروف -->
   <div class="petals-container" id="petalsContainer" aria-hidden="true"></div>
 
   <div class="page-container" id="pageContainer">
@@ -42,7 +42,7 @@
       </div>
     </header>
 
-    <!-- المحتوى الرئيسي: ألبوم الصورة الليلية + العدّاد -->
+    <!-- المحتوى الرئيسي: ألبوم الصورة الليلية + العدّاد + ظرف الخطوبة -->
     <main class="surprise-main">
       <!-- كارت الصورة الافتتاحية بروح ألبوم الصور الحميمي ولمسات الورد -->
       <section class="photo-album-card-wrapper" aria-label="صورة الذكرى">
@@ -144,7 +144,7 @@
         </div>
       </section>
 
-      <!-- كارت التهنئة وجواب الحب وظرف ٢٣ نوفمبر (يظهر عند الصفر أو بعد الموعد) -->
+      <!-- كارت التهنئة وجواب الحب وظرف ٢٣ نوفمبر (يظهر عند الصفر في ٢ ديسمبر أو بعده) -->
       <section class="celebration-section hidden" id="celebrationSection" aria-live="polite">
         <div class="celebration-card">
           <div class="celebration-fireworks-decor" aria-hidden="true">🌹 ✨ 💍 ✨ 🌹</div>
@@ -160,7 +160,7 @@
 
           <!-- مكوّن ظرف ٢٣ نوفمبر الكريمي مع الختم الوردي الغامق والاسم «لرفووووووق» -->
           <div class="envelope-container" id="envelopeContainer">
-            <div class="envelope-outer" id="envelopeOuter">
+            <div class="envelope-outer" id="envelopeOuter" role="button" tabindex="0" aria-label="ظرف ٢٣ نوفمبر">
               <div class="envelope-back"></div>
               <div class="envelope-letter-peek" id="envelopeLetterPeek">
                 <span class="peek-rose">🌹</span>
@@ -200,34 +200,102 @@
         </div>
       </section>
 
-      <!-- شاشة جواب الحب وألبوم الصور المطبوعة (تنبثق عند فتح الظرف) -->
-      <section class="memory-album-overlay hidden" id="memoryAlbumOverlay" aria-modal="true" role="dialog" aria-label="جواب حب وألبوم ذكريات ٢٣ نوفمبر">
+      <!-- =====================================================================
+           قسم ظرف «يوم خطوبتنا» المستقل مع ألبوم صور الخطوبة الخاص به
+           (مغلق قبل ٢٥ نوفمبر، ويفتح تلقائياً عند ٠٠:٠٠ بتوقيت القاهرة ويظل متاحاً)
+           ===================================================================== -->
+      <section class="engagement-envelope-section" id="engagementEnvelopeSection" aria-label="ظرف يوم خطوبتنا">
+        <div class="engagement-card" id="engagementCard">
+          <div class="envelope-header-tag engagement-tag">
+            <span class="ring-icon" aria-hidden="true">💍</span>
+            <span class="tag-title" id="engagementTagTitle">يوم خطوبتنا</span>
+            <span class="ring-icon" aria-hidden="true">💍</span>
+          </div>
+
+          <h2 class="envelope-section-title" id="engagementSectionTitle">
+            ظرف يوم خطوبتنا
+          </h2>
+          <p class="envelope-section-subtitle" id="engagementSectionSubtitle">
+            ألبوم ذكريات اليوم اللي لبسنا فيه الدبل وشاركنا أحلى فرحة سوا 💍✨
+          </p>
+
+          <!-- مكوّن ظرف الخطوبة الأنيق -->
+          <div class="envelope-container" id="engagementEnvelopeContainer">
+            <div class="envelope-outer envelope-engagement" id="engagementEnvelopeOuter" role="button" tabindex="0" aria-label="ظرف يوم خطوبتنا">
+              <div class="envelope-back"></div>
+              <div class="envelope-letter-peek" id="engagementLetterPeek">
+                <span class="peek-rose">💍</span>
+              </div>
+              <div class="envelope-front"></div>
+              <div class="envelope-flap" id="engagementEnvelopeFlap"></div>
+              
+              <!-- الاسم المكتوب على الظرف -->
+              <div class="envelope-recipient-name">
+                <span class="recipient-to">إلى حبيبتي:</span>
+                <span class="recipient-name">لرفووووووق</span>
+              </div>
+
+              <!-- ختم الشمع لظرف الخطوبة مع القلب الصغير -->
+              <div class="envelope-seal seal-engagement" id="engagementEnvelopeSeal" title="ختم شمع ظرف الخطوبة">
+                <div class="seal-inner-ring">
+                  <span class="seal-heart">❤️</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- منطقة التفاعل: شارة القفل قبل ٢٥ نوفمبر أو زر الفتح من ٢٥ نوفمبر وصاعداً -->
+            <div class="envelope-action-wrap">
+              <!-- شارة القفل (قبل ٢٥ نوفمبر) -->
+              <div class="envelope-locked-badge" id="engagementLockedBadge">
+                <span class="lock-icon" aria-hidden="true">🔒</span>
+                <span class="locked-text" id="engagementLockedText">يتفتح يوم ٢٥ نوفمبر</span>
+              </div>
+
+              <!-- زر الفتح المعتمد: «افتحي ظرف الخطوبة» (يظهر ويتفعل من ٠٠:٠٠ يوم ٢٥ نوفمبر) -->
+              <button type="button" class="open-envelope-btn open-engagement-btn hidden" id="openEngagementBtn">
+                <span class="btn-icon">💍</span>
+                <span class="btn-text">افتحي ظرف الخطوبة</span>
+              </button>
+
+              <p class="envelope-desc" id="engagementStatusDesc">
+                ظرف خاص بذكرى يوم خطوبتنا… هيتفتح تلقائيًا مع بداية يوم ٢٥ نوفمبر
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           شاشة ألبوم الصور وجواب الحب المنبثقة (Modal)
+           تدعم ظرف ٢٣ نوفمبر وظرف يوم خطوبتنا بدقة متناهية
+           ===================================================================== -->
+      <section class="memory-album-overlay hidden" id="memoryAlbumOverlay" aria-modal="true" role="dialog" aria-label="ألبوم الذكريات">
         <div class="album-backdrop" id="albumBackdrop"></div>
         <div class="album-content-card love-letter-card" id="loveLetterCard">
           
-          <!-- بطاقة مقدمة الجواب الرومانسي -->
-          <div class="love-letter-preface">
-            <div class="letter-stamp-rose" aria-hidden="true">
+          <!-- بطاقة مقدمة الجواب / إهداء الظرف -->
+          <div class="love-letter-preface" id="albumPrefaceCard">
+            <div class="letter-stamp-rose" id="albumStampIcon" aria-hidden="true">
               <span class="rose-emoji">🌹</span>
             </div>
             <div class="letter-header-row">
-              <div class="letter-seal-mini">💌 ظرف ٢٣ نوفمبر</div>
-              <button type="button" class="album-close-btn" id="closeAlbumBtn" aria-label="إغلاق الجواب">✕</button>
+              <div class="letter-seal-mini" id="albumModalHeaderTag">💌 ظرف ٢٣ نوفمبر</div>
+              <button type="button" class="album-close-btn" id="closeAlbumBtn" aria-label="إغلاق الألبوم">✕</button>
             </div>
             
-            <!-- جملة الجواب المعتمدة -->
+            <!-- جملة الإهداء المعتمدة -->
             <div class="letter-body-message">
               <p class="dedication-quote" id="letterDedicationQuote">
                 «يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ نوفمبر هييجي في بالي على طول. ❤️»
               </p>
             </div>
             <div class="letter-scroll-prompt">
-              <span class="prompt-text">الصور مطبوعة جوا الجواب… اقلبي وشوفيها واحدة واحدة</span>
+              <span class="prompt-text" id="albumScrollPromptText">الصور مطبوعة جوا الجواب… اقلبي وشوفيها واحدة واحدة</span>
               <span class="prompt-arrow">↓</span>
             </div>
           </div>
 
-          <!-- جزء عرض صور الألبوم المطبوعة داخل الجواب -->
+          <!-- جزء عرض صور الألبوم المطبوعة -->
           <div class="album-main-viewer">
             <!-- شريط عداد الصور -->
             <div class="album-photo-meta-bar">
@@ -239,16 +307,16 @@
               </div>
             </div>
 
-            <!-- إطار صورة الألبوم الكريمي الدافي مع زوايا نحاسية -->
+            <!-- إطار صورة الألبوم الكريمي الدافي مع زوايا نحاسية وشارة التاريخ -->
             <div class="album-photo-frame" id="albumPhotoFrame">
               <div class="album-corner corner-tl" aria-hidden="true"></div>
               <div class="album-corner corner-tr" aria-hidden="true"></div>
               <div class="album-corner corner-bl" aria-hidden="true"></div>
               <div class="album-corner corner-br" aria-hidden="true"></div>
 
-              <div class="frame-date-stamp">
+              <div class="frame-date-stamp" id="albumFrameDateBadge">
                 <span class="pin-dot" aria-hidden="true"></span>
-                <span class="badge-text">٢٣ نوفمبر</span>
+                <span class="badge-text" id="albumDateBadgeText">٢٣ نوفمبر</span>
               </div>
 
               <!-- نافذة عرض الصورة -->
@@ -260,6 +328,11 @@
                   class="album-image" 
                 />
                 <div class="photo-soft-vignette" aria-hidden="true"></div>
+                <!-- شارة الصور التجريبية بانتظار باقي الصور -->
+                <div class="placeholder-notice-badge hidden" id="placeholderNoticeBadge">
+                  <span class="badge-icon">💌</span>
+                  <span class="badge-text">بانتظار إضافة باقي صور الخطوبة</span>
+                </div>
               </div>
 
               <!-- تعليق الصورة الحميمي -->
@@ -273,7 +346,7 @@
 
             <!-- شريط التنقل (السابق / التالي / المؤشرات) -->
             <div class="album-navigation-bar">
-              <!-- زر السابق (في RTL: السهم لليمين) -->
+              <!-- زر السابق (في RTL: السهم لليمين يعود للوراء) -->
               <button type="button" class="album-nav-btn" id="albumPrevBtn" aria-label="الصورة السابقة">
                 <span class="nav-arrow" aria-hidden="true">→</span>
                 <span class="nav-btn-text">السابق</span>
@@ -282,7 +355,7 @@
               <!-- مؤشرات الدوائر -->
               <div class="album-dots-container" id="albumDotsContainer" role="tablist" aria-label="مؤشرات صور الألبوم"></div>
 
-              <!-- زر التالي (في RTL: السهم لليسار) -->
+              <!-- زر التالي (في RTL: السهم لليسار يتقدم للأمام) -->
               <button type="button" class="album-nav-btn" id="albumNextBtn" aria-label="الصورة التالية">
                 <span class="nav-btn-text">التالي</span>
                 <span class="nav-arrow" aria-hidden="true">←</span>
@@ -301,9 +374,9 @@
               <p class="closing-message-text" id="albumClosingMsg">
                 «يوم ٢٣ نوفمبر كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️»
               </p>
-              <div class="closing-signature">
+              <div class="closing-signature" id="albumClosingSignature">
                 <span class="signature-rose" aria-hidden="true">🌹</span>
-                <span class="signature-text">بحبك</span>
+                <span class="signature-text" id="albumSignatureText">بحبك</span>
               </div>
             </div>
           </div>
@@ -322,16 +395,19 @@
 
   <!-- لوحة الاختبار السريعة للمراجعة (متاحة محلياً فقط للمطور) -->
   <aside class="dev-test-panel" id="devTestPanel" aria-label="أدوات المعاينة والاختبار">
-    <button type="button" class="dev-panel-toggle" id="devToggleBtn" title="لوحة اختبار حالات العدّاد والاحتفال">
+    <button type="button" class="dev-panel-toggle" id="devToggleBtn" title="لوحة اختبار حالات العدّاد والظروف">
       ⚙️ تجربة الحالات
     </button>
     <div class="dev-panel-body" id="devPanelBody">
-      <div class="dev-panel-title">أدوات مراجعة العدّاد والجواب</div>
+      <div class="dev-panel-title">أدوات مراجعة العدّاد والظروف</div>
       <div class="dev-buttons">
-        <button type="button" id="btnTestNormal" class="dev-btn active">التوقيت الفعلي (قبل الموعد)</button>
-        <button type="button" id="btnTest3Sec" class="dev-btn">تجربة عد تنازلي ٣ ثوانٍ للصفر</button>
-        <button type="button" id="btnTestZero" class="dev-btn">معاينة عند الصفر (الظرف والختم)</button>
-        <button type="button" id="btnTestAlbumDirect" class="dev-btn">فتح الجواب مباشرة</button>
+        <button type="button" id="btnTestNormal" class="dev-btn active">التوقيت الفعلي (قبل ٢٥ نوفمبر - مقفول)</button>
+        <button type="button" id="btnTestNov25Live" class="dev-btn">عبور ليل ٢٥ نوفمبر (٣ ثوانٍ للفتح)</button>
+        <button type="button" id="btnTestNov25Unlocked" class="dev-btn">بعد ٢٥ نوفمبر (ظرف الخطوبة متاح)</button>
+        <button type="button" id="btnTestDec2Live" class="dev-btn">عبور ليل ٢ ديسمبر (٣ ثوانٍ للصفر)</button>
+        <button type="button" id="btnTestBirthdayActive" class="dev-btn">بعد ٢ ديسمبر (الظرفين متاحين مع العيد)</button>
+        <button type="button" id="btnTestEngagementModal" class="dev-btn">فتح ظرف الخطوبة مباشرة</button>
+        <button type="button" id="btnTestNov23Modal" class="dev-btn">فتح ظرف ٢٣ نوفمبر مباشرة</button>
       </div>
       <div class="dev-status" id="devStatusText">الحالة: التوقيت الفعلي</div>
     </div>
