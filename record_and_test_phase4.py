@@ -58,7 +58,7 @@ def verify_strings_and_configs():
         ("زر تخطي الحركة", "تخطي الحركة ⏭️"),
         ("عنوان الصوت", "اسمعيني"),
         ("ظرف الخطوبة", "يوم خطوبتنا"),
-        ("ظرف ٢٣ نوفمبر", "ظرف ٢٣ نوفمبر")
+        ("ظرف ٢٣ مايو", "ظرف ٢٣ مايو")
     ]
 
     for label, text in expected_texts:
@@ -251,10 +251,10 @@ async def run_cdp_tests_and_recording():
             print(f"  [PASS] زر الانتقال: «{open_letter_btn_text}»")
 
             # ------------------------------------------------------------------
-            # TEST 5: الضغط على «افتحي جواب عيد ميلادك» -> فتح ظرف ٢٣ نوفمبر والجواب
+            # TEST 5: الضغط على «افتحي جواب عيد ميلادك» -> فتح ظرف ٢٣ مايو والجواب
             # ------------------------------------------------------------------
             print("\n--------------------------------------------------")
-            print("▶️ اختبار 5: فتح جواب عيد الميلاد (ظرف ٢٣ نوفمبر والـ ٤ صور)")
+            print("▶️ اختبار 5: فتح جواب عيد الميلاد (ظرف ٢٣ مايو والـ ٤ صور)")
             print("--------------------------------------------------")
             await eval_js("document.getElementById('openBirthdayLetterBtn').click()")
 
@@ -270,10 +270,10 @@ async def run_cdp_tests_and_recording():
             photo_count = await eval_js("document.getElementById('totalPhotosNum').innerText.trim()")
 
             assert is_modal_open, "Memory album modal should be open!"
-            assert "٢٣ نوفمبر" in active_album, f"Modal should display Nov 23 album, got: {active_album}"
+            assert "٢٣ مايو" in active_album, f"Modal should display Nov 23 album, got: {active_album}"
             assert "لو هختار يوم أعيشه معاكي تاني" in letter_quote, f"Dedication quote mismatch: {letter_quote}"
             assert photo_count in ["4", "٤"], f"Nov 23 album should have 4 photos, got: {photo_count}"
-            print(f"  [PASS] ألبوم ٢٣ نوفمبر فُتح بنجاح: {active_album} ({photo_count} صور)")
+            print(f"  [PASS] ألبوم ٢٣ مايو فُتح بنجاح: {active_album} ({photo_count} صور)")
             print(f"  [PASS] نص الجواب: «{letter_quote}»")
 
             # Navigate through photos

@@ -6,7 +6,7 @@ Tests:
 3. Image assets loading (hero image, engagement image).
 4. Live Cairo countdown timer running.
 5. Dev Test Panel ("تجربة الحالات") completely absent from DOM.
-6. Engagement envelope locked with «يتفتح يوم ٢٥ نوفمبر».
+6. Engagement envelope locked with «يتفتح يوم ٢٥ مايو».
 """
 import asyncio
 import time
@@ -116,10 +116,10 @@ async def test_live_production_site():
             btn_hidden = await eval_js("document.getElementById('openEngagementBtn').classList.contains('hidden')")
             
             assert badge_visible, "Engagement locked badge must be visible"
-            assert "يتفتح يوم ٢٥ نوفمبر" in badge_text, f"Unexpected locked text: {badge_text}"
+            assert "يتفتح يوم ٢٥ مايو" in badge_text, f"Unexpected locked text: {badge_text}"
             assert btn_hidden, "Open button must be hidden before Nov 25"
             print(f"  [PASS] ظرف الخطوبة مقفول ومعروض بشارة: «{badge_text}»")
-            print("  [PASS] زر فتح الخطوبة مخفي حتى يحين موعد ٢٥ نوفمبر")
+            print("  [PASS] زر فتح الخطوبة مخفي حتى يحين موعد ٢٥ مايو")
 
             # التقاط لقطات حية من الموقع المباشر المنشور
             await capture_screen("live-mobile-hero-countdown.png")

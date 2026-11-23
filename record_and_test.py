@@ -41,10 +41,10 @@ def run_string_and_design_checks():
         ("اسم الدلع", "يا رفووووووق ❤️"),
         ("اسم المستلم على الظرف", "لرفووووووق"),
         ("زر فتح الجواب", "افتحي الجواب يا رفووووووق"),
-        ("عبارة الجواب", "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ نوفمبر هييجي في بالي على طول. ❤️"),
-        ("جملة قفل الألبوم", "يوم ٢٣ نوفمبر كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️"),
+        ("عبارة الجواب", "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ مايو هييجي في بالي على طول. ❤️"),
+        ("جملة قفل الألبوم", "يوم ٢٣ مايو كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️"),
         ("توقيع الحب", "بحبك"),
-        ("تاريخ الذكرى", "٢٣ نوفمبر")
+        ("تاريخ الذكرى", "٢٣ مايو")
     ]
 
     for label, text in checks:
@@ -218,7 +218,7 @@ async def record_walkthrough_and_test():
 
             closing_msg = await eval_js("document.getElementById('albumClosingMsg').textContent.trim()")
             has_rose_sig = await eval_js("document.querySelector('.signature-rose') !== null")
-            assert "يوم ٢٣ نوفمبر كان حلو أوي عشان كنت معاكي" in closing_msg, f"Unexpected closing text: {closing_msg}"
+            assert "يوم ٢٣ مايو كان حلو أوي عشان كنت معاكي" in closing_msg, f"Unexpected closing text: {closing_msg}"
             assert has_rose_sig, "Closing signature must have rose"
             print(f"    [PASS] قفل الألبوم بجملة: «{closing_msg}» مع الوردة وتوقيع «بحبك».")
             await capture_screen("album-closing-photo.png")

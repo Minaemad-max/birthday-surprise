@@ -4,7 +4,7 @@ Tests against: https://minaemad-max.github.io/birthday-surprise/
 1. Test Part A (Current Real Date: 23 Nov 2026):
    - Countdown timer running towards Dec 2.
    - Hero selfie image and memory caption visible.
-   - Engagement envelope locked with «يتفتح يوم ٢٥ نوفمبر».
+   - Engagement envelope locked with «يتفتح يوم ٢٥ مايو».
    - «تجربة الحالات» (dev panel) is completely REMOVED from DOM.
    - «اسمعيني» (voice note) is completely hidden.
    - Capture screenshot: live-production-current-date-mobile.png.
@@ -115,7 +115,7 @@ async def test_live_production_suite():
             # PART A: فحص الموقع المنشور بالتوقيت الفعلي الحالي (قبل عيد الميلاد)
             # ------------------------------------------------------------------
             print("\n--------------------------------------------------")
-            print("▶️ اختبار A: فحص الرابط المباشر في التوقيت الفعلي الحالي (23 نوفمبر 2026)")
+            print("▶️ اختبار A: فحص الرابط المباشر في التوقيت الفعلي الحالي (23 مايو 2026)")
             print("--------------------------------------------------")
             await cdp_call("Page.navigate", {"url": LIVE_URL})
             
@@ -150,7 +150,7 @@ async def test_live_production_suite():
             # 5. Engagement envelope is locked before Nov 25
             eng_locked = await eval_js("!document.getElementById('engagementLockedBadge').classList.contains('hidden')")
             assert eng_locked, "Engagement envelope should be locked before Nov 25!"
-            print("  [PASS] ظرف الخطوبة يعرض الحالة الصحيحة لتاريخ الفحص: مقفول بشارة «يتفتح يوم ٢٥ نوفمبر»")
+            print("  [PASS] ظرف الخطوبة يعرض الحالة الصحيحة لتاريخ الفحص: مقفول بشارة «يتفتح يوم ٢٥ مايو»")
 
             await save_named_screenshot("live-production-current-date-mobile")
 
@@ -234,7 +234,7 @@ async def test_live_production_suite():
             is_modal_open = await eval_js("!document.getElementById('memoryAlbumOverlay').classList.contains('hidden')")
             assert is_modal_open, "Nov 23 memory album modal should open!"
             modal_tag = await eval_js("document.getElementById('albumModalHeaderTag').innerText.trim()")
-            print(f"  [PASS] فُتح جواب وألبوم ٢٣ نوفمبر بنجاح: {modal_tag}")
+            print(f"  [PASS] فُتح جواب وألبوم ٢٣ مايو بنجاح: {modal_tag}")
 
             await eval_js("document.getElementById('closeAlbumBtn').click()")
             await asyncio.sleep(0.5)

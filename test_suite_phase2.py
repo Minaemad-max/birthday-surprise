@@ -37,20 +37,20 @@ class SilentHandler(http.server.SimpleHTTPRequestHandler):
 
 def run_config_and_security_tests():
     print("==================================================")
-    print("1. اختبار نصوص الإعدادات وظرف ٢٣ نوفمبر والألبوم")
+    print("1. اختبار نصوص الإعدادات وظرف ٢٣ مايو والألبوم")
     print("==================================================")
     with open(os.path.join(BASE_DIR, "config.js"), "r", encoding="utf-8") as f:
         cfg = f.read()
 
     checks = [
         ("اسم الدلع والعنوان", "يا رفووووووق ❤️"),
-        ("اسم الظرف", "ظرف ٢٣ نوفمبر"),
-        ("زر فتح الظرف", "افتحي ظرف ٢٣ نوفمبر"),
+        ("اسم الظرف", "ظرف ٢٣ مايو"),
+        ("زر فتح الظرف", "افتحي ظرف ٢٣ مايو"),
         ("نص الصورة ١ (الجماعية مع أبونا)", "يوم ما أبونا صلّى على الدبل"),
-        ("نص الصورة ٢ (المراية)", "أنا وإنتِ يوم ٢٣ نوفمبر"),
+        ("نص الصورة ٢ (المراية)", "أنا وإنتِ يوم ٢٣ مايو"),
         ("نص الصورة ٣ (سيلفي الافتتاح)", "وبعدها نزلنا أول ديت"),
         ("نص الصورة ٤ (السيلفي التانية بالدبل)", "كل ما أبص للصور دي ببتسم. بحبك يا رفووووووق ❤️"),
-        ("تاريخ صلاة الدبل", "٢٣ نوفمبر"),
+        ("تاريخ صلاة الدبل", "٢٣ مايو"),
         ("توقيت القاهرة في التاريخ", "2026-12-02T00:00:00+02:00")
     ]
 
@@ -174,7 +174,7 @@ async def run_browser_tests():
 
             assert is_celebration_shown, "Celebration section should be visible after zero"
             assert has_open_btn, "Open envelope button should be present"
-            assert "افتحي ظرف ٢٣ نوفمبر" in btn_text, f"Unexpected button text: {btn_text}"
+            assert "افتحي ظرف ٢٣ مايو" in btn_text, f"Unexpected button text: {btn_text}"
             print(f"    [PASS] عبرت الصفحة لحظة الصفر بسلاسة: ظهرت التهنئة والزر «{btn_text}»!")
 
             # ----------------------------------------------------
@@ -211,7 +211,7 @@ async def run_browser_tests():
             # ----------------------------------------------------
             # TEST E: Envelope Opening and 4-Photo Album Navigation
             # ----------------------------------------------------
-            print("\n  [TEST E] اختبار فتح ظرف ٢٣ نوفمبر وتصفح الصور الأربع:")
+            print("\n  [TEST E] اختبار فتح ظرف ٢٣ مايو وتصفح الصور الأربع:")
             # Narrow mobile: 360x780
             await send_cmd("Emulation.setDeviceMetricsOverride", {"width": 360, "height": 780, "deviceScaleFactor": 2, "mobile": True})
             await send_cmd("Page.navigate", {"url": f"{base_url}?test=ended"})
@@ -248,7 +248,7 @@ async def run_browser_tests():
             await eval_js("document.getElementById('albumNextBtn').click()")
             await asyncio.sleep(0.35)
             p2_cap = await eval_js("document.getElementById('albumCurrentCaption').textContent.trim()")
-            assert "أنا وإنتِ يوم ٢٣ نوفمبر" in p2_cap, f"Expected caption 2, got: {p2_cap}"
+            assert "أنا وإنتِ يوم ٢٣ مايو" in p2_cap, f"Expected caption 2, got: {p2_cap}"
             print(f"    [PASS] صورة ٢ (المراية): «{p2_cap}».")
 
             # Navigate to Photo 3: Opening selfie

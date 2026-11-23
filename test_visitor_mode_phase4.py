@@ -167,7 +167,12 @@ async def run_visitor_mode_test():
 
             # Navigate with clean URL (NO query parameters at all!)
             await cdp_call("Page.navigate", {"url": base_url})
-            await asyncio.sleep(1.0)
+            for _ in range(25):
+                ready = await eval_js("document.readyState")
+                if ready == "complete":
+                    break
+                await asyncio.sleep(0.15)
+            await asyncio.sleep(0.5)
 
             # Check that dev panel is completely removed in visitor mode
             dev_panel_exists = await eval_js("document.getElementById('devTestPanel') !== null")
@@ -285,10 +290,10 @@ async def run_visitor_mode_test():
             print("  [PASS] انطفأت الشمعة وصعد الدخان الناعم وظهرت التهنئة وزر «افتحي جواب عيد ميلادك».")
 
             # ------------------------------------------------------------------
-            # PART 4: فتح ظرف ٢٣ نوفمبر من زر جواب عيد ميلادك
+            # PART 4: فتح ظرف ٢٣ مايو من زر جواب عيد ميلادك
             # ------------------------------------------------------------------
             print("\n--------------------------------------------------")
-            print("▶️ اختبار 4: فتح ظرف ٢٣ نوفمبر والـ ٤ صور")
+            print("▶️ اختبار 4: فتح ظرف ٢٣ مايو والـ ٤ صور")
             print("--------------------------------------------------")
             await eval_js("document.getElementById('openBirthdayLetterBtn').click()")
             for _ in range(6):
@@ -298,9 +303,9 @@ async def run_visitor_mode_test():
             is_nov23_open = await eval_js("!document.getElementById('memoryAlbumOverlay').classList.contains('hidden')")
             nov23_tag = await eval_js("document.getElementById('albumModalHeaderTag').innerText.trim()")
             assert is_nov23_open, "Nov 23 memory album modal should open!"
-            assert "٢٣ نوفمبر" in nov23_tag, f"Expected Nov 23 tag, got: {nov23_tag}"
+            assert "٢٣ مايو" in nov23_tag, f"Expected Nov 23 tag, got: {nov23_tag}"
             await save_named_screenshot("visitor-mobile-nov23-letter")
-            print(f"  [PASS] فُتح جواب ٢٣ نوفمبر بنجاح: {nov23_tag}")
+            print(f"  [PASS] فُتح جواب ٢٣ مايو بنجاح: {nov23_tag}")
 
             # Close modal
             await eval_js("document.getElementById('closeAlbumBtn').click()")

@@ -1,7 +1,7 @@
 """
 Phase 3 Engagement Single Photo Edition Test & Screenshot Capture
 Validates:
-1. Locked envelope before Nov 25 with «يتفتح يوم ٢٥ نوفمبر».
+1. Locked envelope before Nov 25 with «يتفتح يوم ٢٥ مايو».
 2. Unlocked single-photo engagement letter with dedication, approved photo, and signature «بحبك 🌹».
 3. Complete absence of navigation buttons, dots, swipe hints, and placeholder notices.
 4. Correct 4 unique original photos for Nov 23 memory album.
@@ -100,7 +100,7 @@ async def run_verification():
             })
 
             # -------------------------------------------------------------
-            # 1. لقطة موبايل للظرف المقفول قبل ٢٥ نوفمبر
+            # 1. لقطة موبايل للظرف المقفول قبل ٢٥ مايو
             # -------------------------------------------------------------
             print("\n1. التقاط لقطة موبايل للظرف المقفول...")
             await send_cmd("Page.navigate", {"url": f"{base_url}?test=before_nov25"})
@@ -113,7 +113,7 @@ async def run_verification():
             open_btn_hidden = await eval_js("document.getElementById('openEngagementBtn').classList.contains('hidden')")
             
             assert locked_badge, "Locked badge must be visible"
-            assert "يتفتح يوم ٢٥ نوفمبر" in locked_text, f"Unexpected locked text: {locked_text}"
+            assert "يتفتح يوم ٢٥ مايو" in locked_text, f"Unexpected locked text: {locked_text}"
             assert open_btn_hidden, "Open button must be hidden"
 
             await capture_screen("mobile-engagement-locked.png")
@@ -143,7 +143,7 @@ async def run_verification():
             img_src = await eval_js("document.getElementById('albumCurrentImg').src")
 
             assert "ظرف يوم خطوبتنا" in header_tag, f"Header mismatch: {header_tag}"
-            assert "يوم ٢٥ نوفمبر مش مجرد تاريخ" in dedication, f"Dedication mismatch: {dedication}"
+            assert "يوم ٢٥ مايو مش مجرد تاريخ" in dedication, f"Dedication mismatch: {dedication}"
             assert "engagement-photo-1.jpg" in img_src, f"Wrong image source: {img_src}"
             assert "يوم خطوبتنا… اليوم اللي بدأنا فيه حكايتنا رسمي" in photo_caption, f"Caption mismatch: {photo_caption}"
             assert "بحبك 🌹" in signature, f"Signature mismatch: {signature}"
@@ -161,9 +161,9 @@ async def run_verification():
             await capture_screen("mobile-engagement-signature.png")
 
             # -------------------------------------------------------------
-            # 3. التحقق من صور ألبوم ٢٣ نوفمبر الأربع الأصلية
+            # 3. التحقق من صور ألبوم ٢٣ مايو الأربع الأصلية
             # -------------------------------------------------------------
-            print("\n3. التحقق من صور ألبوم ٢٣ نوفمبر الأربع المصححة...")
+            print("\n3. التحقق من صور ألبوم ٢٣ مايو الأربع المصححة...")
             await send_cmd("Page.navigate", {"url": f"{base_url}?test=open_nov23"})
             await asyncio.sleep(1.0)
 

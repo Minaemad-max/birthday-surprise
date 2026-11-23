@@ -46,7 +46,9 @@
 }
 
 /* إعادة تعيين أساسي وتنسيق RTL */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -124,33 +126,33 @@ body {
 }
 
 .stars-layer.layer-1 {
-  background-image: 
-    radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(255,255,255,0)),
-    radial-gradient(1.5px 1.5px at 70px 140px, #e5c378, rgba(255,255,255,0)),
-    radial-gradient(2px 2px at 150px 80px, #ffffff, rgba(255,255,255,0)),
-    radial-gradient(1px 1px at 230px 210px, #ffd880, rgba(255,255,255,0)),
-    radial-gradient(1.5px 1.5px at 310px 120px, #ffffff, rgba(255,255,255,0)),
-    radial-gradient(2px 2px at 390px 290px, #e8f0fe, rgba(255,255,255,0));
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(255, 255, 255, 0)),
+    radial-gradient(1.5px 1.5px at 70px 140px, #e5c378, rgba(255, 255, 255, 0)),
+    radial-gradient(2px 2px at 150px 80px, #ffffff, rgba(255, 255, 255, 0)),
+    radial-gradient(1px 1px at 230px 210px, #ffd880, rgba(255, 255, 255, 0)),
+    radial-gradient(1.5px 1.5px at 310px 120px, #ffffff, rgba(255, 255, 255, 0)),
+    radial-gradient(2px 2px at 390px 290px, #e8f0fe, rgba(255, 255, 255, 0));
   background-size: 420px 420px;
   animation: starsTwinkle 7s ease-in-out infinite alternate;
 }
 
 .stars-layer.layer-2 {
-  background-image: 
-    radial-gradient(1px 1px at 45px 75px, #ffffff, rgba(255,255,255,0)),
-    radial-gradient(1.5px 1.5px at 120px 220px, #ffd580, rgba(255,255,255,0)),
-    radial-gradient(1px 1px at 280px 50px, #e5c378, rgba(255,255,255,0)),
-    radial-gradient(1.5px 1.5px at 340px 180px, #ffffff, rgba(255,255,255,0));
+  background-image:
+    radial-gradient(1px 1px at 45px 75px, #ffffff, rgba(255, 255, 255, 0)),
+    radial-gradient(1.5px 1.5px at 120px 220px, #ffd580, rgba(255, 255, 255, 0)),
+    radial-gradient(1px 1px at 280px 50px, #e5c378, rgba(255, 255, 255, 0)),
+    radial-gradient(1.5px 1.5px at 340px 180px, #ffffff, rgba(255, 255, 255, 0));
   background-size: 360px 360px;
   animation: starsTwinkle 11s ease-in-out infinite alternate-reverse;
   opacity: 0.5;
 }
 
 .stars-layer.layer-3 {
-  background-image: 
-    radial-gradient(2px 2px at 90px 40px, rgba(255, 235, 180, 0.8), rgba(255,255,255,0)),
-    radial-gradient(1px 1px at 190px 160px, rgba(255, 255, 255, 0.9), rgba(255,255,255,0)),
-    radial-gradient(2px 2px at 290px 260px, rgba(255, 215, 140, 0.7), rgba(255,255,255,0));
+  background-image:
+    radial-gradient(2px 2px at 90px 40px, rgba(255, 235, 180, 0.8), rgba(255, 255, 255, 0)),
+    radial-gradient(1px 1px at 190px 160px, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)),
+    radial-gradient(2px 2px at 290px 260px, rgba(255, 215, 140, 0.7), rgba(255, 255, 255, 0));
   background-size: 480px 480px;
   animation: starsTwinkle 9s ease-in-out infinite 3s;
 }
@@ -163,9 +165,17 @@ body {
 }
 
 @keyframes starsTwinkle {
-  0% { opacity: 0.4; }
-  50% { opacity: 0.85; }
-  100% { opacity: 0.55; }
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+
+  100% {
+    opacity: 0.55;
+  }
 }
 
 /* ==========================================================================
@@ -226,11 +236,27 @@ body {
 }
 
 @keyframes gentleHeartbeat {
-  0%, 100% { transform: scale(1); }
-  15% { transform: scale(1.18); }
-  30% { transform: scale(1); }
-  45% { transform: scale(1.14); }
-  60% { transform: scale(1); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  15% {
+    transform: scale(1.18);
+  }
+
+  30% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.14);
+  }
+
+  60% {
+    transform: scale(1);
+  }
 }
 
 .main-subtitle {
@@ -267,8 +293,13 @@ body {
 }
 
 @keyframes gentleRoseSway {
-  0% { transform: rotate(-5deg) scale(0.98); }
-  100% { transform: rotate(8deg) scale(1.05); }
+  0% {
+    transform: rotate(-5deg) scale(0.98);
+  }
+
+  100% {
+    transform: rotate(8deg) scale(1.05);
+  }
 }
 
 .polaroid-frame {
@@ -276,13 +307,13 @@ body {
   width: 100%;
   max-width: 330px;
   background-color: var(--cream-frame-bg);
-  background-image: 
+  background-image:
     radial-gradient(circle at 100% 0%, rgba(186, 30, 54, 0.08) 0%, transparent 60%),
     linear-gradient(to bottom, #fdfbf7 0%, #f6efe3 100%);
   border: 1px solid rgba(186, 30, 54, 0.22);
   border-radius: 12px;
   padding: 11px 11px 14px 11px;
-  box-shadow: 
+  box-shadow:
     0 18px 40px -8px rgba(0, 0, 0, 0.65),
     0 4px 16px rgba(0, 0, 0, 0.25),
     0 0 0 1px rgba(255, 255, 255, 0.6) inset,
@@ -293,7 +324,7 @@ body {
 
 .polaroid-frame:hover {
   transform: rotate(0deg) translateY(-2px);
-  box-shadow: 
+  box-shadow:
     0 24px 48px -8px rgba(0, 0, 0, 0.75),
     0 6px 20px rgba(0, 0, 0, 0.3),
     0 0 35px rgba(186, 30, 54, 0.25);
@@ -318,19 +349,47 @@ body {
   opacity: 0.85;
 }
 
-.corner-tl { top: -2px; right: -2px; }
-.corner-tl::before { border-width: 3px 3px 0 0; border-top-right-radius: 10px; }
+.corner-tl {
+  top: -2px;
+  right: -2px;
+}
 
-.corner-tr { top: -2px; left: -2px; }
-.corner-tr::before { border-width: 3px 0 0 3px; border-top-left-radius: 10px; }
+.corner-tl::before {
+  border-width: 3px 3px 0 0;
+  border-top-right-radius: 10px;
+}
 
-.corner-bl { bottom: -2px; right: -2px; }
-.corner-bl::before { border-width: 0 3px 3px 0; border-bottom-right-radius: 10px; }
+.corner-tr {
+  top: -2px;
+  left: -2px;
+}
 
-.corner-br { bottom: -2px; left: -2px; }
-.corner-br::before { border-width: 0 0 3px 3px; border-bottom-left-radius: 10px; }
+.corner-tr::before {
+  border-width: 3px 0 0 3px;
+  border-top-left-radius: 10px;
+}
 
-/* شارة التاريخ على إطار الصورة «٢٣ نوفمبر» */
+.corner-bl {
+  bottom: -2px;
+  right: -2px;
+}
+
+.corner-bl::before {
+  border-width: 0 3px 3px 0;
+  border-bottom-right-radius: 10px;
+}
+
+.corner-br {
+  bottom: -2px;
+  left: -2px;
+}
+
+.corner-br::before {
+  border-width: 0 0 3px 3px;
+  border-bottom-left-radius: 10px;
+}
+
+/* شارة التاريخ على إطار الصورة «٢٣ مايو» */
 .frame-date-stamp {
   position: absolute;
   top: 18px;
@@ -438,7 +497,7 @@ body {
   border: 1px solid var(--card-glass-border);
   border-radius: 18px;
   padding: 1.3rem 0.9rem;
-  box-shadow: 
+  box-shadow:
     var(--card-glass-shadow),
     0 0 25px rgba(229, 195, 120, 0.1) inset;
   text-align: center;
@@ -462,8 +521,17 @@ body {
 }
 
 @keyframes sparkleTwinkle {
-  0%, 100% { opacity: 0.4; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.2); }
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
 }
 
 /* شبكة مربعات الأرقام وثبات العرض لمنع الاهتزاز */
@@ -491,7 +559,7 @@ body {
   border: 1px solid rgba(229, 195, 120, 0.28);
   border-radius: 12px;
   padding: 0.55rem 0.2rem;
-  box-shadow: 
+  box-shadow:
     0 6px 14px rgba(0, 0, 0, 0.4),
     0 1px 1px rgba(255, 255, 255, 0.1) inset;
   position: relative;
@@ -548,7 +616,7 @@ body {
   user-select: none;
 }
 
-/* إشارة توقيت القاهرة */
+/* إشارة بتوقيت رفووووووووووق */
 .cairo-tz-badge {
   display: inline-flex;
   align-items: center;
@@ -573,8 +641,17 @@ body {
 }
 
 @keyframes pointPulse {
-  0%, 100% { opacity: 0.5; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.3); }
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
 }
 
 /* ==========================================================================
@@ -595,6 +672,7 @@ body {
     opacity: 0;
     transform: translateY(20px) scale(0.96);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -607,7 +685,7 @@ body {
   border-radius: 20px;
   padding: 1.8rem 1.2rem;
   text-align: center;
-  box-shadow: 
+  box-shadow:
     0 20px 45px rgba(0, 0, 0, 0.6),
     0 0 35px rgba(229, 195, 120, 0.35);
   position: relative;
@@ -723,9 +801,12 @@ body {
 }
 
 @keyframes starGentleFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-7px);
   }
@@ -735,9 +816,11 @@ body {
 .sparkle-twinkle-1 {
   animation: sparkleTwinkle 2.2s ease-in-out infinite alternate;
 }
+
 .sparkle-twinkle-2 {
   animation: sparkleTwinkle 2.7s ease-in-out 0.4s infinite alternate;
 }
+
 .sparkle-twinkle-3 {
   animation: sparkleTwinkle 1.9s ease-in-out 0.8s infinite alternate;
 }
@@ -747,6 +830,7 @@ body {
     opacity: 0.25;
     transform: scale(0.85);
   }
+
   100% {
     opacity: 0.95;
     transform: scale(1.15);
@@ -754,16 +838,20 @@ body {
 }
 
 /* حركة شعلة الشمعة */
-.flame-core, .flame-aura {
+.flame-core,
+.flame-aura {
   transform-origin: 110px 105px;
   animation: flameFlicker 1.8s ease-in-out infinite;
 }
 
 @keyframes flameFlicker {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1) rotate(-1deg);
     filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.75));
   }
+
   50% {
     transform: scale(1.08, 1.15) rotate(1.5deg);
     filter: drop-shadow(0 0 13px rgba(251, 191, 36, 0.95));
@@ -790,10 +878,12 @@ body {
     transform: scale(1);
     opacity: 1;
   }
+
   40% {
     transform: scale(1.3, 0.4);
     opacity: 0.8;
   }
+
   100% {
     transform: scale(0);
     opacity: 0;
@@ -811,10 +901,12 @@ body {
     opacity: 0;
     transform: translateY(0) scale(0.6);
   }
+
   30% {
     opacity: 0.85;
     transform: translateY(-8px) scale(0.95);
   }
+
   100% {
     opacity: 0;
     transform: translateY(-26px) scale(1.35);
@@ -1250,7 +1342,7 @@ body {
 }
 
 /* ==========================================================================
-   مكوّن ظرف ٢٣ نوفمبر والختم الوردي الغامق (Romantic Envelope & Seal)
+   مكوّن ظرف ٢٣ مايو والختم الوردي الغامق (Romantic Envelope & Seal)
    ========================================================================== */
 .envelope-container {
   margin-top: 1.6rem;
@@ -1266,7 +1358,7 @@ body {
   height: 135px;
   background: #fbf8f0;
   border-radius: 10px;
-  box-shadow: 
+  box-shadow:
     0 16px 36px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(212, 175, 55, 0.4),
     0 0 25px rgba(186, 30, 54, 0.2);
@@ -1278,7 +1370,7 @@ body {
 
 .envelope-outer:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 
+  box-shadow:
     0 20px 42px rgba(0, 0, 0, 0.65),
     0 0 30px rgba(186, 30, 54, 0.3);
 }
@@ -1387,7 +1479,7 @@ body {
   height: 46px;
   background: radial-gradient(circle at 40% 35%, #ba1e36 0%, #7d0f21 70%, #4f0814 100%);
   border-radius: 50%;
-  box-shadow: 
+  box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.45),
     0 0 10px rgba(186, 30, 54, 0.4),
     0 0 0 1px rgba(255, 215, 120, 0.4) inset;
@@ -1416,8 +1508,15 @@ body {
 }
 
 @keyframes sealHeartBeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
 }
 
 .envelope-outer.is-breaking-seal .envelope-seal {
@@ -1463,7 +1562,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  box-shadow: 
+  box-shadow:
     0 8px 25px rgba(186, 30, 54, 0.45),
     0 2px 4px rgba(0, 0, 0, 0.3);
   transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
@@ -1472,7 +1571,7 @@ body {
 
 .open-envelope-btn:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 
+  box-shadow:
     0 12px 30px rgba(186, 30, 54, 0.6),
     0 4px 8px rgba(0, 0, 0, 0.35);
   filter: brightness(1.08);
@@ -1496,7 +1595,7 @@ body {
   border-radius: 20px;
   padding: 1.5rem 1.1rem;
   text-align: center;
-  box-shadow: 
+  box-shadow:
     0 18px 40px rgba(0, 0, 0, 0.55),
     0 0 25px rgba(229, 195, 120, 0.15);
   position: relative;
@@ -1546,7 +1645,7 @@ body {
 /* ظرف الخطوبة المخصص */
 .envelope-outer.envelope-engagement {
   border: 1px solid rgba(229, 195, 120, 0.45);
-  box-shadow: 
+  box-shadow:
     0 16px 36px rgba(0, 0, 0, 0.55),
     0 0 20px rgba(229, 195, 120, 0.18);
 }
@@ -1558,12 +1657,12 @@ body {
 
 .envelope-outer.envelope-engagement.is-locked:hover {
   transform: none;
-  box-shadow: 
+  box-shadow:
     0 16px 36px rgba(0, 0, 0, 0.55),
     0 0 20px rgba(229, 195, 120, 0.18);
 }
 
-/* شارة القفل الأنيقة قبل ٢٥ نوفمبر */
+/* شارة القفل الأنيقة قبل ٢٥ مايو */
 .envelope-locked-badge {
   display: inline-flex;
   align-items: center;
@@ -1588,21 +1687,30 @@ body {
 }
 
 @keyframes lockGlowPulse {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.12); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
 }
 
 /* زر فتح ظرف الخطوبة المعتمد */
 .open-engagement-btn {
   background: linear-gradient(135deg, #a11933 0%, #7d1326 50%, #520b18 100%);
   border: 1px solid rgba(229, 195, 120, 0.5);
-  box-shadow: 
+  box-shadow:
     0 8px 25px rgba(161, 25, 51, 0.45),
     0 0 15px rgba(229, 195, 120, 0.25);
 }
 
 .open-engagement-btn:hover {
-  box-shadow: 
+  box-shadow:
     0 12px 30px rgba(161, 25, 51, 0.65),
     0 0 22px rgba(229, 195, 120, 0.4);
 }
@@ -1655,6 +1763,7 @@ body {
     transform: translateY(0) rotate(0deg) scale(0.8);
     opacity: 0.95;
   }
+
   100% {
     transform: translateY(105vh) rotate(360deg) scale(1.1);
     opacity: 0;
@@ -1700,7 +1809,7 @@ body {
   border: 1px solid rgba(186, 30, 54, 0.35);
   border-radius: 20px;
   padding: 1rem 0.9rem 1.4rem 0.9rem;
-  box-shadow: 
+  box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.85),
     0 0 35px rgba(186, 30, 54, 0.2);
   animation: letterCardEnter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
@@ -1712,6 +1821,7 @@ body {
     opacity: 0;
     transform: translateY(25px) scale(0.96);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -1809,8 +1919,15 @@ body {
 }
 
 @keyframes promptArrowBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(3px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(3px);
+  }
 }
 
 /* شريط معلومات الصورة المطبوعة */
@@ -1841,13 +1958,13 @@ body {
 .album-photo-frame {
   position: relative;
   background-color: var(--cream-frame-bg);
-  background-image: 
+  background-image:
     radial-gradient(circle at 100% 0%, rgba(186, 30, 54, 0.08) 0%, transparent 60%),
     linear-gradient(to bottom, #fdfbf7 0%, #f5efe3 100%);
   border: 1px solid rgba(186, 30, 54, 0.25);
   border-radius: 12px;
   padding: 10px 10px 14px 10px;
-  box-shadow: 
+  box-shadow:
     0 16px 36px rgba(0, 0, 0, 0.65),
     0 0 20px rgba(186, 30, 54, 0.14);
   margin-bottom: 0.9rem;
@@ -2041,20 +2158,29 @@ body {
 }
 
 @keyframes zeroPulseAnim {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.05); }
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.05);
+  }
 }
 
 /* ==========================================================================
    إعدادات تقليل الحركة (Prefers Reduced Motion)
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
   .rose-petal {
     display: none !important;
   }

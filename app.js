@@ -1,9 +1,9 @@
 /**
  * Birthday Surprise Engine - Phase 3: Engagement Envelope & Love Letter Albums
  * محرك موقع مفاجأة عيد ميلاد رفوووووق
- * - ظرف يوم خطوبتنا (مستقل - ينفتح بداية ٢٥ نوفمبر بتوقيت القاهرة)
- * - عدّاد عيد الميلاد (ينتهي مع بداية ٢ ديسمبر بتوقيت القاهرة)
- * - ظرف ٢٣ نوفمبر وجواب الحب وألبوم ذكريات صلاة الدبل (ينفتح عند الصفر في ٢ ديسمبر)
+ * - ظرف يوم خطوبتنا (مستقل - ينفتح بداية ٢٥ مايو بتوقيت رفووووووووووق رفووووووووووق)
+ * - عدّاد عيد الميلاد (ينتهي مع بداية ٢ ديسمبر بتوقيت رفووووووووووق)
+ * - ظرف ٢٣ مايو وجواب الحب وألبوم ذكريات صلاة الدبل (ينفتح عند الصفر في ٢ ديسمبر)
  * - دعم كامل للاستجابة على الموبايل، تقليل الحركة، وتحكم منفصل في الألبومات
  */
 
@@ -16,33 +16,33 @@
     targetDateCairo: "2026-12-02T00:00:00+02:00",
     title: "يا رفووووووق ❤️",
     subtitle: "فاضل شوية على عيد ميلادك… وقبل ما ييجي، عايز أرجع معاكي ليوم بحبه أوي",
-    photoDateBadge: "٢٣ نوفمبر",
+    photoDateBadge: "٢٣ مايو",
     photoMemoryCaption: "فاكرة يوم ما أبونا صلّى على الدبل، وبعدها نزلنا أول ديت؟ كل ما ببص للصورة دي ببتسم",
     birthdayCelebrationTitle: "كل سنة وإنتِ طيبة يا رفووووووق ❤️",
     birthdayCelebrationSubtitle: "يا رب كل سنة وإحنا سوا وفي حضن بعض، ودايمًا منورة حياتي ومفرّحة قلبي 💍✨",
     heroImage: "assets/images/hero-selfie-rings.jpg",
     engagementEnvelope: {
       name: "يوم خطوبتنا",
-      lockedText: "يتفتح يوم ٢٥ نوفمبر",
+      lockedText: "يتفتح يوم ٢٥ مايو",
       buttonText: "افتحي ظرف الخطوبة",
       subtitle: "ألبوم ذكريات اليوم اللي لبسنا فيه الدبل وشاركنا أحلى فرحة سوا 💍✨",
-      letterDedication: "يا رفووووووق، يوم ٢٥ نوفمبر مش مجرد تاريخ، ده اليوم اللي لبسنا فيه دبل بعض ووعدنا بعض نكمل العمر سوا 💍❤️",
+      letterDedication: "يا رفووووووق، يوم ٢٥ مايو مش مجرد تاريخ، ده اليوم اللي لبسنا فيه دبل بعض ووعدنا بعض نكمل العمر سوا 💍❤️",
       closingMessage: "أحلى خطوبة وأجمل بداية… وكل لحظة معاكي بتأكدلي إني اخترت صح. بحبك يا رفووووووق ❤️",
       signature: "بحبك"
     },
     engagementPhotos: [
-      { id: 1, title: "أحلى ليلة خطوبة", caption: "يوم خطوبتنا… اليوم اللي بدأنا فيه حكايتنا رسمي ولبسنا دبل بعض قدام الكل 💍💐", src: "assets/images/engagement-photo-1.jpg", isGroupPhoto: false, dateBadge: "٢٥ نوفمبر" }
+      { id: 1, title: "أحلى ليلة خطوبة", caption: "يوم خطوبتنا… اليوم اللي بدأنا فيه حكايتنا رسمي ولبسنا دبل بعض قدام الكل 💍💐", src: "assets/images/engagement-photo-1.jpg", isGroupPhoto: false, dateBadge: "٢٥ مايو" }
     ],
     envelope: {
-      name: "ظرف ٢٣ نوفمبر",
+      name: "ظرف ٢٣ مايو",
       buttonText: "افتحي الجواب يا رفووووووق",
       subtitle: "ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا",
-      letterDedication: "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ نوفمبر هييجي في بالي على طول. ❤️",
-      closingMessage: "يوم ٢٣ نوفمبر كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️",
+      letterDedication: "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ مايو هييجي في بالي على طول. ❤️",
+      closingMessage: "يوم ٢٣ مايو كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️",
       signature: "بحبك"
     },
     albumPhotos: [
-      { id: 1, title: "الصورة الجماعية مع أبونا", caption: "يوم ما أبونا صلّى على الدبل", src: "assets/images/photo-4-group-father.jpg", isGroupPhoto: true, dateBadge: "٢٣ نوفمبر" }
+      { id: 1, title: "الصورة الجماعية مع أبونا", caption: "يوم ما أبونا صلّى على الدبل", src: "assets/images/photo-4-group-father.jpg", isGroupPhoto: true, dateBadge: "٢٣ مايو" }
     ],
     timerLabels: { days: "يوم", hours: "ساعة", minutes: "دقيقة", seconds: "ثانية" }
   };
@@ -55,14 +55,14 @@
     heroImage: document.getElementById('heroImage'),
     photoDateBadge: document.getElementById('photoDateBadge'),
     photoMemoryCaption: document.getElementById('photoMemoryCaption'),
-    
+
     // عدّاد عيد الميلاد
     countdownSection: document.getElementById('countdownSection'),
     timerGrid: document.getElementById('timerGrid'),
     celebrationSection: document.getElementById('celebrationSection'),
     celebrationTitle: document.getElementById('celebrationTitle'),
     celebrationSubtitle: document.getElementById('celebrationSubtitle'),
-    
+
     daysVal: document.getElementById('daysVal'),
     hoursVal: document.getElementById('hoursVal'),
     minutesVal: document.getElementById('minutesVal'),
@@ -73,7 +73,7 @@
     minutesLabel: document.getElementById('minutesLabel'),
     secondsLabel: document.getElementById('secondsLabel'),
 
-    // مكوّنات ظرف وجواب ٢٣ نوفمبر
+    // مكوّنات ظرف وجواب ٢٣ مايو 
     envelopeContainer: document.getElementById('envelopeContainer'),
     envelopeOuter: document.getElementById('envelopeOuter'),
     envelopeFlap: document.getElementById('envelopeFlap'),
@@ -137,14 +137,14 @@
     closeAlbumBtn: document.getElementById('closeAlbumBtn'),
     letterDedicationQuote: document.getElementById('letterDedicationQuote'),
     albumScrollPromptText: document.getElementById('albumScrollPromptText'),
-    
+
     albumPhotoViewport: document.getElementById('albumPhotoViewport'),
     albumCurrentImg: document.getElementById('albumCurrentImg'),
     placeholderNoticeBadge: document.getElementById('placeholderNoticeBadge'),
     albumCurrentCaption: document.getElementById('albumCurrentCaption'),
     albumFrameDateBadge: document.getElementById('albumFrameDateBadge'),
     albumDateBadgeText: document.getElementById('albumDateBadgeText'),
-    
+
     currentPhotoNum: document.getElementById('currentPhotoNum'),
     totalPhotosNum: document.getElementById('totalPhotosNum'),
     albumPhotoTitleHint: document.getElementById('albumPhotoTitleHint'),
@@ -155,7 +155,7 @@
     albumNextBtn: document.getElementById('albumNextBtn'),
     albumDotsContainer: document.getElementById('albumDotsContainer'),
     albumPhotoFrame: document.getElementById('albumPhotoFrame'),
-    
+
     albumClosingLetter: document.getElementById('albumClosingLetter'),
     albumClosingMsg: document.getElementById('albumClosingMsg'),
     albumClosingSignature: document.getElementById('albumClosingSignature'),
@@ -270,7 +270,7 @@
   }
 
   /**
-   * حساب الوقت المتبقي بالنسبة لموعد عيد الميلاد (٢ ديسمبر ٢٠٢٦ بتوقيت القاهرة)
+   * حساب الوقت المتبقي بالنسبة لموعد عيد الميلاد (٢ ديسمبر ٢٠٢٦ بتوقيت رفووووووووووق)
    */
   function getRemainingBirthdayTime() {
     let targetMs;
@@ -297,7 +297,7 @@
   }
 
   /**
-   * حساب حالة موعد فتح ظرف الخطوبة (٢٥ نوفمبر ٢٠٢٦ بتوقيت القاهرة)
+   * حساب حالة موعد فتح ظرف الخطوبة (٢٥ مايو ٢٠٢٦ بتوقيت رفووووووووووق)
    */
   function getRemainingEngagementTime() {
     let targetMs;
@@ -321,7 +321,7 @@
   }
 
   /**
-   * تحديث حالة ظرف الخطوبة (مغلق قبل ٢٥ نوفمبر / متاح بعدها)
+   * تحديث حالة ظرف الخطوبة (مغلق قبل ٢٥ مايو / متاح بعدها)
    * يتم استدعاؤها مع كل ثانية لتوفير الانتقال التلقائي إذا كانت الصفحة مفتوحة عند منتصف الليل
    */
   function updateEngagementEnvelopeState() {
@@ -334,7 +334,7 @@
         unlockEngagementEnvelope(true);
       }
     } else {
-      // قبل ٢٥ نوفمبر: قفل الظرف وإظهار الشارة المعتمدة
+      // قبل ٢٥ مايو: قفل الظرف وإظهار الشارة المعتمدة
       if (isEngagementUnlocked) {
         isEngagementUnlocked = false;
       }
@@ -362,7 +362,7 @@
   }
 
   /**
-   * قفل ظرف الخطوبة وإظهار شارة «يتفتح يوم ٢٥ نوفمبر»
+   * قفل ظرف الخطوبة وإظهار شارة «يتفتح يوم ٢٥ مايو»
    */
   function lockEngagementEnvelope() {
     if (elements.engagementLockedBadge) {
@@ -372,12 +372,12 @@
       elements.openEngagementBtn.classList.add('hidden');
     }
     if (elements.engagementStatusDesc) {
-      elements.engagementStatusDesc.textContent = "ظرف خاص بذكرى يوم خطوبتنا… هيتفتح تلقائيًا مع بداية يوم ٢٥ نوفمبر";
+      elements.engagementStatusDesc.textContent = "ظرف خاص بذكرى يوم خطوبتنا… هيتفتح تلقائيًا مع بداية يوم ٢٥ مايو";
     }
     if (elements.engagementEnvelopeOuter) {
       elements.engagementEnvelopeOuter.classList.add('is-locked');
       elements.engagementEnvelopeOuter.classList.remove('is-open', 'is-breaking-seal');
-      elements.engagementEnvelopeOuter.setAttribute('title', 'يتفتح يوم ٢٥ نوفمبر');
+      elements.engagementEnvelopeOuter.setAttribute('title', 'يتفتح يوم ٢٥ مايو');
     }
   }
 
@@ -574,7 +574,7 @@
   }
 
   /**
-   * إعداد أحداث فتح الظرفين (ظرف الخطوبة وظرف ٢٣ نوفمبر) وتدفق الأمنية والشمعة
+   * إعداد أحداث فتح الظرفين (ظرف الخطوبة وظرف ٢٣ مايو) وتدفق الأمنية والشمعة
    */
   function setupEnvelopeEvents() {
     // -------------------------------------------------------------
@@ -638,7 +638,7 @@
     }
 
     // -------------------------------------------------------------
-    // ٢. حدث فتح ظرف ٢٣ نوفمبر وجواب الحب (المتاح مع عيد الميلاد)
+    // ٢. حدث فتح ظرف ٢٣ مايو وجواب الحب (المتاح مع عيد الميلاد)
     // -------------------------------------------------------------
     function executeOpenNov23Sequence() {
       if (isOpeningEnvelope) return;
@@ -688,7 +688,7 @@
       });
     }
 
-    // زر «افتحي جواب عيد ميلادك» يقود مباشرة لنفس ظرف وجواب ٢٣ نوفمبر
+    // زر «افتحي جواب عيد ميلادك» يقود مباشرة لنفس ظرف وجواب ٢٣ مايو 
     if (elements.openBirthdayLetterBtn) {
       elements.openBirthdayLetterBtn.addEventListener('click', executeOpenNov23Sequence);
     }
@@ -729,9 +729,9 @@
     for (let i = 0; i < petalCount; i++) {
       const petal = document.createElement('div');
       petal.className = 'rose-petal';
-      
+
       const isLeft = i % 2 === 0;
-      const leftPercent = isLeft 
+      const leftPercent = isLeft
         ? Math.random() * 20 + 2
         : Math.random() * 20 + 78;
 
@@ -810,7 +810,7 @@
         elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
       }
       if (elements.albumScrollPromptText) {
-        elements.albumScrollPromptText.innerHTML = isSinglePhoto 
+        elements.albumScrollPromptText.innerHTML = isSinglePhoto
           ? '<span class="prompt-text">صورة يوم خطوبتنا المطبوعة جوا الجواب</span><span class="prompt-arrow">↓</span>'
           : '<span class="prompt-text">صور الخطوبة مطبوعة جوا الظرف… اقلبي وشوفيها واحدة واحدة</span><span class="prompt-arrow">↓</span>';
       }
@@ -818,7 +818,7 @@
         elements.albumPhotoTitleHint.textContent = "ذكرى ليلة خطوبتنا";
       }
       if (elements.albumDateBadgeText) {
-        elements.albumDateBadgeText.textContent = "٢٥ نوفمبر";
+        elements.albumDateBadgeText.textContent = "٢٥ مايو";
       }
       if (elements.albumClosingMsg) {
         elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
@@ -828,7 +828,7 @@
       }
     } else {
       const env = config.envelope || {};
-      if (elements.albumModalHeaderTag) elements.albumModalHeaderTag.textContent = "💌 ظرف ٢٣ نوفمبر";
+      if (elements.albumModalHeaderTag) elements.albumModalHeaderTag.textContent = "💌 ظرف ٢٣ مايو";
       if (elements.albumStampIcon) elements.albumStampIcon.innerHTML = '<span class="rose-emoji">🌹</span>';
       if (elements.letterDedicationQuote) {
         elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
@@ -837,10 +837,10 @@
         elements.albumScrollPromptText.innerHTML = '<span class="prompt-text">الصور مطبوعة جوا الجواب… اقلبي وشوفيها واحدة واحدة</span><span class="prompt-arrow">↓</span>';
       }
       if (elements.albumPhotoTitleHint) {
-        elements.albumPhotoTitleHint.textContent = "ذكريات ٢٣ نوفمبر";
+        elements.albumPhotoTitleHint.textContent = "ذكريات ٢٣ مايو";
       }
       if (elements.albumDateBadgeText) {
-        elements.albumDateBadgeText.textContent = "٢٣ نوفمبر";
+        elements.albumDateBadgeText.textContent = "٢٣ مايو";
       }
       if (elements.albumClosingMsg) {
         elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
@@ -907,7 +907,7 @@
     }
 
     if (elements.albumDateBadgeText) {
-      elements.albumDateBadgeText.textContent = photo.dateBadge || (activeAlbumType === 'engagement' ? "٢٥ نوفمبر" : "٢٣ نوفمبر");
+      elements.albumDateBadgeText.textContent = photo.dateBadge || (activeAlbumType === 'engagement' ? "٢٥ مايو" : "٢٣ مايو");
     }
 
     // تخصيص العرض للصورة الجماعية لظهور كل الأشخاص
@@ -1245,19 +1245,19 @@
     if (testMode === 'normal' || testMode === 'before_nov25') {
       simulatedBirthdayTime = null;
       simulatedEngagementTime = null;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ نوفمبر)";
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ مايو)";
       setActiveDevButton(elements.btnTestNormal);
     } else if (testMode === 'nov25_live') {
-      // تجربة عبور ليل ٢٥ نوفمبر بعد ٣ ثوانٍ
+      // تجربة عبور ليل ٢٥ مايو بعد ٣ ثوانٍ
       simulatedEngagementTime = Date.now() + 3000;
       simulatedBirthdayTime = Date.now() + 600000;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة عبور منتصف ليل ٢٥ نوفمبر بعد ٣ ثوانٍ";
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة عبور منتصف ليل ٢٥ مايو بعد ٣ ثوانٍ";
       setActiveDevButton(elements.btnTestNov25Live);
     } else if (testMode === 'nov25_unlocked' || testMode === 'after_nov25') {
-      // محاكاة ما بعد ٢٥ نوفمبر وقبل ٢ ديسمبر
+      // محاكاة ما بعد ٢٥ مايو وقبل ٢ ديسمبر
       simulatedEngagementTime = Date.now() - 1000;
       simulatedBirthdayTime = Date.now() + 600000;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ نوفمبر (ظرف الخطوبة متاح والعدّاد يعمل)";
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ مايو (ظرف الخطوبة متاح والعدّاد يعمل)";
       setActiveDevButton(elements.btnTestNov25Unlocked);
     } else if (testMode === 'dec2_live' || testMode === '3s') {
       // تجربة عبور ليل ٢ ديسمبر بعد ٣ ثوانٍ
@@ -1297,7 +1297,7 @@
       simulatedBirthdayTime = Date.now() - 1000;
       triggerCelebration(false);
       openAlbumModal('nov23', 0);
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: ظرف ٢٣ نوفمبر مفتوح مباشرة";
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: ظرف ٢٣ مايو مفتوح مباشرة";
       setActiveDevButton(elements.btnTestNov23Modal);
     }
   }
@@ -1324,7 +1324,7 @@
         simulatedBirthdayTime = null;
         simulatedEngagementTime = null;
         setActiveDevButton(elements.btnTestNormal);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ نوفمبر - مقفول)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ مايو - مقفول)";
         resetToCountdown();
       });
     }
@@ -1334,7 +1334,7 @@
         simulatedEngagementTime = Date.now() + 3000;
         simulatedBirthdayTime = Date.now() + 600000;
         setActiveDevButton(elements.btnTestNov25Live);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: عبور ليل ٢٥ نوفمبر (٣ ثوانٍ للفتح التلقائي)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: عبور ليل ٢٥ مايو (٣ ثوانٍ للفتح التلقائي)";
         resetToCountdown();
       });
     }
@@ -1344,7 +1344,7 @@
         simulatedEngagementTime = Date.now() - 1000;
         simulatedBirthdayTime = Date.now() + 600000;
         setActiveDevButton(elements.btnTestNov25Unlocked);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ نوفمبر (ظرف الخطوبة متاح)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ مايو (ظرف الخطوبة متاح)";
         resetToCountdown();
       });
     }
@@ -1408,7 +1408,7 @@
         setActiveDevButton(elements.btnTestNov23Modal);
         triggerCelebration(false);
         openAlbumModal('nov23', 0);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: فتح ظرف ٢٣ نوفمبر مباشرة";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: فتح ظرف ٢٣ مايو مباشرة";
       });
     }
   }
