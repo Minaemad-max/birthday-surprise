@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>يا رفووووووق ❤️ | ذكرى وعيد ميلادك</title>
+  <meta name="description" content="مفاجأة شخصية لعيد ميلاد رفوووووق مع عدّاد تنازلي وذكرى أول ديت وصلاة الدبل.">
+  <meta name="theme-color" content="#070d1e">
+
+  <!-- Google Fonts: Alexandria & Cairo with fallback -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="night-theme">
+  <!-- خلفية النجوم والتوهج الليلي الرومانسي -->
+  <div class="night-sky-background" aria-hidden="true">
+    <div class="ambient-glow ambient-glow-top"></div>
+    <div class="ambient-glow ambient-glow-middle"></div>
+    <div class="stars-layer layer-1"></div>
+    <div class="stars-layer layer-2"></div>
+    <div class="stars-layer layer-3"></div>
+    <canvas id="sparklesCanvas" class="sparkles-canvas"></canvas>
+  </div>
+
+  <div class="page-container">
+    <!-- ترويسة الصفحة -->
+    <header class="surprise-header">
+      <div class="header-inner">
+        <h1 class="main-title" id="pageTitle">
+          <span class="title-text">يا رفووووووق</span>
+          <span class="heart-pulse" aria-hidden="true">❤️</span>
+        </h1>
+        <p class="main-subtitle" id="pageSubtitle">
+          فاضل شوية على عيد ميلادك… وقبل ما ييجي، عايز أرجع معاكي ليوم بحبه أوي
+        </p>
+      </div>
+    </header>
+
+    <!-- المحتوى الرئيسي: ألبوم الصورة الليلية + العدّاد -->
+    <main class="surprise-main">
+      <!-- كارت الصورة بروح ألبوم الصور الحميمي -->
+      <section class="photo-album-card-wrapper" aria-label="صورة الذكرى">
+        <div class="polaroid-frame" id="polaroidFrame">
+          <!-- زوايا تثبيت الصور في الألبوم الكلاسيكي -->
+          <div class="album-corner corner-tl" aria-hidden="true"></div>
+          <div class="album-corner corner-tr" aria-hidden="true"></div>
+          <div class="album-corner corner-bl" aria-hidden="true"></div>
+          <div class="album-corner corner-br" aria-hidden="true"></div>
+
+          <!-- شارة التاريخ على إطار الصورة -->
+          <div class="frame-date-stamp" id="photoDateBadge">
+            <span class="pin-dot" aria-hidden="true"></span>
+            <span class="badge-text">٢٣ نوفمبر</span>
+          </div>
+
+          <!-- حاوية الصورة المحفوظة بالأبعاد المتناسبة لظهور الوشوش والدبل -->
+          <div class="photo-viewport">
+            <img 
+              id="heroImage" 
+              src="assets/images/hero-selfie-rings.jpg" 
+              alt="سيلفي الدبل والابتسامة الحلوة مع رفوووووق" 
+              class="framed-photo"
+              loading="eager"
+            />
+            <div class="photo-soft-vignette" aria-hidden="true"></div>
+          </div>
+
+          <!-- نص الذكرى أسفل الصورة مباشرة -->
+          <div class="photo-caption-box">
+            <div class="quote-sign" aria-hidden="true">“</div>
+            <p class="memory-caption-text" id="photoMemoryCaption">
+              فاكرة يوم ما أبونا صلّى على الدبل، وبعدها نزلنا أول ديت؟ كل ما ببص للصورة دي ببتسم
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- قسم العد التنازلي لعيد ميلادها -->
+      <section class="countdown-section" id="countdownSection" aria-label="العد التنازلي لعيد ميلاد رفوووووق">
+        <div class="countdown-card">
+          <div class="countdown-header-tag">
+            <span class="sparkle-star" aria-hidden="true">✨</span>
+            <span class="tag-title">فاضل على بداية يومك المميّز</span>
+            <span class="sparkle-star" aria-hidden="true">✨</span>
+          </div>
+
+          <!-- شبكة وحدات الوقت: ثواني، دقائق، ساعات، أيام (RTL) -->
+          <div class="timer-grid" role="timer" aria-live="off" id="timerGrid">
+            <!-- الأيام -->
+            <div class="time-unit-box">
+              <div class="time-digit-container">
+                <span class="time-value" id="daysVal">--</span>
+              </div>
+              <span class="time-label" id="daysLabel">يوم</span>
+            </div>
+
+            <div class="time-separator" aria-hidden="true">:</div>
+
+            <!-- الساعات -->
+            <div class="time-unit-box">
+              <div class="time-digit-container">
+                <span class="time-value" id="hoursVal">--</span>
+              </div>
+              <span class="time-label" id="hoursLabel">ساعة</span>
+            </div>
+
+            <div class="time-separator" aria-hidden="true">:</div>
+
+            <!-- الدقائق -->
+            <div class="time-unit-box">
+              <div class="time-digit-container">
+                <span class="time-value" id="minutesVal">--</span>
+              </div>
+              <span class="time-label" id="minutesLabel">دقيقة</span>
+            </div>
+
+            <div class="time-separator" aria-hidden="true">:</div>
+
+            <!-- الثواني -->
+            <div class="time-unit-box">
+              <div class="time-digit-container highlight-seconds">
+                <span class="time-value" id="secondsVal">--</span>
+              </div>
+              <span class="time-label" id="secondsLabel">ثانية</span>
+            </div>
+          </div>
+
+          <!-- إشارة التوقيت الثابت (القاهرة) -->
+          <div class="cairo-tz-badge" title="العدّاد ينتهي مع بداية يوم ٢ ديسمبر ٢٠٢٦، الساعة ٠٠:٠٠ بتوقيت القاهرة">
+            <span class="pulse-point" aria-hidden="true"></span>
+            <span>الموعد محسوب بدقة بتوقيت القاهرة (٢ ديسمبر ٢٠٢٦)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- كارت التهنئة عند الصفر (يظهر تلقائيًا عند انتهاء العدّاد أو بعد الموعد) -->
+      <section class="celebration-section hidden" id="celebrationSection" aria-live="polite">
+        <div class="celebration-card">
+          <div class="celebration-fireworks-decor" aria-hidden="true">🎉 ✨ 💍 ✨ 🎉</div>
+          <h2 class="celebration-title" id="celebrationTitle">
+            كل سنة وإنتِ طيبة يا رفووووووق ❤️
+          </h2>
+          <p class="celebration-subtitle" id="celebrationSubtitle">
+            يا رب كل سنة وإحنا سوا وفي حضن بعض، ودايمًا منورة حياتي ومفرّحة قلبي 💍✨
+          </p>
+          <div class="celebration-date-mark">
+            <span>٢ ديسمبر ٢٠٢٦ • بداية سنة جديدة ليكي وأحلى سنين سوا</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- تذييل ناعم ومريح -->
+    <footer class="surprise-footer">
+      <div class="footer-note">
+        <span>مفاجأة معمولة بكل حب ❤️</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- لوحة الاختبار السريعة للمراجعة (يمكن إخفاؤها أو تفعيلها) -->
+  <aside class="dev-test-panel" id="devTestPanel" aria-label="أدوات المعاينة والاختبار">
+    <button type="button" class="dev-panel-toggle" id="devToggleBtn" title="لوحة اختبار حالات العدّاد والاحتفال">
+      ⚙️ تجربة الحالات
+    </button>
+    <div class="dev-panel-body" id="devPanelBody">
+      <div class="dev-panel-title">أدوات مراجعة العدّاد</div>
+      <div class="dev-buttons">
+        <button type="button" id="btnTestNormal" class="dev-btn active">التوقيت الفعلي (٨ أيام)</button>
+        <button type="button" id="btnTest5Sec" class="dev-btn">تجربة عد تنازلي ٥ ثوانٍ</button>
+        <button type="button" id="btnTestZero" class="dev-btn">معاينة عند الصفر (الاحتفال)</button>
+      </div>
+      <div class="dev-status" id="devStatusText">الحالة: التوقيت الفعلي</div>
+    </div>
+  </aside>
+
+  <!-- ملفات الجافاسكريبت: الإعدادات أولاً ثم المحرك -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

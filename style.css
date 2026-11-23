@@ -1,0 +1,834 @@
+/* ==========================================================================
+   Birthday Surprise Website - Phase 1: Night Album & Countdown
+   تصميم موقع مفاجأة عيد ميلاد - المرحلة الأولى: ألبوم ليلي وعدّاد
+   ========================================================================== */
+
+:root {
+  /* ألوان الخلفية الليلية الكحلية */
+  --bg-deep-navy: #050813;
+  --bg-midnight: #0b1329;
+  --bg-indigo-shade: #121f42;
+  --bg-ambient-blue: rgba(22, 38, 77, 0.6);
+
+  /* ألوان الإطار الكريمي الدافي للصورة */
+  --cream-frame-bg: #fbf9f4;
+  --cream-frame-border: #ede4d1;
+  --cream-frame-shadow: rgba(0, 0, 0, 0.45);
+  --cream-paper-texture: #f6f0e4;
+  --cream-text-dark: #2b2520;
+  --cream-text-muted: #5e544b;
+
+  /* لمسات ذهبية رومانسية متوهجة */
+  --gold-primary: #e5c378;
+  --gold-light: #fff0be;
+  --gold-deep: #b58c38;
+  --gold-border: rgba(229, 195, 120, 0.35);
+  --gold-glow: rgba(229, 195, 120, 0.22);
+
+  /* كروت العدّاد الزجاجية الكحلية */
+  --card-glass-bg: rgba(13, 22, 45, 0.78);
+  --card-glass-border: rgba(229, 195, 120, 0.22);
+  --card-glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+
+  /* نصوص عامة */
+  --text-pure-white: #ffffff;
+  --text-soft-ivory: #f1f4fa;
+  --text-subtle-muted: #a6b3cb;
+  --rose-accent: #e85973;
+
+  /* خطوط */
+  --font-heading: 'Alexandria', 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  --font-body: 'Cairo', 'Alexandria', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  --font-story: 'Amiri', 'Cairo', serif;
+
+  /* انتقالات */
+  --transition-smooth: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* إعادة تعيين أساسي وتنسيق RTL */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  direction: rtl;
+  text-align: right;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  font-family: var(--font-body);
+  background-color: var(--bg-deep-navy);
+  color: var(--text-soft-ivory);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   خلفية السماء الليلية والنجوم المتلألئة
+   ========================================================================== */
+.night-sky-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 12%, #17274f 0%, #0c1630 45%, #050813 90%);
+}
+
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.ambient-glow-top {
+  width: 320px;
+  height: 320px;
+  top: -80px;
+  right: 50%;
+  transform: translateX(50%);
+  background: radial-gradient(circle, rgba(229, 195, 120, 0.28) 0%, rgba(26, 44, 88, 0.6) 60%, transparent 100%);
+}
+
+.ambient-glow-middle {
+  width: 400px;
+  height: 400px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(18, 35, 77, 0.5) 0%, rgba(11, 20, 46, 0.3) 70%, transparent 100%);
+}
+
+/* طبقات نجوم CSS متلألئة في الخلفية */
+.stars-layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  opacity: 0.65;
+}
+
+.stars-layer.layer-1 {
+  background-image: 
+    radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(255,255,255,0)),
+    radial-gradient(1.5px 1.5px at 70px 140px, #e5c378, rgba(255,255,255,0)),
+    radial-gradient(2px 2px at 150px 80px, #ffffff, rgba(255,255,255,0)),
+    radial-gradient(1px 1px at 230px 210px, #ffd880, rgba(255,255,255,0)),
+    radial-gradient(1.5px 1.5px at 310px 120px, #ffffff, rgba(255,255,255,0)),
+    radial-gradient(2px 2px at 390px 290px, #e8f0fe, rgba(255,255,255,0));
+  background-size: 420px 420px;
+  animation: starsTwinkle 7s ease-in-out infinite alternate;
+}
+
+.stars-layer.layer-2 {
+  background-image: 
+    radial-gradient(1px 1px at 45px 75px, #ffffff, rgba(255,255,255,0)),
+    radial-gradient(1.5px 1.5px at 120px 220px, #ffd580, rgba(255,255,255,0)),
+    radial-gradient(1px 1px at 280px 50px, #e5c378, rgba(255,255,255,0)),
+    radial-gradient(1.5px 1.5px at 340px 180px, #ffffff, rgba(255,255,255,0));
+  background-size: 360px 360px;
+  animation: starsTwinkle 11s ease-in-out infinite alternate-reverse;
+  opacity: 0.5;
+}
+
+.stars-layer.layer-3 {
+  background-image: 
+    radial-gradient(2px 2px at 90px 40px, rgba(255, 235, 180, 0.8), rgba(255,255,255,0)),
+    radial-gradient(1px 1px at 190px 160px, rgba(255, 255, 255, 0.9), rgba(255,255,255,0)),
+    radial-gradient(2px 2px at 290px 260px, rgba(255, 215, 140, 0.7), rgba(255,255,255,0));
+  background-size: 480px 480px;
+  animation: starsTwinkle 9s ease-in-out infinite 3s;
+}
+
+.sparkles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes starsTwinkle {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+  100% { opacity: 0.55; }
+}
+
+/* ==========================================================================
+   الهيكل العام للصفحة (Mobile First)
+   ========================================================================== */
+.page-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.1rem 1rem 2.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   الترويسة والنصوص الترحيبية
+   ========================================================================== */
+.surprise-header {
+  text-align: center;
+  margin-bottom: 1.1rem;
+  padding-top: 0.2rem;
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.main-title {
+  font-family: var(--font-heading);
+  font-size: 1.95rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.title-text {
+  background: linear-gradient(135deg, #fff3d1 0%, #e6c575 50%, #fbd589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(229, 195, 120, 0.35));
+}
+
+.heart-pulse {
+  display: inline-block;
+  font-size: 1.7rem;
+  filter: drop-shadow(0 0 10px rgba(232, 89, 115, 0.6));
+  animation: gentleHeartbeat 2.2s infinite ease-in-out;
+}
+
+@keyframes gentleHeartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.18); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.14); }
+  60% { transform: scale(1); }
+}
+
+.main-subtitle {
+  font-size: 0.98rem;
+  font-weight: 400;
+  color: var(--text-soft-ivory);
+  opacity: 0.92;
+  line-height: 1.55;
+  max-width: 360px;
+  margin: 0 auto;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* ==========================================================================
+   إطار الصورة الليلي الدافي (ألبوم الصور الحميمي)
+   ========================================================================== */
+.photo-album-card-wrapper {
+  margin: 0.35rem 0 1.25rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.polaroid-frame {
+  position: relative;
+  width: 100%;
+  max-width: 330px;
+  background-color: var(--cream-frame-bg);
+  background-image: 
+    radial-gradient(circle at 100% 0%, rgba(229, 195, 120, 0.08) 0%, transparent 60%),
+    linear-gradient(to bottom, #fdfbf7 0%, #f5efe3 100%);
+  border: 1px solid var(--cream-frame-border);
+  border-radius: 12px;
+  padding: 11px 11px 14px 11px;
+  box-shadow: 
+    0 18px 40px -8px rgba(0, 0, 0, 0.65),
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+    0 0 25px rgba(229, 195, 120, 0.12);
+  transform: rotate(-0.4deg);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.polaroid-frame:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 
+    0 24px 48px -8px rgba(0, 0, 0, 0.75),
+    0 6px 20px rgba(0, 0, 0, 0.3),
+    0 0 35px rgba(229, 195, 120, 0.2);
+}
+
+/* زوايا تثبيت الصورة في الألبوم الكلاسيكي */
+.album-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.album-corner::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-color: #cbb27a;
+  border-style: solid;
+  opacity: 0.85;
+}
+
+.corner-tl { top: -2px; right: -2px; }
+.corner-tl::before { border-width: 3px 3px 0 0; border-top-right-radius: 10px; }
+
+.corner-tr { top: -2px; left: -2px; }
+.corner-tr::before { border-width: 3px 0 0 3px; border-top-left-radius: 10px; }
+
+.corner-bl { bottom: -2px; right: -2px; }
+.corner-bl::before { border-width: 0 3px 3px 0; border-bottom-right-radius: 10px; }
+
+.corner-br { bottom: -2px; left: -2px; }
+.corner-br::before { border-width: 0 0 3px 3px; border-bottom-left-radius: 10px; }
+
+/* شارة التاريخ على إطار الصورة «٢٣ نوفمبر» */
+.frame-date-stamp {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 4;
+  background: rgba(18, 28, 54, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(229, 195, 120, 0.45);
+  color: #fff6da;
+  padding: 3px 11px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.3px;
+}
+
+.pin-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 6px var(--gold-light);
+}
+
+/* نافذة عرض الصورة: مضبوطة لتظهر الوشوش والدبل بالكامل مع الحفاظ على التناسب */
+.photo-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 3.8;
+  max-height: 360px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #121829;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) inset;
+}
+
+.framed-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* الموضع مضبوط عموديًا على 25% بحيث الرؤوس والوجوه لا تُقص والأيدي المرفوعة بالدبل تظل واضحة تمامًا */
+  object-position: center 25%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.polaroid-frame:hover .framed-photo {
+  transform: scale(1.025);
+}
+
+.photo-soft-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 40%, transparent 65%, rgba(10, 15, 30, 0.3) 100%);
+}
+
+/* النص والذكرى أسفل الصورة مباشرة */
+.photo-caption-box {
+  margin-top: 11px;
+  padding: 2px 4px 2px 4px;
+  text-align: center;
+  position: relative;
+}
+
+.quote-sign {
+  position: absolute;
+  top: -10px;
+  right: 4px;
+  font-family: var(--font-story);
+  font-size: 2.2rem;
+  color: var(--gold-deep);
+  opacity: 0.22;
+  line-height: 1;
+}
+
+.memory-caption-text {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cream-text-dark);
+  line-height: 1.55;
+  direction: rtl;
+  letter-spacing: -0.2px;
+}
+
+/* ==========================================================================
+   قسم العد التنازلي (Countdown Section)
+   ========================================================================== */
+.countdown-section {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.countdown-card {
+  background: var(--card-glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-glass-border);
+  border-radius: 18px;
+  padding: 1.3rem 0.9rem;
+  box-shadow: 
+    var(--card-glass-shadow),
+    0 0 25px rgba(229, 195, 120, 0.1) inset;
+  text-align: center;
+}
+
+.countdown-header-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  margin-bottom: 1.1rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.sparkle-star {
+  font-size: 1.1rem;
+  animation: sparkleTwinkle 2s infinite ease-in-out;
+}
+
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* شبكة مربعات الأرقام وثبات العرض لمنع الاهتزاز */
+.timer-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  direction: rtl;
+  margin-bottom: 1rem;
+}
+
+.time-unit-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 82px;
+  min-width: 64px;
+}
+
+.time-digit-container {
+  width: 100%;
+  background: linear-gradient(180deg, #162447 0%, #0d1730 100%);
+  border: 1px solid rgba(229, 195, 120, 0.28);
+  border-radius: 12px;
+  padding: 0.55rem 0.2rem;
+  box-shadow: 
+    0 6px 14px rgba(0, 0, 0, 0.4),
+    0 1px 1px rgba(255, 255, 255, 0.1) inset;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.time-digit-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* الأرقام ثابتة العرض تماماً مع tabular-nums */
+.time-value {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.95rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-feature-settings: "tnum";
+  font-feature-settings: "tnum";
+  letter-spacing: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.highlight-seconds .time-value {
+  color: var(--gold-light);
+  text-shadow: 0 0 12px rgba(229, 195, 120, 0.5);
+}
+
+.time-label {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-subtle-muted);
+  letter-spacing: 0.2px;
+}
+
+.time-separator {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  margin-top: -1.2rem;
+  opacity: 0.7;
+  padding: 0 1px;
+  user-select: none;
+}
+
+/* إشارة توقيت القاهرة */
+.cairo-tz-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: var(--text-subtle-muted);
+  background: rgba(10, 16, 32, 0.6);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 0.2rem;
+}
+
+.pulse-point {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #2ed573;
+  box-shadow: 0 0 8px #2ed573;
+  animation: pointPulse 2s infinite ease-in-out;
+}
+
+@keyframes pointPulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ==========================================================================
+   قسم الاحتفال عند الصفر (Celebration State)
+   ========================================================================== */
+.celebration-section {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  animation: celebrationEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.celebration-section.hidden {
+  display: none !important;
+}
+
+@keyframes celebrationEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.celebration-card {
+  background: linear-gradient(135deg, rgba(26, 40, 78, 0.92) 0%, rgba(13, 20, 42, 0.96) 100%);
+  border: 2px solid var(--gold-primary);
+  border-radius: 20px;
+  padding: 1.8rem 1.2rem;
+  text-align: center;
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.6),
+    0 0 35px rgba(229, 195, 120, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.celebration-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(229, 195, 120, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.celebration-fireworks-decor {
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: 4px;
+  filter: drop-shadow(0 0 10px rgba(229, 195, 120, 0.6));
+}
+
+.celebration-title {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fff0c2 50%, #e6c575 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(229, 195, 120, 0.4));
+}
+
+.celebration-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-soft-ivory);
+  line-height: 1.65;
+  max-width: 420px;
+  margin: 0 auto 1.1rem auto;
+  opacity: 0.95;
+}
+
+.celebration-date-mark {
+  display: inline-block;
+  background: rgba(229, 195, 120, 0.15);
+  border: 1px solid rgba(229, 195, 120, 0.35);
+  color: var(--gold-light);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   التذييل (Footer)
+   ========================================================================== */
+.surprise-footer {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.footer-note {
+  font-size: 0.82rem;
+  color: var(--text-subtle-muted);
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   لوحة أدوات الاختبار السريع (Dev Test Panel)
+   ========================================================================== */
+.dev-test-panel {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  font-family: var(--font-body);
+  direction: rtl;
+}
+
+.dev-panel-toggle {
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  opacity: 0.65;
+}
+
+.dev-panel-toggle:hover {
+  opacity: 1;
+  background: rgba(26, 40, 78, 0.95);
+  transform: translateY(1px);
+}
+
+.dev-panel-body {
+  display: none;
+  position: absolute;
+  top: 36px;
+  left: 0;
+  width: 240px;
+  background: rgba(11, 19, 41, 0.96);
+  border: 1px solid var(--gold-border);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+}
+
+.dev-test-panel.open .dev-panel-body {
+  display: block;
+}
+
+.dev-panel-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 6px;
+}
+
+.dev-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dev-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-soft-ivory);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-align: right;
+  transition: all 0.2s ease;
+}
+
+.dev-btn:hover {
+  background: rgba(229, 195, 120, 0.15);
+  border-color: var(--gold-primary);
+}
+
+.dev-btn.active {
+  background: rgba(229, 195, 120, 0.25);
+  border-color: var(--gold-primary);
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.dev-status {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--text-subtle-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   التوافقية للأجهزة الكبيرة (Desktop & Tablet)
+   ========================================================================== */
+@media (min-width: 600px) {
+  .page-container {
+    max-width: 620px;
+    padding: 2.2rem 1.5rem 3.5rem 1.5rem;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .main-subtitle {
+    font-size: 1.15rem;
+    max-width: 440px;
+  }
+
+  .polaroid-frame {
+    max-width: 420px;
+    padding: 16px 16px 20px 16px;
+  }
+
+  .photo-viewport {
+    max-height: 480px;
+  }
+
+  .memory-caption-text {
+    font-size: 1.25rem;
+  }
+
+  .timer-grid {
+    gap: 0.75rem;
+  }
+
+  .time-unit-box {
+    max-width: 95px;
+    min-width: 78px;
+  }
+
+  .time-digit-container {
+    padding: 0.7rem 0.3rem;
+  }
+
+  .time-value {
+    font-size: 2.4rem;
+  }
+
+  .time-label {
+    font-size: 0.9rem;
+  }
+
+  .celebration-title {
+    font-size: 1.9rem;
+  }
+}
+
+/* شاشات الموبايل الصغيرة جداً (أقل من 360px) */
+@media (max-width: 350px) {
+  .page-container {
+    padding: 1rem 0.75rem 2rem 0.75rem;
+  }
+
+  .main-title {
+    font-size: 1.75rem;
+  }
+
+  .main-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .time-value {
+    font-size: 1.6rem;
+  }
+
+  .time-unit-box {
+    min-width: 54px;
+  }
+}
