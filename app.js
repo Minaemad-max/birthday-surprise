@@ -1,6 +1,6 @@
 /**
- * Birthday Surprise Engine - Phase 2
- * محرك موقع مفاجأة عيد ميلاد رفوووووق — المرحلة الثانية: ألبوم الذكريات وظرف ٢٣ نوفمبر
+ * Birthday Surprise Engine - Phase 2 Romantic Edition
+ * محرك موقع مفاجأة عيد ميلاد رفوووووق — جواب حب وورد، ظرف ٢٣ نوفمبر، وألبوم الذكريات
  */
 
 (function () {
@@ -18,8 +18,12 @@
     heroImage: "assets/images/hero-selfie-rings.jpg",
     envelope: {
       name: "ظرف ٢٣ نوفمبر",
-      buttonText: "افتحي ظرف ٢٣ نوفمبر 💌",
-      subtitle: "ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا"
+      envelopeLabel: "لرفووووووق",
+      buttonText: "افتحي الجواب يا رفووووووق",
+      subtitle: "ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا",
+      letterDedication: "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ نوفمبر هييجي في بالي على طول. ❤️",
+      closingMessage: "يوم ٢٣ نوفمبر كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️",
+      signature: "بحبك"
     },
     albumPhotos: [
       { id: 1, title: "الصورة الجماعية مع أبونا", caption: "يوم ما أبونا صلّى على الدبل", src: "assets/images/photo-4-group-father.jpg", isGroupPhoto: true },
@@ -54,16 +58,20 @@
     minutesLabel: document.getElementById('minutesLabel'),
     secondsLabel: document.getElementById('secondsLabel'),
 
-    // مكوّنات ظرف ٢٣ نوفمبر
+    // مكوّنات ظرف وجواب ٢٣ نوفمبر
     envelopeContainer: document.getElementById('envelopeContainer'),
     envelopeOuter: document.getElementById('envelopeOuter'),
     envelopeFlap: document.getElementById('envelopeFlap'),
+    envelopeSeal: document.getElementById('envelopeSeal'),
     openEnvelopeBtn: document.getElementById('openEnvelopeBtn'),
+    petalsContainer: document.getElementById('petalsContainer'),
 
-    // مكوّنات ألبوم الذكريات
+    // مكوّنات ألبوم جواب الحب
     memoryAlbumOverlay: document.getElementById('memoryAlbumOverlay'),
     albumBackdrop: document.getElementById('albumBackdrop'),
+    loveLetterCard: document.getElementById('loveLetterCard'),
     closeAlbumBtn: document.getElementById('closeAlbumBtn'),
+    letterDedicationQuote: document.getElementById('letterDedicationQuote'),
     albumPhotoViewport: document.getElementById('albumPhotoViewport'),
     albumCurrentImg: document.getElementById('albumCurrentImg'),
     albumCurrentCaption: document.getElementById('albumCurrentCaption'),
@@ -73,6 +81,7 @@
     albumNextBtn: document.getElementById('albumNextBtn'),
     albumDotsContainer: document.getElementById('albumDotsContainer'),
     albumPhotoFrame: document.getElementById('albumPhotoFrame'),
+    albumClosingMsg: document.getElementById('albumClosingMsg'),
 
     sparklesCanvas: document.getElementById('sparklesCanvas'),
 
@@ -92,6 +101,8 @@
   let isCelebrationActive = false;
   let currentAlbumIndex = 0;
   let hasTransitionedFromCountdown = false;
+  let hasLaunchedPetals = false;
+  let isOpeningEnvelope = false;
 
   /**
    * فحص بيئة التشغيل: هل هي بيئة محلية للمطور؟
@@ -136,6 +147,12 @@
     if (elements.openEnvelopeBtn && config.envelope && config.envelope.buttonText) {
       const btnText = elements.openEnvelopeBtn.querySelector('.btn-text');
       if (btnText) btnText.textContent = config.envelope.buttonText;
+    }
+    if (elements.letterDedicationQuote && config.envelope && config.envelope.letterDedication) {
+      elements.letterDedicationQuote.textContent = `«${config.envelope.letterDedication.replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+    }
+    if (elements.albumClosingMsg && config.envelope && config.envelope.closingMessage) {
+      elements.albumClosingMsg.textContent = `«${config.envelope.closingMessage.replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
     }
     if (config.timerLabels) {
       if (elements.daysLabel) elements.daysLabel.textContent = config.timerLabels.days || "يوم";
@@ -201,7 +218,6 @@
           triggerCelebration(true);
         }, 450);
       } else {
-        // إذا فتحت الصفحة بعد الموعد، تفتح شاشة الاحتفال فوراً
         triggerCelebration(false);
       }
       return;
@@ -257,6 +273,7 @@
   function resetToCountdown() {
     isCelebrationActive = false;
     hasTransitionedFromCountdown = false;
+    isOpeningEnvelope = false;
 
     if (elements.timerGrid) {
       elements.timerGrid.classList.remove('zero-pulse');
@@ -275,7 +292,7 @@
     }
 
     if (elements.envelopeOuter) {
-      elements.envelopeOuter.classList.remove('is-open');
+      elements.envelopeOuter.classList.remove('is-open', 'is-breaking-seal');
     }
 
     if (elements.memoryAlbumOverlay) {
@@ -291,29 +308,100 @@
   }
 
   /**
-   * التعامل مع فتح ظرف ٢٣ نوفمبر
+   * حركة متسلسلة واحدة لفتح الجواب وظرف ٢٣ نوفمبر
    */
   function setupEnvelopeEvents() {
-    function openEnvelope() {
-      if (elements.envelopeOuter) {
-        elements.envelopeOuter.classList.add('is-open');
+    function executeOpenSequence() {
+      if (isOpeningEnvelope) return;
+      isOpeningEnvelope = true;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // إذا كان تقليل الحركة مفعلاً، يتم فتح الجواب والألبوم فوراً
+      if (prefersReduced) {
+        if (elements.envelopeOuter) {
+          elements.envelopeOuter.classList.add('is-open');
+        }
+        openAlbumModal(0);
+        isOpeningEnvelope = false;
+        return;
       }
 
-      // احترام إعدادات تقليل الحركة
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const delay = prefersReduced ? 50 : 350;
+      // الحركة المتسلسلة:
+      // ١. تفكيك الختم الوردي الغامق
+      if (elements.envelopeOuter) {
+        elements.envelopeOuter.classList.add('is-breaking-seal');
+      }
 
+      // ٢. فتح غطاء الظرف
+      setTimeout(() => {
+        if (elements.envelopeOuter) {
+          elements.envelopeOuter.classList.add('is-open');
+        }
+      }, 200);
+
+      // ٣. إطلاق بتلات الورد المتطايرة على الجانبين (مرة واحدة فقط)
+      setTimeout(() => {
+        launchRosePetals();
+      }, 350);
+
+      // ٤. انبثاق الجواب وظهور الألبوم
       setTimeout(() => {
         openAlbumModal(0);
-      }, delay);
+        isOpeningEnvelope = false;
+      }, 650);
     }
 
     if (elements.openEnvelopeBtn) {
-      elements.openEnvelopeBtn.addEventListener('click', openEnvelope);
+      elements.openEnvelopeBtn.addEventListener('click', executeOpenSequence);
     }
     if (elements.envelopeOuter) {
-      elements.envelopeOuter.addEventListener('click', openEnvelope);
+      elements.envelopeOuter.addEventListener('click', executeOpenSequence);
     }
+  }
+
+  /**
+   * إطلاق بتلات الورد على جانبي الشاشة (مرة واحدة عند فتح الظرف)
+   */
+  function launchRosePetals() {
+    if (hasLaunchedPetals || !elements.petalsContainer) return;
+    hasLaunchedPetals = true;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    elements.petalsContainer.innerHTML = '';
+    const petalCount = 24;
+
+    for (let i = 0; i < petalCount; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'rose-petal';
+      
+      // التوزيع على الجانبين الأيمن والأيسر بعيداً عن منتصف المحتوى
+      const isLeft = i % 2 === 0;
+      const leftPercent = isLeft 
+        ? Math.random() * 20 + 2  // بين 2% و 22% على اليسار
+        : Math.random() * 20 + 78; // بين 78% و 98% على اليمين
+
+      const size = Math.random() * 12 + 12; // بين 12px و 24px
+      const delay = Math.random() * 0.8;
+      const duration = Math.random() * 1.5 + 2.5;
+
+      petal.style.left = `${leftPercent}%`;
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size * 1.25}px`;
+      petal.style.animationDelay = `${delay}s`;
+      petal.style.animationDuration = `${duration}s`;
+
+      elements.petalsContainer.appendChild(petal);
+    }
+
+    // تنظيف البتلات بعد انتهاء الحركة
+    setTimeout(() => {
+      if (elements.petalsContainer) {
+        elements.petalsContainer.innerHTML = '';
+      }
+    }, 4500);
   }
 
   /**
@@ -341,7 +429,7 @@
   }
 
   /**
-   * فتح نافذة ألبوم الذكريات
+   * فتح نافذة ألبوم الذكريات وجواب الحب
    */
   function openAlbumModal(index = 0) {
     if (!elements.memoryAlbumOverlay) return;
@@ -483,19 +571,18 @@
 
     function handleSwipeGesture() {
       const swipeDistance = touchEndX - touchStartX;
-      const minSwipe = 40; // حد السحب الأدنى
+      const minSwipe = 40;
 
       if (Math.abs(swipeDistance) < minSwipe) return;
 
-      // في اتجاه RTL:
-      // السحب إلى اليسار (swipeDistance < 0) يعني الانتقال للصورة التالية
-      // السحب إلى اليمين (swipeDistance > 0) يعني الانتقال للصورة السابقة
       const photos = config.albumPhotos || [];
       if (swipeDistance < 0) {
+        // سحب لليسار -> التالي
         if (currentAlbumIndex < photos.length - 1) {
           showAlbumPhoto(currentAlbumIndex + 1);
         }
       } else {
+        // سحب لليمين -> السابق
         if (currentAlbumIndex > 0) {
           showAlbumPhoto(currentAlbumIndex - 1);
         }
@@ -561,7 +648,7 @@
         rotationSpeed: (Math.random() - 0.5) * 8,
         opacity: 1,
         fadeSpeed: Math.random() * 0.008 + 0.003,
-        color: ['#e5c378', '#ffd880', '#e85973', '#ffffff', '#ff9eb1'][Math.floor(Math.random() * 5)]
+        color: ['#ba1e36', '#e5c378', '#ffd880', '#e85973', '#ffffff', '#ff9eb1'][Math.floor(Math.random() * 6)]
       });
     }
   }
@@ -637,7 +724,6 @@
    * فحص معلمات الرابط (?test=...) للتحكم في الحالات للاختبار (محلياً فقط)
    */
   function handleUrlOverrides() {
-    // إذا كان وضع الزائرة مفعلاً أو البيئة غير محلية، يتم تجاهل جميع معلمات الاختبار تماماً
     if (isVisitorMode()) {
       if (elements.devTestPanel) {
         elements.devTestPanel.remove();
@@ -657,11 +743,11 @@
       simulatedTargetTime = Date.now() + secs;
       if (elements.devStatusText) elements.devStatusText.textContent = `الحالة: تجربة عدّاد ${secs/1000} ثوانٍ`;
       setActiveDevButton(elements.btnTest3Sec);
-    } else if (testMode === 'album') {
+    } else if (testMode === 'album' || testMode === 'letter') {
       simulatedTargetTime = Date.now() - 1000;
       triggerCelebration(false);
       openAlbumModal(0);
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: الألبوم مفتوح مباشرة";
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: الجواب مفتوح مباشرة";
       setActiveDevButton(elements.btnTestAlbumDirect);
     }
   }
@@ -705,7 +791,7 @@
       elements.btnTestZero.addEventListener('click', () => {
         simulatedTargetTime = Date.now() - 1000;
         setActiveDevButton(elements.btnTestZero);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: معاينة عند الصفر (ظرف ٢٣ نوفمبر)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: معاينة عند الصفر (الظرف والختم)";
         triggerCelebration(true);
       });
     }
@@ -716,7 +802,7 @@
         setActiveDevButton(elements.btnTestAlbumDirect);
         triggerCelebration(false);
         openAlbumModal(0);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: الألبوم مفتوح مباشرة";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: الجواب مفتوح مباشرة";
       });
     }
   }

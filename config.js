@@ -1,6 +1,6 @@
 /**
  * Birthday Surprise Configuration - إعدادات مفاجأة عيد الميلاد
- * Phase 2: Memory Album & Envelope - المرحلة الثانية: ألبوم الذكريات وظرف ٢٣ نوفمبر
+ * Phase 2 Romantic Edition: Love Letter & Roses - تجربة جواب الحب والورد
  */
 const BIRTHDAY_CONFIG = {
   // الموعد المستهدف: بداية يوم ٢ ديسمبر ٢٠٢٦، الساعة ٠٠:٠٠ بتوقيت القاهرة (UTC+02:00)
@@ -21,12 +21,15 @@ const BIRTHDAY_CONFIG = {
   // صورة الافتتاح (السيلفي القريبة مع الدبل)
   heroImage: "assets/images/hero-selfie-rings.jpg",
 
-  // بيانات الظرف الموحد («ظرف ٢٣ نوفمبر»)
+  // بيانات جواب الحب وظرف ٢٣ نوفمبر
   envelope: {
     name: "ظرف ٢٣ نوفمبر",
-    buttonText: "افتحي ظرف ٢٣ نوفمبر 💌",
+    envelopeLabel: "لرفووووووق",
+    buttonText: "افتحي الجواب يا رفووووووق",
     subtitle: "ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا",
-    sealText: "٢٣ نوفمبر"
+    letterDedication: "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ نوفمبر هييجي في بالي على طول. ❤️",
+    closingMessage: "يوم ٢٣ نوفمبر كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️",
+    signature: "بحبك"
   },
 
   // ألبوم الصور الأربع بترتيب الحكاية
@@ -77,7 +80,7 @@ const BIRTHDAY_CONFIG = {
   albumNav: {
     prev: "السابق",
     next: "التالي",
-    close: "إغلاق الألبوم ✕",
+    close: "إغلاق الجواب ✕",
     photoCounter: "صورة {current} من {total}"
   }
 };

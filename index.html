@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>يا رفووووووق ❤️ | ذكرى وعيد ميلادك</title>
-  <meta name="description" content="مفاجأة شخصية لعيد ميلاد رفوووووق مع عدّاد تنازلي وظرف ٢٣ نوفمبر لألبوم الذكريات.">
+  <title>يا رفووووووق ❤️ | جواب حب وذكرى ٢٣ نوفمبر</title>
+  <meta name="description" content="مفاجأة شخصية لعيد ميلاد رفوووووق مع عدّاد تنازلي وجواب حب وورد يحكي ذكريات ٢٣ نوفمبر.">
   <meta name="theme-color" content="#070d1e">
 
-  <!-- Google Fonts: Alexandria & Cairo with fallback -->
+  <!-- Google Fonts: Alexandria, Cairo, & Amiri with fallback -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -24,6 +24,9 @@
     <div class="stars-layer layer-3"></div>
     <canvas id="sparklesCanvas" class="sparkles-canvas"></canvas>
   </div>
+
+  <!-- حاوية بتلات الورد المتطايرة على الجانبين عند فتح الجواب -->
+  <div class="petals-container" id="petalsContainer" aria-hidden="true"></div>
 
   <div class="page-container" id="pageContainer">
     <!-- ترويسة الصفحة -->
@@ -41,9 +44,14 @@
 
     <!-- المحتوى الرئيسي: ألبوم الصورة الليلية + العدّاد -->
     <main class="surprise-main">
-      <!-- كارت الصورة الافتتاحية بروح ألبوم الصور الحميمي -->
+      <!-- كارت الصورة الافتتاحية بروح ألبوم الصور الحميمي ولمسات الورد -->
       <section class="photo-album-card-wrapper" aria-label="صورة الذكرى">
         <div class="polaroid-frame" id="polaroidFrame">
+          <!-- وردة رومانسية رقيقة عند ركن إطار صورة الدبل -->
+          <div class="polaroid-rose-corner" title="وردة لرفوووووق" aria-hidden="true">
+            <span class="rose-emoji">🌹</span>
+          </div>
+
           <!-- زوايا تثبيت الصور في الألبوم الكلاسيكي -->
           <div class="album-corner corner-tl" aria-hidden="true"></div>
           <div class="album-corner corner-tr" aria-hidden="true"></div>
@@ -136,10 +144,10 @@
         </div>
       </section>
 
-      <!-- كارت التهنئة وظرف ٢٣ نوفمبر (يظهر عند الصفر أو بعد الموعد) -->
+      <!-- كارت التهنئة وجواب الحب وظرف ٢٣ نوفمبر (يظهر عند الصفر أو بعد الموعد) -->
       <section class="celebration-section hidden" id="celebrationSection" aria-live="polite">
         <div class="celebration-card">
-          <div class="celebration-fireworks-decor" aria-hidden="true">🎉 ✨ 💍 ✨ 🎉</div>
+          <div class="celebration-fireworks-decor" aria-hidden="true">🌹 ✨ 💍 ✨ 🌹</div>
           <h2 class="celebration-title" id="celebrationTitle">
             كل سنة وإنتِ طيبة يا رفووووووق ❤️
           </h2>
@@ -150,15 +158,27 @@
             <span>٢ ديسمبر ٢٠٢٦ • بداية سنة جديدة ليكي وأحلى سنين سوا</span>
           </div>
 
-          <!-- مكوّن ظرف ٢٣ نوفمبر -->
+          <!-- مكوّن ظرف ٢٣ نوفمبر الكريمي مع الختم الوردي الغامق والاسم «لرفووووووق» -->
           <div class="envelope-container" id="envelopeContainer">
             <div class="envelope-outer" id="envelopeOuter">
               <div class="envelope-back"></div>
+              <div class="envelope-letter-peek" id="envelopeLetterPeek">
+                <span class="peek-rose">🌹</span>
+              </div>
               <div class="envelope-front"></div>
               <div class="envelope-flap" id="envelopeFlap"></div>
-              <div class="envelope-seal" id="envelopeSeal">
-                <span class="seal-icon">💍</span>
-                <span class="seal-caption">٢٣ نوفمبر</span>
+              
+              <!-- الاسم المكتوب على الظرف -->
+              <div class="envelope-recipient-name">
+                <span class="recipient-to">إلى حبيبتي:</span>
+                <span class="recipient-name">لرفووووووق</span>
+              </div>
+
+              <!-- ختم الشمع الوردي الغامق مع القلب الصغير -->
+              <div class="envelope-seal" id="envelopeSeal" title="ختم شمع ظرف ٢٣ نوفمبر">
+                <div class="seal-inner-ring">
+                  <span class="seal-heart">❤️</span>
+                </div>
               </div>
             </div>
 
@@ -168,91 +188,126 @@
                 <span class="envelope-name-text">ظرف ٢٣ نوفمبر</span>
                 <span class="star-icon">💌</span>
               </div>
-              <p class="envelope-desc">ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا</p>
+              <p class="envelope-desc">جواب حب وألبوم ذكريات اليوم اللي أبونا صلّى فيه على الدبل</p>
+              
+              <!-- زر فتح الجواب المعتمد -->
               <button type="button" class="open-envelope-btn" id="openEnvelopeBtn">
                 <span class="btn-icon">💌</span>
-                <span class="btn-text">افتحي ظرف ٢٣ نوفمبر</span>
+                <span class="btn-text">افتحي الجواب يا رفووووووق</span>
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- قسم ألبوم الذكريات (يظهر عند فتح الظرف) -->
-      <section class="memory-album-overlay hidden" id="memoryAlbumOverlay" aria-modal="true" role="dialog" aria-label="ألبوم ذكريات ظرف ٢٣ نوفمبر">
+      <!-- شاشة جواب الحب وألبوم الصور المطبوعة (تنبثق عند فتح الظرف) -->
+      <section class="memory-album-overlay hidden" id="memoryAlbumOverlay" aria-modal="true" role="dialog" aria-label="جواب حب وألبوم ذكريات ٢٣ نوفمبر">
         <div class="album-backdrop" id="albumBackdrop"></div>
-        <div class="album-content-card">
-          <!-- ترويسة الألبوم -->
-          <div class="album-header">
-            <div class="album-header-title">
-              <span class="letter-icon">💌</span>
-              <span class="album-heading-text">ظرف ٢٣ نوفمبر</span>
+        <div class="album-content-card love-letter-card" id="loveLetterCard">
+          
+          <!-- بطاقة مقدمة الجواب الرومانسي -->
+          <div class="love-letter-preface">
+            <div class="letter-stamp-rose" aria-hidden="true">
+              <span class="rose-emoji">🌹</span>
             </div>
-            <div class="album-counter-pill" id="albumCounterPill">
-              صورة <span id="currentPhotoNum">١</span> من <span id="totalPhotosNum">٤</span>
+            <div class="letter-header-row">
+              <div class="letter-seal-mini">💌 ظرف ٢٣ نوفمبر</div>
+              <button type="button" class="album-close-btn" id="closeAlbumBtn" aria-label="إغلاق الجواب">✕</button>
             </div>
-            <button type="button" class="album-close-btn" id="closeAlbumBtn" aria-label="إغلاق الألبوم">
-              ✕
-            </button>
-          </div>
-
-          <!-- إطار صورة الألبوم الحالي -->
-          <div class="album-photo-frame" id="albumPhotoFrame">
-            <!-- زوايا الألبوم الكلاسيكية -->
-            <div class="album-corner corner-tl" aria-hidden="true"></div>
-            <div class="album-corner corner-tr" aria-hidden="true"></div>
-            <div class="album-corner corner-bl" aria-hidden="true"></div>
-            <div class="album-corner corner-br" aria-hidden="true"></div>
-
-            <!-- شارة التاريخ على إطار الصورة -->
-            <div class="frame-date-stamp">
-              <span class="pin-dot" aria-hidden="true"></span>
-              <span class="badge-text">٢٣ نوفمبر</span>
-            </div>
-
-            <!-- نافذة عرض الصورة بالألبوم -->
-            <div class="album-photo-viewport" id="albumPhotoViewport">
-              <img 
-                id="albumCurrentImg" 
-                src="assets/images/photo-4-group-father.jpg" 
-                alt="صورة من ألبوم الذكريات" 
-                class="album-image" 
-              />
-              <div class="photo-soft-vignette" aria-hidden="true"></div>
-            </div>
-
-            <!-- تعليق الصورة الحميمي -->
-            <div class="album-caption-box">
-              <div class="quote-sign" aria-hidden="true">“</div>
-              <p class="album-caption-text" id="albumCurrentCaption">
-                يوم ما أبونا صلّى على الدبل
+            
+            <!-- جملة الجواب المعتمدة -->
+            <div class="letter-body-message">
+              <p class="dedication-quote" id="letterDedicationQuote">
+                «يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ نوفمبر هييجي في بالي على طول. ❤️»
               </p>
             </div>
+            <div class="letter-scroll-prompt">
+              <span class="prompt-text">الصور مطبوعة جوا الجواب… اقلبي وشوفيها واحدة واحدة</span>
+              <span class="prompt-arrow">↓</span>
+            </div>
           </div>
 
-          <!-- شريط التنقل (السابق / التالي / المؤشرات) -->
-          <div class="album-navigation-bar">
-            <!-- زر السابق (RTL: السهم لليمين) -->
-            <button type="button" class="album-nav-btn" id="albumPrevBtn" aria-label="الصورة السابقة">
-              <span class="nav-arrow" aria-hidden="true">→</span>
-              <span class="nav-btn-text">السابق</span>
-            </button>
-
-            <!-- مؤشرات الدوائر -->
-            <div class="album-dots-container" id="albumDotsContainer" role="tablist" aria-label="مؤشرات صور الألبوم">
-              <!-- يتم ملؤها ديناميكياً -->
+          <!-- جزء عرض صور الألبوم المطبوعة داخل الجواب -->
+          <div class="album-main-viewer">
+            <!-- شريط عداد الصور -->
+            <div class="album-photo-meta-bar">
+              <div class="album-counter-pill" id="albumCounterPill">
+                صورة <span id="currentPhotoNum">١</span> من <span id="totalPhotosNum">٤</span>
+              </div>
+              <div class="album-photo-title-hint" id="albumPhotoTitleHint">
+                ذكريات ٢٣ نوفمبر
+              </div>
             </div>
 
-            <!-- زر التالي (RTL: السهم لليسار) -->
-            <button type="button" class="album-nav-btn" id="albumNextBtn" aria-label="الصورة التالية">
-              <span class="nav-btn-text">التالي</span>
-              <span class="nav-arrow" aria-hidden="true">←</span>
-            </button>
+            <!-- إطار صورة الألبوم الكريمي الدافي مع زوايا نحاسية -->
+            <div class="album-photo-frame" id="albumPhotoFrame">
+              <div class="album-corner corner-tl" aria-hidden="true"></div>
+              <div class="album-corner corner-tr" aria-hidden="true"></div>
+              <div class="album-corner corner-bl" aria-hidden="true"></div>
+              <div class="album-corner corner-br" aria-hidden="true"></div>
+
+              <div class="frame-date-stamp">
+                <span class="pin-dot" aria-hidden="true"></span>
+                <span class="badge-text">٢٣ نوفمبر</span>
+              </div>
+
+              <!-- نافذة عرض الصورة -->
+              <div class="album-photo-viewport" id="albumPhotoViewport">
+                <img 
+                  id="albumCurrentImg" 
+                  src="assets/images/photo-4-group-father.jpg" 
+                  alt="صورة من ألبوم الذكريات" 
+                  class="album-image" 
+                />
+                <div class="photo-soft-vignette" aria-hidden="true"></div>
+              </div>
+
+              <!-- تعليق الصورة الحميمي -->
+              <div class="album-caption-box">
+                <div class="quote-sign" aria-hidden="true">“</div>
+                <p class="album-caption-text" id="albumCurrentCaption">
+                  يوم ما أبونا صلّى على الدبل
+                </p>
+              </div>
+            </div>
+
+            <!-- شريط التنقل (السابق / التالي / المؤشرات) -->
+            <div class="album-navigation-bar">
+              <!-- زر السابق (في RTL: السهم لليمين) -->
+              <button type="button" class="album-nav-btn" id="albumPrevBtn" aria-label="الصورة السابقة">
+                <span class="nav-arrow" aria-hidden="true">→</span>
+                <span class="nav-btn-text">السابق</span>
+              </button>
+
+              <!-- مؤشرات الدوائر -->
+              <div class="album-dots-container" id="albumDotsContainer" role="tablist" aria-label="مؤشرات صور الألبوم"></div>
+
+              <!-- زر التالي (في RTL: السهم لليسار) -->
+              <button type="button" class="album-nav-btn" id="albumNextBtn" aria-label="الصورة التالية">
+                <span class="nav-btn-text">التالي</span>
+                <span class="nav-arrow" aria-hidden="true">←</span>
+              </button>
+            </div>
+
+            <div class="album-swipe-hint">
+              <span>يمكنك السحب باللمس أو استخدام أسهم الكيبورد للتنقل</span>
+            </div>
+
+            <!-- كارت ختام الألبوم وجملة القفل المعتمدة -->
+            <div class="album-closing-letter" id="albumClosingLetter">
+              <div class="closing-gold-divider" aria-hidden="true">
+                <span>❦ 🌹 ❦</span>
+              </div>
+              <p class="closing-message-text" id="albumClosingMsg">
+                «يوم ٢٣ نوفمبر كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️»
+              </p>
+              <div class="closing-signature">
+                <span class="signature-rose" aria-hidden="true">🌹</span>
+                <span class="signature-text">بحبك</span>
+              </div>
+            </div>
           </div>
 
-          <div class="album-swipe-hint">
-            <span>يمكنك السحب باللمس أو استخدام أسهم الكيبورد للتنقل</span>
-          </div>
         </div>
       </section>
     </main>
@@ -265,18 +320,18 @@
     </footer>
   </div>
 
-  <!-- لوحة الاختبار السريعة للمراجعة (متاحة محلياً فقط) -->
+  <!-- لوحة الاختبار السريعة للمراجعة (متاحة محلياً فقط للمطور) -->
   <aside class="dev-test-panel" id="devTestPanel" aria-label="أدوات المعاينة والاختبار">
     <button type="button" class="dev-panel-toggle" id="devToggleBtn" title="لوحة اختبار حالات العدّاد والاحتفال">
       ⚙️ تجربة الحالات
     </button>
     <div class="dev-panel-body" id="devPanelBody">
-      <div class="dev-panel-title">أدوات مراجعة العدّاد والألبوم</div>
+      <div class="dev-panel-title">أدوات مراجعة العدّاد والجواب</div>
       <div class="dev-buttons">
         <button type="button" id="btnTestNormal" class="dev-btn active">التوقيت الفعلي (قبل الموعد)</button>
         <button type="button" id="btnTest3Sec" class="dev-btn">تجربة عد تنازلي ٣ ثوانٍ للصفر</button>
-        <button type="button" id="btnTestZero" class="dev-btn">معاينة عند الصفر (ظرف ٢٣ نوفمبر)</button>
-        <button type="button" id="btnTestAlbumDirect" class="dev-btn">فتح الألبوم مباشرة</button>
+        <button type="button" id="btnTestZero" class="dev-btn">معاينة عند الصفر (الظرف والختم)</button>
+        <button type="button" id="btnTestAlbumDirect" class="dev-btn">فتح الجواب مباشرة</button>
       </div>
       <div class="dev-status" id="devStatusText">الحالة: التوقيت الفعلي</div>
     </div>
