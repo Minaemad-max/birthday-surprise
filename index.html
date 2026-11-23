@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>يا رفووووووق ❤️ | ذكرى وعيد ميلادك</title>
-  <meta name="description" content="مفاجأة شخصية لعيد ميلاد رفوووووق مع عدّاد تنازلي وذكرى أول ديت وصلاة الدبل.">
+  <meta name="description" content="مفاجأة شخصية لعيد ميلاد رفوووووق مع عدّاد تنازلي وظرف ٢٣ نوفمبر لألبوم الذكريات.">
   <meta name="theme-color" content="#070d1e">
 
   <!-- Google Fonts: Alexandria & Cairo with fallback -->
@@ -25,7 +25,7 @@
     <canvas id="sparklesCanvas" class="sparkles-canvas"></canvas>
   </div>
 
-  <div class="page-container">
+  <div class="page-container" id="pageContainer">
     <!-- ترويسة الصفحة -->
     <header class="surprise-header">
       <div class="header-inner">
@@ -41,7 +41,7 @@
 
     <!-- المحتوى الرئيسي: ألبوم الصورة الليلية + العدّاد -->
     <main class="surprise-main">
-      <!-- كارت الصورة بروح ألبوم الصور الحميمي -->
+      <!-- كارت الصورة الافتتاحية بروح ألبوم الصور الحميمي -->
       <section class="photo-album-card-wrapper" aria-label="صورة الذكرى">
         <div class="polaroid-frame" id="polaroidFrame">
           <!-- زوايا تثبيت الصور في الألبوم الكلاسيكي -->
@@ -78,7 +78,7 @@
         </div>
       </section>
 
-      <!-- قسم العد التنازلي لعيد ميلادها -->
+      <!-- قسم العد التنازلي لعيد ميلادها (قبل الموعد) -->
       <section class="countdown-section" id="countdownSection" aria-label="العد التنازلي لعيد ميلاد رفوووووق">
         <div class="countdown-card">
           <div class="countdown-header-tag">
@@ -136,7 +136,7 @@
         </div>
       </section>
 
-      <!-- كارت التهنئة عند الصفر (يظهر تلقائيًا عند انتهاء العدّاد أو بعد الموعد) -->
+      <!-- كارت التهنئة وظرف ٢٣ نوفمبر (يظهر عند الصفر أو بعد الموعد) -->
       <section class="celebration-section hidden" id="celebrationSection" aria-live="polite">
         <div class="celebration-card">
           <div class="celebration-fireworks-decor" aria-hidden="true">🎉 ✨ 💍 ✨ 🎉</div>
@@ -148,6 +148,110 @@
           </p>
           <div class="celebration-date-mark">
             <span>٢ ديسمبر ٢٠٢٦ • بداية سنة جديدة ليكي وأحلى سنين سوا</span>
+          </div>
+
+          <!-- مكوّن ظرف ٢٣ نوفمبر -->
+          <div class="envelope-container" id="envelopeContainer">
+            <div class="envelope-outer" id="envelopeOuter">
+              <div class="envelope-back"></div>
+              <div class="envelope-front"></div>
+              <div class="envelope-flap" id="envelopeFlap"></div>
+              <div class="envelope-seal" id="envelopeSeal">
+                <span class="seal-icon">💍</span>
+                <span class="seal-caption">٢٣ نوفمبر</span>
+              </div>
+            </div>
+
+            <div class="envelope-action-wrap">
+              <div class="envelope-title-tag">
+                <span class="star-icon">💌</span>
+                <span class="envelope-name-text">ظرف ٢٣ نوفمبر</span>
+                <span class="star-icon">💌</span>
+              </div>
+              <p class="envelope-desc">ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا</p>
+              <button type="button" class="open-envelope-btn" id="openEnvelopeBtn">
+                <span class="btn-icon">💌</span>
+                <span class="btn-text">افتحي ظرف ٢٣ نوفمبر</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- قسم ألبوم الذكريات (يظهر عند فتح الظرف) -->
+      <section class="memory-album-overlay hidden" id="memoryAlbumOverlay" aria-modal="true" role="dialog" aria-label="ألبوم ذكريات ظرف ٢٣ نوفمبر">
+        <div class="album-backdrop" id="albumBackdrop"></div>
+        <div class="album-content-card">
+          <!-- ترويسة الألبوم -->
+          <div class="album-header">
+            <div class="album-header-title">
+              <span class="letter-icon">💌</span>
+              <span class="album-heading-text">ظرف ٢٣ نوفمبر</span>
+            </div>
+            <div class="album-counter-pill" id="albumCounterPill">
+              صورة <span id="currentPhotoNum">١</span> من <span id="totalPhotosNum">٤</span>
+            </div>
+            <button type="button" class="album-close-btn" id="closeAlbumBtn" aria-label="إغلاق الألبوم">
+              ✕
+            </button>
+          </div>
+
+          <!-- إطار صورة الألبوم الحالي -->
+          <div class="album-photo-frame" id="albumPhotoFrame">
+            <!-- زوايا الألبوم الكلاسيكية -->
+            <div class="album-corner corner-tl" aria-hidden="true"></div>
+            <div class="album-corner corner-tr" aria-hidden="true"></div>
+            <div class="album-corner corner-bl" aria-hidden="true"></div>
+            <div class="album-corner corner-br" aria-hidden="true"></div>
+
+            <!-- شارة التاريخ على إطار الصورة -->
+            <div class="frame-date-stamp">
+              <span class="pin-dot" aria-hidden="true"></span>
+              <span class="badge-text">٢٣ نوفمبر</span>
+            </div>
+
+            <!-- نافذة عرض الصورة بالألبوم -->
+            <div class="album-photo-viewport" id="albumPhotoViewport">
+              <img 
+                id="albumCurrentImg" 
+                src="assets/images/photo-4-group-father.jpg" 
+                alt="صورة من ألبوم الذكريات" 
+                class="album-image" 
+              />
+              <div class="photo-soft-vignette" aria-hidden="true"></div>
+            </div>
+
+            <!-- تعليق الصورة الحميمي -->
+            <div class="album-caption-box">
+              <div class="quote-sign" aria-hidden="true">“</div>
+              <p class="album-caption-text" id="albumCurrentCaption">
+                يوم ما أبونا صلّى على الدبل
+              </p>
+            </div>
+          </div>
+
+          <!-- شريط التنقل (السابق / التالي / المؤشرات) -->
+          <div class="album-navigation-bar">
+            <!-- زر السابق (RTL: السهم لليمين) -->
+            <button type="button" class="album-nav-btn" id="albumPrevBtn" aria-label="الصورة السابقة">
+              <span class="nav-arrow" aria-hidden="true">→</span>
+              <span class="nav-btn-text">السابق</span>
+            </button>
+
+            <!-- مؤشرات الدوائر -->
+            <div class="album-dots-container" id="albumDotsContainer" role="tablist" aria-label="مؤشرات صور الألبوم">
+              <!-- يتم ملؤها ديناميكياً -->
+            </div>
+
+            <!-- زر التالي (RTL: السهم لليسار) -->
+            <button type="button" class="album-nav-btn" id="albumNextBtn" aria-label="الصورة التالية">
+              <span class="nav-btn-text">التالي</span>
+              <span class="nav-arrow" aria-hidden="true">←</span>
+            </button>
+          </div>
+
+          <div class="album-swipe-hint">
+            <span>يمكنك السحب باللمس أو استخدام أسهم الكيبورد للتنقل</span>
           </div>
         </div>
       </section>
@@ -161,17 +265,18 @@
     </footer>
   </div>
 
-  <!-- لوحة الاختبار السريعة للمراجعة (يمكن إخفاؤها أو تفعيلها) -->
+  <!-- لوحة الاختبار السريعة للمراجعة (متاحة محلياً فقط) -->
   <aside class="dev-test-panel" id="devTestPanel" aria-label="أدوات المعاينة والاختبار">
     <button type="button" class="dev-panel-toggle" id="devToggleBtn" title="لوحة اختبار حالات العدّاد والاحتفال">
       ⚙️ تجربة الحالات
     </button>
     <div class="dev-panel-body" id="devPanelBody">
-      <div class="dev-panel-title">أدوات مراجعة العدّاد</div>
+      <div class="dev-panel-title">أدوات مراجعة العدّاد والألبوم</div>
       <div class="dev-buttons">
-        <button type="button" id="btnTestNormal" class="dev-btn active">التوقيت الفعلي (٨ أيام)</button>
-        <button type="button" id="btnTest5Sec" class="dev-btn">تجربة عد تنازلي ٥ ثوانٍ</button>
-        <button type="button" id="btnTestZero" class="dev-btn">معاينة عند الصفر (الاحتفال)</button>
+        <button type="button" id="btnTestNormal" class="dev-btn active">التوقيت الفعلي (قبل الموعد)</button>
+        <button type="button" id="btnTest3Sec" class="dev-btn">تجربة عد تنازلي ٣ ثوانٍ للصفر</button>
+        <button type="button" id="btnTestZero" class="dev-btn">معاينة عند الصفر (ظرف ٢٣ نوفمبر)</button>
+        <button type="button" id="btnTestAlbumDirect" class="dev-btn">فتح الألبوم مباشرة</button>
       </div>
       <div class="dev-status" id="devStatusText">الحالة: التوقيت الفعلي</div>
     </div>
