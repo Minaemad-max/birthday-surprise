@@ -194,20 +194,15 @@
   let currentAlbumIndex = 0;
 
   /**
-   * فحص بيئة التشغيل: هل هي بيئة محلية للمطور؟
-   */
-  function isLocalEnvironment() {
-    const proto = window.location.protocol;
-    const host = window.location.hostname;
-    return proto === 'file:' || host === 'localhost' || host === '127.0.0.1' || host === '::1';
-  }
-
-  /**
-   * فحص هل وضع الزائرة مفعل عبر المعامل (?mode=visitor)
+   * فحص هل وضع الزائرة مفعل (الافتراضي دائماً في كافة البيئات لحماية المفاجأة)
+   * تظهر أدوات التطوير حصراً إذا أضاف المطور المعامل ?dev=1 أو ?test=... في الرابط
    */
   function isVisitorMode() {
     const params = new URLSearchParams(window.location.search);
-    return params.get('mode') === 'visitor' || params.get('visitor') === '1' || !isLocalEnvironment();
+    if (params.get('mode') === 'dev' || params.has('dev') || params.has('test') || params.has('preview')) {
+      return false;
+    }
+    return true;
   }
 
   /**
