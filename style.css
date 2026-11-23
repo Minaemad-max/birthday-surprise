@@ -53,6 +53,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.hidden {
+  display: none !important;
+}
+
 html {
   font-size: 16px;
   direction: rtl;

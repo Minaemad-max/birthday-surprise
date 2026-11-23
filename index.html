@@ -328,11 +328,6 @@
                   class="album-image" 
                 />
                 <div class="photo-soft-vignette" aria-hidden="true"></div>
-                <!-- شارة الصور التجريبية بانتظار باقي الصور -->
-                <div class="placeholder-notice-badge hidden" id="placeholderNoticeBadge">
-                  <span class="badge-icon">💌</span>
-                  <span class="badge-text">بانتظار إضافة باقي صور الخطوبة</span>
-                </div>
               </div>
 
               <!-- تعليق الصورة الحميمي -->
@@ -345,7 +340,7 @@
             </div>
 
             <!-- شريط التنقل (السابق / التالي / المؤشرات) -->
-            <div class="album-navigation-bar">
+            <div class="album-navigation-bar" id="albumNavBar">
               <!-- زر السابق (في RTL: السهم لليمين يعود للوراء) -->
               <button type="button" class="album-nav-btn" id="albumPrevBtn" aria-label="الصورة السابقة">
                 <span class="nav-arrow" aria-hidden="true">→</span>
@@ -362,7 +357,7 @@
               </button>
             </div>
 
-            <div class="album-swipe-hint">
+            <div class="album-swipe-hint" id="albumSwipeHint">
               <span>يمكنك السحب باللمس أو استخدام أسهم الكيبورد للتنقل</span>
             </div>
 

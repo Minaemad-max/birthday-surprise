@@ -115,6 +115,9 @@
     currentPhotoNum: document.getElementById('currentPhotoNum'),
     totalPhotosNum: document.getElementById('totalPhotosNum'),
     albumPhotoTitleHint: document.getElementById('albumPhotoTitleHint'),
+    albumCounterPill: document.getElementById('albumCounterPill'),
+    albumNavBar: document.getElementById('albumNavBar'),
+    albumSwipeHint: document.getElementById('albumSwipeHint'),
     albumPrevBtn: document.getElementById('albumPrevBtn'),
     albumNextBtn: document.getElementById('albumNextBtn'),
     albumDotsContainer: document.getElementById('albumDotsContainer'),
@@ -640,6 +643,8 @@
 
     activeAlbumType = albumType;
     currentAlbumIndex = index;
+    const photos = getActivePhotos();
+    const isSinglePhoto = photos.length <= 1;
 
     // ضبط نصوص وتفاصيل الـ Modal حسب نوع الظرف
     if (albumType === 'engagement') {
@@ -650,10 +655,12 @@
         elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
       }
       if (elements.albumScrollPromptText) {
-        elements.albumScrollPromptText.textContent = "صور الخطوبة مطبوعة جوا الظرف… اقلبي وشوفيها واحدة واحدة";
+        elements.albumScrollPromptText.innerHTML = isSinglePhoto 
+          ? '<span class="prompt-text">صورة يوم خطوبتنا المطبوعة جوا الجواب</span><span class="prompt-arrow">↓</span>'
+          : '<span class="prompt-text">صور الخطوبة مطبوعة جوا الظرف… اقلبي وشوفيها واحدة واحدة</span><span class="prompt-arrow">↓</span>';
       }
       if (elements.albumPhotoTitleHint) {
-        elements.albumPhotoTitleHint.textContent = "ذكريات ليلة خطوبتنا";
+        elements.albumPhotoTitleHint.textContent = "ذكرى ليلة خطوبتنا";
       }
       if (elements.albumDateBadgeText) {
         elements.albumDateBadgeText.textContent = "٢٥ نوفمبر";
@@ -662,7 +669,7 @@
         elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
       }
       if (elements.albumSignatureText) {
-        elements.albumSignatureText.textContent = env.signature || "بحبك";
+        elements.albumSignatureText.textContent = env.signature || "بحبك 🌹";
       }
     } else {
       const env = config.envelope || {};
@@ -672,7 +679,7 @@
         elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
       }
       if (elements.albumScrollPromptText) {
-        elements.albumScrollPromptText.textContent = "الصور مطبوعة جوا الجواب… اقلبي وشوفيها واحدة واحدة";
+        elements.albumScrollPromptText.innerHTML = '<span class="prompt-text">الصور مطبوعة جوا الجواب… اقلبي وشوفيها واحدة واحدة</span><span class="prompt-arrow">↓</span>';
       }
       if (elements.albumPhotoTitleHint) {
         elements.albumPhotoTitleHint.textContent = "ذكريات ٢٣ نوفمبر";
@@ -684,11 +691,22 @@
         elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
       }
       if (elements.albumSignatureText) {
-        elements.albumSignatureText.textContent = env.signature || "بحبك";
+        elements.albumSignatureText.textContent = env.signature || "بحبك 🌹";
       }
     }
 
-    initAlbumDots();
+    // إخفاء أزرار التقليب وشريط العداد وتلميح السحب في حالة الصورة الواحدة
+    if (isSinglePhoto) {
+      if (elements.albumNavBar) elements.albumNavBar.classList.add('hidden');
+      if (elements.albumSwipeHint) elements.albumSwipeHint.classList.add('hidden');
+      if (elements.albumCounterPill) elements.albumCounterPill.classList.add('hidden');
+    } else {
+      if (elements.albumNavBar) elements.albumNavBar.classList.remove('hidden');
+      if (elements.albumSwipeHint) elements.albumSwipeHint.classList.remove('hidden');
+      if (elements.albumCounterPill) elements.albumCounterPill.classList.remove('hidden');
+      initAlbumDots();
+    }
+
     showAlbumPhoto(index);
 
     elements.memoryAlbumOverlay.classList.remove('hidden');
@@ -735,15 +753,6 @@
 
     if (elements.albumDateBadgeText) {
       elements.albumDateBadgeText.textContent = photo.dateBadge || (activeAlbumType === 'engagement' ? "٢٥ نوفمبر" : "٢٣ نوفمبر");
-    }
-
-    // إظهار شارة بانتظار استلام باقي الصور إذا كانت الصورة تجريبية
-    if (elements.placeholderNoticeBadge) {
-      if (photo.isPlaceholder) {
-        elements.placeholderNoticeBadge.classList.remove('hidden');
-      } else {
-        elements.placeholderNoticeBadge.classList.add('hidden');
-      }
     }
 
     // تخصيص العرض للصورة الجماعية لظهور كل الأشخاص
@@ -813,12 +822,13 @@
       } else if (e.key === 'ArrowLeft') {
         // في RTL، السهم لليسار هو للأمام (التالي)
         const photos = getActivePhotos();
-        if (currentAlbumIndex < photos.length - 1) {
+        if (photos.length > 1 && currentAlbumIndex < photos.length - 1) {
           showAlbumPhoto(currentAlbumIndex + 1);
         }
       } else if (e.key === 'ArrowRight') {
         // في RTL، السهم لليمين هو للوراء (السابق)
-        if (currentAlbumIndex > 0) {
+        const photos = getActivePhotos();
+        if (photos.length > 1 && currentAlbumIndex > 0) {
           showAlbumPhoto(currentAlbumIndex - 1);
         }
       }
@@ -840,12 +850,14 @@
     }
 
     function handleSwipeGesture() {
+      const photos = getActivePhotos();
+      if (photos.length <= 1) return;
+
       const swipeDistance = touchEndX - touchStartX;
       const minSwipe = 40;
 
       if (Math.abs(swipeDistance) < minSwipe) return;
 
-      const photos = getActivePhotos();
       if (swipeDistance < 0) {
         if (currentAlbumIndex < photos.length - 1) {
           showAlbumPhoto(currentAlbumIndex + 1);
