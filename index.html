@@ -146,57 +146,275 @@
 
       <!-- كارت التهنئة وجواب الحب وظرف ٢٣ نوفمبر (يظهر عند الصفر في ٢ ديسمبر أو بعده) -->
       <section class="celebration-section hidden" id="celebrationSection" aria-live="polite">
-        <div class="celebration-card">
-          <div class="celebration-fireworks-decor" aria-hidden="true">🌹 ✨ 💍 ✨ 🌹</div>
-          <h2 class="celebration-title" id="celebrationTitle">
-            كل سنة وإنتِ طيبة يا رفووووووق ❤️
-          </h2>
-          <p class="celebration-subtitle" id="celebrationSubtitle">
-            يا رب كل سنة وإحنا سوا وفي حضن بعض، ودايمًا منورة حياتي ومفرّحة قلبي 💍✨
-          </p>
-          <div class="celebration-date-mark">
-            <span>٢ ديسمبر ٢٠٢٦ • بداية سنة جديدة ليكي وأحلى سنين سوا</span>
+        <div class="celebration-card" id="celebrationCard">
+          
+          <!-- زر تخطي الحركة (لذوي التفضيلات أو الوصول السريع للتهنئة فوراً) -->
+          <div class="skip-animation-wrap">
+            <button type="button" class="skip-animation-btn" id="btnSkipAnimation" aria-label="تخطي الحركة والانتقال للتهنئة مباشرة">
+              <span>تخطي الحركة ⏭️</span>
+            </button>
           </div>
 
-          <!-- مكوّن ظرف ٢٣ نوفمبر الكريمي مع الختم الوردي الغامق والاسم «لرفووووووق» -->
-          <div class="envelope-container" id="envelopeContainer">
-            <div class="envelope-outer" id="envelopeOuter" role="button" tabindex="0" aria-label="ظرف ٢٣ نوفمبر">
-              <div class="envelope-back"></div>
-              <div class="envelope-letter-peek" id="envelopeLetterPeek">
-                <span class="peek-rose">🌹</span>
-              </div>
-              <div class="envelope-front"></div>
-              <div class="envelope-flap" id="envelopeFlap"></div>
-              
-              <!-- الاسم المكتوب على الظرف -->
-              <div class="envelope-recipient-name">
-                <span class="recipient-to">إلى حبيبتي:</span>
-                <span class="recipient-name">لرفووووووق</span>
-              </div>
+          <!-- مسرح شخصية النجمة الذهبية والتورتة والشمعة -->
+          <div class="star-stage-container" id="starStageContainer">
+            <div class="star-character-wrap" id="starCharacterWrap">
+              <svg class="star-character-svg" viewBox="0 0 220 220" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="نجمة ذهبية لطيفة شايلة تورتة عيد ميلاد">
+                <defs>
+                  <!-- تدرج لون النجمة الذهبي الغني -->
+                  <linearGradient id="starGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFF085"/>
+                    <stop offset="45%" stop-color="#FBBF24"/>
+                    <stop offset="85%" stop-color="#F59E0B"/>
+                    <stop offset="100%" stop-color="#D97706"/>
+                  </linearGradient>
 
-              <!-- ختم الشمع الوردي الغامق مع القلب الصغير -->
-              <div class="envelope-seal" id="envelopeSeal" title="ختم شمع ظرف ٢٣ نوفمبر">
-                <div class="seal-inner-ring">
-                  <span class="seal-heart">❤️</span>
-                </div>
-              </div>
+                  <!-- تدرج وهج شعلة الشمعة الدافي -->
+                  <radialGradient id="flameGlowAura" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="rgba(254, 240, 138, 0.9)"/>
+                    <stop offset="40%" stop-color="rgba(251, 191, 36, 0.6)"/>
+                    <stop offset="80%" stop-color="rgba(245, 158, 11, 0.2)"/>
+                    <stop offset="100%" stop-color="rgba(245, 158, 11, 0)"/>
+                  </radialGradient>
+
+                  <!-- تدرج قلب الشعلة -->
+                  <linearGradient id="flameCoreGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFFFF"/>
+                    <stop offset="25%" stop-color="#FEF08A"/>
+                    <stop offset="65%" stop-color="#F59E0B"/>
+                    <stop offset="100%" stop-color="#EA580C"/>
+                  </linearGradient>
+
+                  <!-- تدرج تورتة الكريمة الدافئة -->
+                  <linearGradient id="cakeCreamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFDF7"/>
+                    <stop offset="50%" stop-color="#FEF3C7"/>
+                    <stop offset="100%" stop-color="#FDE68A"/>
+                  </linearGradient>
+
+                  <!-- تدرج الشمعة -->
+                  <linearGradient id="candleStripes" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#F472B6"/>
+                    <stop offset="50%" stop-color="#FDA4AF"/>
+                    <stop offset="100%" stop-color="#FB7185"/>
+                  </linearGradient>
+
+                  <!-- ظل ناعم للنجمة والطبق -->
+                  <filter id="starDropShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#F59E0B" flood-opacity="0.35"/>
+                  </filter>
+                </defs>
+
+                <!-- بريق نجوم صغيرة متطايرة في الخلفية -->
+                <g class="star-ambient-sparkles" aria-hidden="true">
+                  <path d="M 32,48 Q 34,40 42,38 Q 34,36 32,28 Q 30,36 22,38 Q 30,40 32,48 Z" fill="#FDE047" opacity="0.75" class="sparkle-twinkle-1"/>
+                  <path d="M 188,42 Q 190,36 196,34 Q 190,32 188,26 Q 186,32 180,34 Q 186,36 188,42 Z" fill="#FDE047" opacity="0.8" class="sparkle-twinkle-2"/>
+                  <path d="M 195,115 Q 197,110 202,108 Q 197,106 195,101 Q 193,106 188,108 Q 193,110 195,115 Z" fill="#FDA4AF" opacity="0.7" class="sparkle-twinkle-3"/>
+                </g>
+
+                <!-- جسم النجمة الذهبية اللطيف بانحناءات ناعمة -->
+                <path 
+                  d="M 110,20 
+                     C 114,20 132,48 139,53 
+                     C 146,58 184,63 187,68 
+                     C 190,73 162,98 158,104 
+                     C 154,110 166,146 162,151 
+                     C 158,156 124,134 110,134 
+                     C 96,134 62,156 58,151 
+                     C 54,146 66,110 62,104 
+                     C 58,98 30,73 33,68 
+                     C 36,63 74,58 81,53 
+                     C 88,48 106,20 110,20 Z" 
+                  fill="url(#starGoldGrad)" 
+                  stroke="#D97706" 
+                  stroke-width="2.5" 
+                  stroke-linejoin="round"
+                  filter="url(#starDropShadow)"
+                />
+
+                <!-- خدود النجمة الوردية الخجولة -->
+                <ellipse cx="82" cy="88" rx="8" ry="6" fill="#FB7185" opacity="0.65"/>
+                <ellipse cx="138" cy="88" rx="8" ry="6" fill="#FB7185" opacity="0.65"/>
+
+                <!-- عيون النجمة في الحالة العادية (عيون واسعة بريئة مع لموع) -->
+                <g class="star-eyes-normal" id="starEyesNormal">
+                  <circle cx="88" cy="76" r="6" fill="#1E293B"/>
+                  <circle cx="86" cy="73" r="2.2" fill="#FFFFFF"/>
+                  <circle cx="90" cy="78" r="1.1" fill="#FFFFFF"/>
+
+                  <circle cx="132" cy="76" r="6" fill="#1E293B"/>
+                  <circle cx="130" cy="73" r="2.2" fill="#FFFFFF"/>
+                  <circle cx="134" cy="78" r="1.1" fill="#FFFFFF"/>
+                </g>
+
+                <!-- عيون النجمة السعيدة (أقواس فرح بعد إطفاء الشمعة) -->
+                <g class="star-eyes-happy hidden" id="starEyesHappy">
+                  <path d="M 82,78 Q 88,71 94,78" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>
+                  <path d="M 126,78 Q 132,71 138,78" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- ابتسامة النجمة اللطيفة -->
+                <path d="M 104,84 Q 110,92 116,84" stroke="#92400E" stroke-width="2.5" fill="none" stroke-linecap="round" id="starSmilePath"/>
+
+                <!-- طبق التورتة الكريمي -->
+                <ellipse cx="110" cy="168" rx="50" ry="10" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5"/>
+                <ellipse cx="110" cy="166" rx="46" ry="8" fill="#F8FAFC"/>
+
+                <!-- جسم كيكة عيد الميلاد الكريمية -->
+                <rect x="76" y="142" width="68" height="23" rx="5" fill="url(#cakeCreamGrad)" stroke="#E5C378" stroke-width="1.5"/>
+                <!-- طبقة التزيين المتموجة الكريمية فوق الكيكة -->
+                <path d="M 76,145 Q 82,149 88,145 Q 94,149 100,145 Q 106,149 112,145 Q 118,149 124,145 Q 130,149 136,145 Q 142,149 144,145 L 144,142 L 76,142 Z" fill="#FFFBEB"/>
+
+                <!-- حبيبات السكر الملونة اللامعة على التورتة -->
+                <circle cx="85" cy="154" r="1.6" fill="#F43F5E"/>
+                <circle cx="97" cy="157" r="1.6" fill="#38BDF8"/>
+                <circle cx="112" cy="155" r="1.6" fill="#F59E0B"/>
+                <circle cx="125" cy="157" r="1.6" fill="#10B981"/>
+                <circle cx="135" cy="153" r="1.6" fill="#EC4899"/>
+
+                <!-- الوردة البمبي الأنيقة على جانب التورتة -->
+                <g class="cake-rose-decor" aria-label="وردة وردية على التورتة">
+                  <!-- ورقة شجر خضراء صغيرة -->
+                  <path d="M 139,146 Q 146,142 148,147 Q 143,150 139,146 Z" fill="#10B981"/>
+                  <!-- بتلات الوردة الوردية الغنية -->
+                  <circle cx="136" cy="144" r="4.5" fill="#F43F5E"/>
+                  <path d="M 133,143 C 133,141 138,140 139,143 C 139,146 134,146 133,143 Z" fill="#FB7185"/>
+                  <circle cx="136" cy="143.5" r="2" fill="#FDA4AF"/>
+                </g>
+
+                <!-- الشمعة الواحدة في منتصف التورتة -->
+                <rect x="107" y="118" width="6" height="24" rx="2" fill="url(#candleStripes)" stroke="#F43F5E" stroke-width="0.8"/>
+                <!-- فتيل الشمعة -->
+                <line x1="110" y1="118" x2="110" y2="113" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+
+                <!-- شعلة الشمعة المتوهجة والمتحركة -->
+                <g class="candle-flame-group" id="candleFlameGroup">
+                  <!-- وهج الهالة الدائرية المتوهجة -->
+                  <ellipse cx="110" cy="103" rx="16" ry="18" fill="url(#flameGlowAura)" class="flame-aura"/>
+                  <!-- شعلة النار الأساسية -->
+                  <path 
+                    d="M 110,91 
+                       C 114,97 116,104 113,108 
+                       C 111,111 109,111 107,108 
+                       C 104,104 106,97 110,91 Z" 
+                    fill="url(#flameCoreGrad)" 
+                    class="flame-core"
+                  />
+                  <!-- بريق أبيض في قلب الشعلة -->
+                  <ellipse cx="110" cy="105" rx="2.5" ry="4" fill="#FFFFFF" opacity="0.85"/>
+                </g>
+
+                <!-- دخان الشمعة اللطيف المتصاعد عند الإطفاء -->
+                <g class="smoke-puff-group hidden" id="smokePuffGroup" aria-hidden="true">
+                  <path d="M 110,111 C 108,106 112,102 109,97 C 106,92 111,88 108,82" stroke="rgba(255, 255, 255, 0.75)" stroke-width="2.5" fill="none" stroke-linecap="round" class="smoke-trail-1"/>
+                  <circle cx="109" cy="94" r="3.5" fill="rgba(255, 255, 255, 0.6)" class="smoke-bubble-1"/>
+                  <circle cx="112" cy="85" r="4.5" fill="rgba(255, 255, 255, 0.4)" class="smoke-bubble-2"/>
+                  <circle cx="107" cy="76" r="3" fill="rgba(255, 255, 255, 0.25)" class="smoke-bubble-3"/>
+                </g>
+
+                <!-- يدا النجمة الذهبية الصغيرتان الممسكتان بالطبق -->
+                <circle cx="72" cy="164" r="7" fill="url(#starGoldGrad)" stroke="#D97706" stroke-width="1.5"/>
+                <circle cx="148" cy="164" r="7" fill="url(#starGoldGrad)" stroke="#D97706" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ===================================================================
+               المرحلة 1 من الافتتاحية: زر سؤال الأمنية
+               =================================================================== -->
+          <div class="wish-step-box wish-step-prompt" id="wishStepPrompt">
+            <p class="wish-intro-text">عيد ميلادك نوّر الدنيا يا رفووووووق… والنجمة مستنياكي ✨</p>
+            <button type="button" class="btn-ask-wish" id="btnAskWish">
+              <span class="btn-icon">🎂</span>
+              <span class="btn-text" id="birthdayWishButtonText">يا رفووووووق، عندك أمنية؟ 🎂</span>
+            </button>
+          </div>
+
+          <!-- ===================================================================
+               المرحلة 2 من الافتتاحية: تقريب التورتة + اتمني أمنية + زر اطفي الشمعة
+               =================================================================== -->
+          <div class="wish-step-box wish-step-blow hidden" id="wishStepBlow">
+            <div class="wish-prompt-badge">
+              <span class="sparkle-icon" aria-hidden="true">✨</span>
+              <span class="wish-badge-text" id="birthdayMakeWishText">اتمنّي أمنية</span>
+              <span class="sparkle-icon" aria-hidden="true">✨</span>
+            </div>
+            <p class="wish-hint-text" id="birthdayMakeWishHint">
+              غمضي عينك للحظة، اتمني أمنية من قلبك… ودوسي تطفي الشمعة 🕯️
+            </p>
+            <button type="button" class="btn-blow-candle" id="btnBlowCandle" aria-label="اطفي الشمعة">
+              <span class="blow-wind-icon" aria-hidden="true">💨</span>
+              <span class="btn-text" id="birthdayBlowCandleButtonText">اطفي الشمعة</span>
+              <span class="blow-candle-icon" aria-hidden="true">🕯️</span>
+            </button>
+          </div>
+
+          <!-- ===================================================================
+               المرحلة 3: كارت التهنئة المكتمل وجواب عيد الميلاد (ظرف ٢٣ نوفمبر)
+               =================================================================== -->
+          <div class="celebration-content-revealed hidden" id="celebrationContentRevealed">
+            <div class="celebration-fireworks-decor" aria-hidden="true">🌹 ✨ 🎂 ✨ 🌹</div>
+            
+            <h2 class="celebration-title" id="celebrationTitle">
+              كل سنة وإنتِ طيبة يا رفووووووق ❤️
+            </h2>
+            <p class="celebration-subtitle" id="celebrationSubtitle">
+              يا رب السنة دي تضحكي فيها من قلبك كتير، وأنا أبقى جنبك في كل ضحكة
+            </p>
+            
+            <div class="celebration-date-mark">
+              <span>٢ ديسمبر ٢٠٢٦ • سنة جديدة مليانة ضحك وحب وفرحة</span>
             </div>
 
-            <div class="envelope-action-wrap">
-              <div class="envelope-title-tag">
-                <span class="star-icon">💌</span>
-                <span class="envelope-name-text">ظرف ٢٣ نوفمبر</span>
-                <span class="star-icon">💌</span>
-              </div>
-              <p class="envelope-desc">جواب حب وألبوم ذكريات اليوم اللي أبونا صلّى فيه على الدبل</p>
-              
-              <!-- زر فتح الجواب المعتمد -->
-              <button type="button" class="open-envelope-btn" id="openEnvelopeBtn">
+            <!-- زر الانتقال لجواب عيد ميلادك (ظرف ٢٣ نوفمبر) -->
+            <div class="birthday-letter-action-box">
+              <button type="button" class="open-birthday-letter-btn" id="openBirthdayLetterBtn">
                 <span class="btn-icon">💌</span>
-                <span class="btn-text">افتحي الجواب يا رفووووووق</span>
+                <span class="btn-text" id="birthdayOpenLetterBtnText">افتحي جواب عيد ميلادك</span>
+                <span class="btn-icon">🌹</span>
               </button>
             </div>
+
+            <!-- مكوّن ظرف ٢٣ نوفمبر الكريمي مع الختم الوردي الغامق والاسم «لرفووووووق» -->
+            <div class="envelope-container" id="envelopeContainer">
+              <div class="envelope-outer" id="envelopeOuter" role="button" tabindex="0" aria-label="ظرف ٢٣ نوفمبر">
+                <div class="envelope-back"></div>
+                <div class="envelope-letter-peek" id="envelopeLetterPeek">
+                  <span class="peek-rose">🌹</span>
+                </div>
+                <div class="envelope-front"></div>
+                <div class="envelope-flap" id="envelopeFlap"></div>
+                
+                <!-- الاسم المكتوب على الظرف -->
+                <div class="envelope-recipient-name">
+                  <span class="recipient-to">إلى حبيبتي:</span>
+                  <span class="recipient-name">لرفووووووق</span>
+                </div>
+
+                <!-- ختم الشمع الوردي الغامق مع القلب الصغير -->
+                <div class="envelope-seal" id="envelopeSeal" title="ختم شمع ظرف ٢٣ نوفمبر">
+                  <div class="seal-inner-ring">
+                    <span class="seal-heart">❤️</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="envelope-action-wrap">
+                <div class="envelope-title-tag">
+                  <span class="star-icon">💌</span>
+                  <span class="envelope-name-text">ظرف ٢٣ نوفمبر</span>
+                  <span class="star-icon">💌</span>
+                </div>
+                <p class="envelope-desc">جواب حب وألبوم ذكريات اليوم اللي أبونا صلّى فيه على الدبل</p>
+                
+                <!-- زر فتح الجواب المعتمد -->
+                <button type="button" class="open-envelope-btn" id="openEnvelopeBtn">
+                  <span class="btn-icon">💌</span>
+                  <span class="btn-text">افتحي الجواب يا رفووووووق</span>
+                </button>
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 
@@ -378,6 +596,38 @@
 
         </div>
       </section>
+      <!-- =====================================================================
+           قسم التسجيل الصوتي «اسمعيني» (يعمل بضغطة زر عند توفر ملف الصوت)
+           ===================================================================== -->
+      <section class="voice-note-section hidden" id="voiceNoteSection" aria-label="تسجيل صوتي">
+        <div class="voice-note-card">
+          <div class="voice-note-header">
+            <span class="voice-mic-icon" aria-hidden="true">🎙️</span>
+            <h3 class="voice-title" id="voiceNoteTitle">اسمعيني</h3>
+            <span class="voice-rose-icon" aria-hidden="true">❤️</span>
+          </div>
+          <p class="voice-subtitle" id="voiceNoteSubtitle">
+            رسالة صوتية من قلبي ليكي في عيد ميلادك ❤️
+          </p>
+          <div class="custom-audio-player">
+            <audio id="surpriseAudio" preload="none">
+              <source src="assets/audio/voice-note.mp3" type="audio/mpeg" />
+            </audio>
+            <button type="button" class="audio-control-btn" id="audioPlayBtn" aria-label="تشغيل الرسالة الصوتية">
+              <span class="play-icon" id="audioPlayIcon">▶️</span>
+              <span class="audio-btn-label" id="audioBtnLabel">تشغيل الرسالة</span>
+            </button>
+            <div class="audio-timeline-wrap">
+              <div class="audio-progress-bar" id="audioProgressBar">
+                <div class="audio-progress-fill" id="audioProgressFill"></div>
+              </div>
+              <div class="audio-time-display">
+                <span id="audioCurrentTime">0:00</span> / <span id="audioDuration">--:--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- تذييل ناعم ومريح -->
@@ -400,7 +650,9 @@
         <button type="button" id="btnTestNov25Live" class="dev-btn">عبور ليل ٢٥ نوفمبر (٣ ثوانٍ للفتح)</button>
         <button type="button" id="btnTestNov25Unlocked" class="dev-btn">بعد ٢٥ نوفمبر (ظرف الخطوبة متاح)</button>
         <button type="button" id="btnTestDec2Live" class="dev-btn">عبور ليل ٢ ديسمبر (٣ ثوانٍ للصفر)</button>
-        <button type="button" id="btnTestBirthdayActive" class="dev-btn">بعد ٢ ديسمبر (الظرفين متاحين مع العيد)</button>
+        <button type="button" id="btnTestWishPrompt" class="dev-btn">المرحلة ١: سؤال الأمنية 🎂</button>
+        <button type="button" id="btnTestWishBlow" class="dev-btn">المرحلة ٢: اتمني واطفي الشمعة 🕯️</button>
+        <button type="button" id="btnTestBirthdayActive" class="dev-btn">المرحلة ٣: ظهور التهنئة والأظرف ✨</button>
         <button type="button" id="btnTestEngagementModal" class="dev-btn">فتح ظرف الخطوبة مباشرة</button>
         <button type="button" id="btnTestNov23Modal" class="dev-btn">فتح ظرف ٢٣ نوفمبر مباشرة</button>
       </div>

@@ -81,6 +81,39 @@
     openEnvelopeBtn: document.getElementById('openEnvelopeBtn'),
     petalsContainer: document.getElementById('petalsContainer'),
 
+    // مكوّنات افتتاحية عيد الميلاد وشخصية النجمة والتورتة (المرحلة 4)
+    btnSkipAnimation: document.getElementById('btnSkipAnimation'),
+    starStageContainer: document.getElementById('starStageContainer'),
+    starCharacterWrap: document.getElementById('starCharacterWrap'),
+    starEyesNormal: document.getElementById('starEyesNormal'),
+    starEyesHappy: document.getElementById('starEyesHappy'),
+    candleFlameGroup: document.getElementById('candleFlameGroup'),
+    smokePuffGroup: document.getElementById('smokePuffGroup'),
+    wishStepPrompt: document.getElementById('wishStepPrompt'),
+    btnAskWish: document.getElementById('btnAskWish'),
+    birthdayWishButtonText: document.getElementById('birthdayWishButtonText'),
+    wishStepBlow: document.getElementById('wishStepBlow'),
+    birthdayMakeWishText: document.getElementById('birthdayMakeWishText'),
+    birthdayMakeWishHint: document.getElementById('birthdayMakeWishHint'),
+    btnBlowCandle: document.getElementById('btnBlowCandle'),
+    birthdayBlowCandleButtonText: document.getElementById('birthdayBlowCandleButtonText'),
+    celebrationContentRevealed: document.getElementById('celebrationContentRevealed'),
+    openBirthdayLetterBtn: document.getElementById('openBirthdayLetterBtn'),
+    birthdayOpenLetterBtnText: document.getElementById('birthdayOpenLetterBtnText'),
+
+    // قسم التسجيل الصوتي «اسمعيني»
+    voiceNoteSection: document.getElementById('voiceNoteSection'),
+    voiceNoteTitle: document.getElementById('voiceNoteTitle'),
+    voiceNoteSubtitle: document.getElementById('voiceNoteSubtitle'),
+    surpriseAudio: document.getElementById('surpriseAudio'),
+    audioPlayBtn: document.getElementById('audioPlayBtn'),
+    audioPlayIcon: document.getElementById('audioPlayIcon'),
+    audioBtnLabel: document.getElementById('audioBtnLabel'),
+    audioProgressBar: document.getElementById('audioProgressBar'),
+    audioProgressFill: document.getElementById('audioProgressFill'),
+    audioCurrentTime: document.getElementById('audioCurrentTime'),
+    audioDuration: document.getElementById('audioDuration'),
+
     // مكوّنات ظرف يوم خطوبتنا (مستقل)
     engagementEnvelopeSection: document.getElementById('engagementEnvelopeSection'),
     engagementCard: document.getElementById('engagementCard'),
@@ -137,6 +170,8 @@
     btnTestNov25Live: document.getElementById('btnTestNov25Live'),
     btnTestNov25Unlocked: document.getElementById('btnTestNov25Unlocked'),
     btnTestDec2Live: document.getElementById('btnTestDec2Live'),
+    btnTestWishPrompt: document.getElementById('btnTestWishPrompt'),
+    btnTestWishBlow: document.getElementById('btnTestWishBlow'),
     btnTestBirthdayActive: document.getElementById('btnTestBirthdayActive'),
     btnTestEngagementModal: document.getElementById('btnTestEngagementModal'),
     btnTestNov23Modal: document.getElementById('btnTestNov23Modal'),
@@ -152,6 +187,7 @@
   let hasTransitionedFromCountdown = false;
   let hasLaunchedPetals = false;
   let isOpeningEnvelope = false;
+  let currentWishState = 'prompt'; // 'prompt' | 'blow' | 'revealed'
 
   // الألبوم النشط في الـ Modal ('engagement' أو 'nov23')
   let activeAlbumType = 'nov23';
@@ -196,6 +232,25 @@
     }
     if (elements.celebrationSubtitle && config.birthdayCelebrationSubtitle) {
       elements.celebrationSubtitle.textContent = config.birthdayCelebrationSubtitle;
+    }
+    if (elements.birthdayWishButtonText && config.birthdayWishButtonText) {
+      elements.birthdayWishButtonText.textContent = config.birthdayWishButtonText;
+    }
+    if (elements.birthdayMakeWishText && config.birthdayMakeWishText) {
+      elements.birthdayMakeWishText.textContent = config.birthdayMakeWishText;
+    }
+    if (elements.birthdayMakeWishHint && config.birthdayMakeWishHint) {
+      elements.birthdayMakeWishHint.textContent = config.birthdayMakeWishHint;
+    }
+    if (elements.birthdayBlowCandleButtonText && config.birthdayBlowCandleButtonText) {
+      elements.birthdayBlowCandleButtonText.textContent = config.birthdayBlowCandleButtonText;
+    }
+    if (elements.birthdayOpenLetterBtnText && config.birthdayOpenLetterButtonText) {
+      elements.birthdayOpenLetterBtnText.textContent = config.birthdayOpenLetterButtonText;
+    }
+    if (elements.btnSkipAnimation && config.birthdaySkipAnimationText) {
+      const skipSpan = elements.btnSkipAnimation.querySelector('span');
+      if (skipSpan) skipSpan.textContent = config.birthdaySkipAnimationText;
     }
     if (elements.openEnvelopeBtn && config.envelope && config.envelope.buttonText) {
       const btnText = elements.openEnvelopeBtn.querySelector('.btn-text');
@@ -370,6 +425,76 @@
   }
 
   /**
+   * ضبط حالة افتتاحية عيد الميلاد والشمعة والنجمة
+   * 'prompt'   -> سؤال الأمنية
+   * 'blow'     -> تقريب التورتة + اتمني واطفي الشمعة
+   * 'revealed' -> الشمعة انطفت + التهنئة وجواب عيد الميلاد
+   */
+  function setWishState(state, animate = true) {
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldAnimate = animate && !prefersReduced;
+
+    currentWishState = state;
+
+    if (state === 'prompt') {
+      if (elements.wishStepPrompt) elements.wishStepPrompt.classList.remove('hidden');
+      if (elements.wishStepBlow) elements.wishStepBlow.classList.add('hidden');
+      if (elements.celebrationContentRevealed) elements.celebrationContentRevealed.classList.add('hidden');
+
+      if (elements.starCharacterWrap) elements.starCharacterWrap.classList.remove('is-approaching');
+      if (elements.starEyesNormal) elements.starEyesNormal.classList.remove('hidden');
+      if (elements.starEyesHappy) elements.starEyesHappy.classList.add('hidden');
+
+      if (elements.candleFlameGroup) {
+        elements.candleFlameGroup.classList.remove('is-extinguished', 'is-bright');
+        elements.candleFlameGroup.style.display = '';
+      }
+      if (elements.smokePuffGroup) {
+        elements.smokePuffGroup.classList.add('hidden');
+        elements.smokePuffGroup.classList.remove('is-rising');
+      }
+      if (elements.btnSkipAnimation) elements.btnSkipAnimation.style.display = '';
+    } else if (state === 'blow') {
+      if (elements.starCharacterWrap) elements.starCharacterWrap.classList.add('is-approaching');
+      if (elements.candleFlameGroup) elements.candleFlameGroup.classList.add('is-bright');
+
+      if (elements.wishStepPrompt) elements.wishStepPrompt.classList.add('hidden');
+      if (elements.wishStepBlow) elements.wishStepBlow.classList.remove('hidden');
+      if (elements.celebrationContentRevealed) elements.celebrationContentRevealed.classList.add('hidden');
+      if (elements.btnSkipAnimation) elements.btnSkipAnimation.style.display = '';
+    } else if (state === 'revealed') {
+      if (elements.wishStepPrompt) elements.wishStepPrompt.classList.add('hidden');
+      if (elements.wishStepBlow) elements.wishStepBlow.classList.add('hidden');
+      if (elements.celebrationContentRevealed) elements.celebrationContentRevealed.classList.remove('hidden');
+
+      if (elements.starEyesNormal) elements.starEyesNormal.classList.add('hidden');
+      if (elements.starEyesHappy) elements.starEyesHappy.classList.remove('hidden');
+
+      if (elements.candleFlameGroup) {
+        if (shouldAnimate) {
+          elements.candleFlameGroup.classList.add('is-extinguished');
+        } else {
+          elements.candleFlameGroup.style.display = 'none';
+        }
+      }
+
+      if (elements.smokePuffGroup && shouldAnimate) {
+        elements.smokePuffGroup.classList.remove('hidden');
+        elements.smokePuffGroup.classList.add('is-rising');
+        setTimeout(() => {
+          if (elements.smokePuffGroup) elements.smokePuffGroup.classList.add('hidden');
+        }, 1600);
+      }
+
+      if (shouldAnimate) {
+        launchRosePetals();
+      }
+
+      if (elements.btnSkipAnimation) elements.btnSkipAnimation.style.display = 'none';
+    }
+  }
+
+  /**
    * تفعيل حالة الاحتفال عند الصفر في ٢ ديسمبر (مع بقاء ظرف الخطوبة متاحاً)
    */
   function triggerCelebration(animate = false) {
@@ -397,6 +522,14 @@
       }
     }
 
+    // فحص تقليل الحركة
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      setWishState('revealed', false);
+    } else {
+      setWishState(currentWishState || 'prompt', animate);
+    }
+
     // التأكد التام من أن ظرف الخطوبة يظل متاحاً
     unlockEngagementEnvelope(false);
 
@@ -410,6 +543,7 @@
     isCelebrationActive = false;
     hasTransitionedFromCountdown = false;
     isOpeningEnvelope = false;
+    currentWishState = 'prompt';
 
     if (elements.timerGrid) {
       elements.timerGrid.classList.remove('zero-pulse');
@@ -427,6 +561,8 @@
       elements.celebrationSection.classList.add('hidden');
     }
 
+    setWishState('prompt', false);
+
     if (elements.envelopeOuter) {
       elements.envelopeOuter.classList.remove('is-open', 'is-breaking-seal');
     }
@@ -443,7 +579,7 @@
   }
 
   /**
-   * إعداد أحداث فتح الظرفين (ظرف الخطوبة وظرف ٢٣ نوفمبر)
+   * إعداد أحداث فتح الظرفين (ظرف الخطوبة وظرف ٢٣ نوفمبر) وتدفق الأمنية والشمعة
    */
   function setupEnvelopeEvents() {
     // -------------------------------------------------------------
@@ -554,6 +690,30 @@
           e.preventDefault();
           executeOpenNov23Sequence();
         }
+      });
+    }
+
+    // زر «افتحي جواب عيد ميلادك» يقود مباشرة لنفس ظرف وجواب ٢٣ نوفمبر
+    if (elements.openBirthdayLetterBtn) {
+      elements.openBirthdayLetterBtn.addEventListener('click', executeOpenNov23Sequence);
+    }
+
+    // ربط أحداث تدفق الشمعة والأمنية
+    if (elements.btnAskWish) {
+      elements.btnAskWish.addEventListener('click', () => {
+        setWishState('blow', true);
+      });
+    }
+
+    if (elements.btnBlowCandle) {
+      elements.btnBlowCandle.addEventListener('click', () => {
+        setWishState('revealed', true);
+      });
+    }
+
+    if (elements.btnSkipAnimation) {
+      elements.btnSkipAnimation.addEventListener('click', () => {
+        setWishState('revealed', false);
       });
     }
   }
@@ -1001,6 +1161,79 @@
   }
 
   /**
+   * إعداد قسم التسجيل الصوتي «اسمعيني»
+   * يعمل بضغطة زر عند توفر ملف الصوت، ويظل مكتوماً وخاملاً إن لم يتوفر
+   */
+  function setupAudioNote() {
+    const audioCfg = config.audioNote;
+    if (!audioCfg || !audioCfg.enabled) {
+      if (elements.voiceNoteSection) elements.voiceNoteSection.classList.add('hidden');
+      return;
+    }
+
+    if (elements.voiceNoteSection) elements.voiceNoteSection.classList.remove('hidden');
+    if (elements.voiceNoteTitle && audioCfg.title) elements.voiceNoteTitle.textContent = audioCfg.title;
+    if (elements.voiceNoteSubtitle && audioCfg.subtitle) elements.voiceNoteSubtitle.textContent = audioCfg.subtitle;
+
+    if (!elements.surpriseAudio || !elements.audioPlayBtn) return;
+
+    if (audioCfg.src) {
+      elements.surpriseAudio.src = audioCfg.src;
+    }
+
+    elements.audioPlayBtn.addEventListener('click', () => {
+      if (elements.surpriseAudio.paused) {
+        const playPromise = elements.surpriseAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            if (elements.audioPlayIcon) elements.audioPlayIcon.textContent = '⏸️';
+            if (elements.audioBtnLabel) elements.audioBtnLabel.textContent = 'إيقاف مؤقت';
+          }).catch(err => {
+            console.warn('Audio play request handled:', err);
+          });
+        }
+      } else {
+        elements.surpriseAudio.pause();
+        if (elements.audioPlayIcon) elements.audioPlayIcon.textContent = '▶️';
+        if (elements.audioBtnLabel) elements.audioBtnLabel.textContent = 'تشغيل الرسالة';
+      }
+    });
+
+    elements.surpriseAudio.addEventListener('timeupdate', () => {
+      if (!elements.surpriseAudio.duration) return;
+      const progress = (elements.surpriseAudio.currentTime / elements.surpriseAudio.duration) * 100;
+      if (elements.audioProgressFill) elements.audioProgressFill.style.width = `${progress}%`;
+      if (elements.audioCurrentTime) elements.audioCurrentTime.textContent = formatAudioTime(elements.surpriseAudio.currentTime);
+    });
+
+    elements.surpriseAudio.addEventListener('loadedmetadata', () => {
+      if (elements.audioDuration) elements.audioDuration.textContent = formatAudioTime(elements.surpriseAudio.duration);
+    });
+
+    elements.surpriseAudio.addEventListener('ended', () => {
+      if (elements.audioPlayIcon) elements.audioPlayIcon.textContent = '▶️';
+      if (elements.audioBtnLabel) elements.audioBtnLabel.textContent = 'إعادة التشغيل';
+      if (elements.audioProgressFill) elements.audioProgressFill.style.width = '100%';
+    });
+
+    if (elements.audioProgressBar) {
+      elements.audioProgressBar.addEventListener('click', (e) => {
+        if (!elements.surpriseAudio.duration) return;
+        const rect = elements.audioProgressBar.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        elements.surpriseAudio.currentTime = Math.max(0, Math.min(pos * elements.surpriseAudio.duration, elements.surpriseAudio.duration));
+      });
+    }
+  }
+
+  function formatAudioTime(secs) {
+    if (isNaN(secs) || secs < 0) return '0:00';
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+
+  /**
    * فحص معلمات الرابط (?test=...) للتحكم في الحالات للاختبار المؤتمت
    */
   function handleUrlOverrides() {
@@ -1037,11 +1270,27 @@
       simulatedBirthdayTime = Date.now() + 3000;
       if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة عبور ليل ٢ ديسمبر بعد ٣ ثوانٍ";
       setActiveDevButton(elements.btnTestDec2Live);
-    } else if (testMode === 'after_dec2' || testMode === 'zero' || testMode === 'celebration') {
-      // محاكاة عيد الميلاد
+    } else if (testMode === 'wish_prompt' || testMode === 'step1') {
       simulatedEngagementTime = Date.now() - 2000;
       simulatedBirthdayTime = Date.now() - 1000;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢ ديسمبر (عيد الميلاد والظرفين متاحين)";
+      triggerCelebration(false);
+      setWishState('prompt', false);
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: المرحلة ١ (سؤال الأمنية 🎂)";
+      setActiveDevButton(elements.btnTestWishPrompt);
+    } else if (testMode === 'wish_blow' || testMode === 'step2') {
+      simulatedEngagementTime = Date.now() - 2000;
+      simulatedBirthdayTime = Date.now() - 1000;
+      triggerCelebration(false);
+      setWishState('blow', false);
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: المرحلة ٢ (اتمني واطفي الشمعة 🕯️)";
+      setActiveDevButton(elements.btnTestWishBlow);
+    } else if (testMode === 'after_dec2' || testMode === 'zero' || testMode === 'celebration' || testMode === 'birthday_revealed' || testMode === 'step3') {
+      // محاكاة عيد الميلاد والمرحلة الثالثة
+      simulatedEngagementTime = Date.now() - 2000;
+      simulatedBirthdayTime = Date.now() - 1000;
+      triggerCelebration(false);
+      setWishState('revealed', false);
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢ ديسمبر (المرحلة ٣: ظهور التهنئة والأظرف)";
       setActiveDevButton(elements.btnTestBirthdayActive);
     } else if (testMode === 'open_engagement' || testMode === 'engagement') {
       simulatedEngagementTime = Date.now() - 1000;
@@ -1115,13 +1364,36 @@
       });
     }
 
+    if (elements.btnTestWishPrompt) {
+      elements.btnTestWishPrompt.addEventListener('click', () => {
+        simulatedEngagementTime = Date.now() - 2000;
+        simulatedBirthdayTime = Date.now() - 1000;
+        setActiveDevButton(elements.btnTestWishPrompt);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: المرحلة ١ (سؤال الأمنية 🎂)";
+        triggerCelebration(false);
+        setWishState('prompt', false);
+      });
+    }
+
+    if (elements.btnTestWishBlow) {
+      elements.btnTestWishBlow.addEventListener('click', () => {
+        simulatedEngagementTime = Date.now() - 2000;
+        simulatedBirthdayTime = Date.now() - 1000;
+        setActiveDevButton(elements.btnTestWishBlow);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: المرحلة ٢ (اتمني واطفي الشمعة 🕯️)";
+        triggerCelebration(false);
+        setWishState('blow', false);
+      });
+    }
+
     if (elements.btnTestBirthdayActive) {
       elements.btnTestBirthdayActive.addEventListener('click', () => {
         simulatedEngagementTime = Date.now() - 2000;
         simulatedBirthdayTime = Date.now() - 1000;
         setActiveDevButton(elements.btnTestBirthdayActive);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢ ديسمبر (عيد الميلاد والظرفين متاحين)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢ ديسمبر (المرحلة ٣: ظهور التهنئة والأظرف)";
         triggerCelebration(true);
+        setWishState('revealed', false);
       });
     }
 
@@ -1152,6 +1424,8 @@
       elements.btnTestNov25Live,
       elements.btnTestNov25Unlocked,
       elements.btnTestDec2Live,
+      elements.btnTestWishPrompt,
+      elements.btnTestWishBlow,
       elements.btnTestBirthdayActive,
       elements.btnTestEngagementModal,
       elements.btnTestNov23Modal
@@ -1169,6 +1443,7 @@
     applyConfiguration();
     setupEnvelopeEvents();
     setupAlbumEvents();
+    setupAudioNote();
     handleUrlOverrides();
     setupDevPanel();
     initSparklesCanvas();
