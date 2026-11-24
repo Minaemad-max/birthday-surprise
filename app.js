@@ -12,7 +12,8 @@
 
   // التحقق من وجود ملف الإعدادات
   const config = typeof BIRTHDAY_CONFIG !== 'undefined' ? BIRTHDAY_CONFIG : {
-    engagementDateCairo: "2026-11-25T00:00:00+02:00",
+    outingDateCairo: "2026-11-25T00:00:00+02:00",
+    engagementDateCairo: "2026-11-27T00:00:00+02:00",
     targetDateCairo: "2026-12-02T00:00:00+02:00",
     title: "يا رفووووووق ❤️",
     subtitle: "فاضل شوية على عيد ميلادك… وقبل ما ييجي، عايز أرجع معاكي ليوم بحبه أوي",
@@ -21,25 +22,37 @@
     birthdayCelebrationTitle: "كل سنة وإنتِ طيبة يا رفووووووق ❤️",
     birthdayCelebrationSubtitle: "يا رب كل سنة وإحنا سوا وفي حضن بعض، ودايمًا منورة حياتي ومفرّحة قلبي 💍✨",
     heroImage: "assets/images/hero-selfie-rings.jpg",
+    outingEnvelope: {
+      name: "ظرف ٢٥ مايو",
+      lockedText: "يتفتح يوم ٢٥ مايو",
+      buttonText: "افتحي ظرف ٢٥ مايو",
+      subtitle: "يوم ما حضرنا فرح مارتين صحبتنا… أول خروجة لينا وإحنا مخطوبين وأول مرة أمسك إيدك 🌹✨",
+      letterDedication: "يا رفووووووق، يوم ٢٥ مايو ده كان يوم فرح مارتين صحبتنا، أول خروجة نخرجها سوا وإحنا مخطوبين قدام الكل… وأول مرة أتشجع وأمسك إيدك فيها. ومن ساعتها وإيدي مش عايزة تسيب إيدك أبدًا ❤️",
+      closingMessage: "أحلى صدفة وأجمل بداية خروجاتنا سوا… وكل لحظة معاكي بتفرّح قلبي وتخليني أسعد إنسان. بحبك يا رفووووووق ❤️",
+      signature: "بحبك 🌹"
+    },
+    outingPhotos: [
+      { id: 1, title: "أول خروجة لينا وإحنا مخطوبين", caption: "يوم فرح مارتين صحبتنا… أول خروجة لينا وإحنا مخطوبين، وأول مرة أمسك إيدك ❤️", src: "assets/images/may25-outing.jpg", isGroupPhoto: false, dateBadge: "٢٥ مايو" }
+    ],
     engagementEnvelope: {
       name: "يوم خطوبتنا",
-      lockedText: "يتفتح يوم ٢٥ مايو",
+      lockedText: "يتفتح يوم ٢٧ مايو",
       buttonText: "افتحي ظرف الخطوبة",
       subtitle: "ألبوم ذكريات اليوم اللي لبسنا فيه الدبل وشاركنا أحلى فرحة سوا 💍✨",
-      letterDedication: "يا رفووووووق، يوم ٢٥ مايو مش مجرد تاريخ، ده اليوم اللي لبسنا فيه دبل بعض ووعدنا بعض نكمل العمر سوا 💍❤️",
+      letterDedication: "يا رفووووووق، يوم ٢٧ مايو مش مجرد تاريخ، ده اليوم اللي بدأنا فيه حكايتنا رسمي ولبسنا دبل بعض ووعدنا بعض نكمل العمر سوا 💍❤️",
       closingMessage: "أحلى خطوبة وأجمل بداية… وكل لحظة معاكي بتأكدلي إني اخترت صح. بحبك يا رفووووووق ❤️",
-      signature: "بحبك"
+      signature: "بحبك 🌹"
     },
     engagementPhotos: [
-      { id: 1, title: "أحلى ليلة خطوبة", caption: "يوم خطوبتنا… اليوم اللي بدأنا فيه حكايتنا رسمي ولبسنا دبل بعض قدام الكل 💍💐", src: "assets/images/engagement-photo-1.jpg", isGroupPhoto: false, dateBadge: "٢٥ مايو" }
+      { id: 1, title: "أحلى ليلة خطوبة", caption: "يوم خطوبتنا… اليوم اللي بدأنا فيه حكايتنا رسمي ولبسنا دبل بعض قدام الكل 💍💐", src: "assets/images/engagement-photo-1.jpg", isGroupPhoto: false, dateBadge: "٢٧ مايو" }
     ],
     envelope: {
       name: "ظرف ٢٣ مايو",
-      buttonText: "افتحي الجواب يا رفووووووق",
+      buttonText: "افتحي جواب عيد ميلادك",
       subtitle: "ألبوم ذكريات يوم صلاة الدبل وأول ديت سوا",
       letterDedication: "يا رفووووووق، لو هختار يوم أعيشه معاكي تاني، يوم ٢٣ مايو هييجي في بالي على طول. ❤️",
       closingMessage: "يوم ٢٣ مايو كان حلو أوي عشان كنت معاكي… وكل سنة وإنتِ حبيبتي يا رفووووووق ❤️",
-      signature: "بحبك"
+      signature: "بحبك 🌹"
     },
     albumPhotos: [
       { id: 1, title: "الصورة الجماعية مع أبونا", caption: "يوم ما أبونا صلّى على الدبل", src: "assets/images/photo-4-group-father.jpg", isGroupPhoto: true, dateBadge: "٢٣ مايو" }
@@ -114,7 +127,20 @@
     audioCurrentTime: document.getElementById('audioCurrentTime'),
     audioDuration: document.getElementById('audioDuration'),
 
-    // مكوّنات ظرف يوم خطوبتنا (مستقل)
+    // مكوّنات ظرف أول خروجة وفرح مارتين (٢٥ مايو)
+    outingEnvelopeSection: document.getElementById('outingEnvelopeSection'),
+    outingCard: document.getElementById('outingCard'),
+    outingEnvelopeContainer: document.getElementById('outingEnvelopeContainer'),
+    outingEnvelopeOuter: document.getElementById('outingEnvelopeOuter'),
+    outingEnvelopeFlap: document.getElementById('outingEnvelopeFlap'),
+    outingEnvelopeSeal: document.getElementById('outingEnvelopeSeal'),
+    outingLockedBadge: document.getElementById('outingLockedBadge'),
+    outingLockedText: document.getElementById('outingLockedText'),
+    openOutingBtn: document.getElementById('openOutingBtn'),
+    outingStatusDesc: document.getElementById('outingStatusDesc'),
+    outingSectionSubtitle: document.getElementById('outingSectionSubtitle'),
+
+    // مكوّنات ظرف يوم خطوبتنا (٢٧ مايو)
     engagementEnvelopeSection: document.getElementById('engagementEnvelopeSection'),
     engagementCard: document.getElementById('engagementCard'),
     engagementEnvelopeContainer: document.getElementById('engagementEnvelopeContainer'),
@@ -168,11 +194,13 @@
     devToggleBtn: document.getElementById('devToggleBtn'),
     btnTestNormal: document.getElementById('btnTestNormal'),
     btnTestNov25Live: document.getElementById('btnTestNov25Live'),
-    btnTestNov25Unlocked: document.getElementById('btnTestNov25Unlocked'),
+    btnTestMay25Unlocked: document.getElementById('btnTestMay25Unlocked'),
+    btnTestMay27Unlocked: document.getElementById('btnTestMay27Unlocked'),
     btnTestDec2Live: document.getElementById('btnTestDec2Live'),
     btnTestWishPrompt: document.getElementById('btnTestWishPrompt'),
     btnTestWishBlow: document.getElementById('btnTestWishBlow'),
     btnTestBirthdayActive: document.getElementById('btnTestBirthdayActive'),
+    btnTestOutingModal: document.getElementById('btnTestOutingModal'),
     btnTestEngagementModal: document.getElementById('btnTestEngagementModal'),
     btnTestNov23Modal: document.getElementById('btnTestNov23Modal'),
     devStatusText: document.getElementById('devStatusText')
@@ -183,7 +211,9 @@
   let simulatedBirthdayTime = null;
   let simulatedEngagementTime = null;
   let isCelebrationActive = false;
+  let isOutingUnlocked = false;
   let isEngagementUnlocked = false;
+  let simulatedOutingTime = null;
   let hasTransitionedFromCountdown = false;
   let hasLaunchedPetals = false;
   let isOpeningEnvelope = false;
@@ -297,14 +327,34 @@
   }
 
   /**
-   * حساب حالة موعد فتح ظرف الخطوبة (٢٥ مايو ٢٠٢٦ بتوقيت رفووووووووووق)
+   * حساب حالة موعد فتح ظرف أول خروجة - فرح مارتين (٢٥ مايو ٢٠٢٦ بتوقيت رفووووووووووق)
+   */
+  function getRemainingOutingTime() {
+    let targetMs;
+    if (simulatedOutingTime !== null) {
+      targetMs = simulatedOutingTime;
+    } else {
+      targetMs = new Date(config.outingDateCairo || "2026-11-25T00:00:00+02:00").getTime();
+    }
+
+    const nowMs = Date.now();
+    const diffMs = targetMs - nowMs;
+
+    if (diffMs <= 0) {
+      return { total: 0, isZero: true };
+    }
+    return { total: diffMs, isZero: false };
+  }
+
+  /**
+   * حساب حالة موعد فتح ظرف الخطوبة (٢٧ مايو ٢٠٢٦ بتوقيت رفووووووووووق)
    */
   function getRemainingEngagementTime() {
     let targetMs;
     if (simulatedEngagementTime !== null) {
       targetMs = simulatedEngagementTime;
     } else {
-      targetMs = new Date(config.engagementDateCairo).getTime();
+      targetMs = new Date(config.engagementDateCairo || "2026-11-27T00:00:00+02:00").getTime();
     }
 
     const nowMs = Date.now();
@@ -321,8 +371,59 @@
   }
 
   /**
-   * تحديث حالة ظرف الخطوبة (مغلق قبل ٢٥ مايو / متاح بعدها)
-   * يتم استدعاؤها مع كل ثانية لتوفير الانتقال التلقائي إذا كانت الصفحة مفتوحة عند منتصف الليل
+   * تحديث حالة ظرف أول خروجة - فرح مارتين (٢٥ مايو)
+   */
+  function updateOutingEnvelopeState() {
+    const outingTime = getRemainingOutingTime();
+
+    if (outingTime.isZero) {
+      if (!isOutingUnlocked) {
+        isOutingUnlocked = true;
+        unlockOutingEnvelope(true);
+      }
+    } else {
+      if (isOutingUnlocked) {
+        isOutingUnlocked = false;
+      }
+      lockOutingEnvelope();
+    }
+  }
+
+  function unlockOutingEnvelope(animate = false) {
+    if (elements.outingLockedBadge) {
+      elements.outingLockedBadge.classList.add('hidden');
+    }
+    if (elements.openOutingBtn) {
+      elements.openOutingBtn.classList.remove('hidden');
+    }
+    if (elements.outingStatusDesc) {
+      elements.outingStatusDesc.textContent = "جاهز للفتح الآن! اضغطي لفتح ألبوم ذكريات أول خروجة لينا وفرح مارتين 🌹✨";
+    }
+    if (elements.outingEnvelopeOuter) {
+      elements.outingEnvelopeOuter.classList.remove('is-locked');
+      elements.outingEnvelopeOuter.setAttribute('title', 'اضغطي لفتح ظرف ٢٥ مايو');
+    }
+  }
+
+  function lockOutingEnvelope() {
+    if (elements.outingLockedBadge) {
+      elements.outingLockedBadge.classList.remove('hidden');
+    }
+    if (elements.openOutingBtn) {
+      elements.openOutingBtn.classList.add('hidden');
+    }
+    if (elements.outingStatusDesc) {
+      elements.outingStatusDesc.textContent = "ظرف خاص بذكرى فرح مارتين وأول خروجة لينا… هيتفتح تلقائيًا مع بداية يوم ٢٥ مايو";
+    }
+    if (elements.outingEnvelopeOuter) {
+      elements.outingEnvelopeOuter.classList.add('is-locked');
+      elements.outingEnvelopeOuter.classList.remove('is-open', 'is-breaking-seal');
+      elements.outingEnvelopeOuter.setAttribute('title', 'يتفتح يوم ٢٥ مايو');
+    }
+  }
+
+  /**
+   * تحديث حالة ظرف الخطوبة (مغلق قبل ٢٧ مايو / متاح بعدها)
    */
   function updateEngagementEnvelopeState() {
     const engagementTime = getRemainingEngagementTime();
@@ -334,7 +435,7 @@
         unlockEngagementEnvelope(true);
       }
     } else {
-      // قبل ٢٥ مايو: قفل الظرف وإظهار الشارة المعتمدة
+      // قبل ٢٧ مايو: قفل الظرف وإظهار الشارة المعتمدة
       if (isEngagementUnlocked) {
         isEngagementUnlocked = false;
       }
@@ -362,7 +463,7 @@
   }
 
   /**
-   * قفل ظرف الخطوبة وإظهار شارة «يتفتح يوم ٢٥ مايو»
+   * قفل ظرف الخطوبة وإظهار شارة «يتفتح يوم ٢٧ مايو»
    */
   function lockEngagementEnvelope() {
     if (elements.engagementLockedBadge) {
@@ -372,12 +473,12 @@
       elements.openEngagementBtn.classList.add('hidden');
     }
     if (elements.engagementStatusDesc) {
-      elements.engagementStatusDesc.textContent = "ظرف خاص بذكرى يوم خطوبتنا… هيتفتح تلقائيًا مع بداية يوم ٢٥ مايو";
+      elements.engagementStatusDesc.textContent = "ظرف خاص بذكرى يوم خطوبتنا… هيتفتح تلقائيًا مع بداية يوم ٢٧ مايو";
     }
     if (elements.engagementEnvelopeOuter) {
       elements.engagementEnvelopeOuter.classList.add('is-locked');
       elements.engagementEnvelopeOuter.classList.remove('is-open', 'is-breaking-seal');
-      elements.engagementEnvelopeOuter.setAttribute('title', 'يتفتح يوم ٢٥ مايو');
+      elements.engagementEnvelopeOuter.setAttribute('title', 'يتفتح يوم ٢٧ مايو');
     }
   }
 
@@ -387,7 +488,8 @@
   function updateCountdownDisplay() {
     const time = getRemainingBirthdayTime();
 
-    // تحديث ظرف الخطوبة دائماً
+    // تحديث ظرفي أول خروجة ويوم الخطوبة دائماً
+    updateOutingEnvelopeState();
     updateEngagementEnvelopeState();
 
     if (time.isZero) {
@@ -578,7 +680,65 @@
    */
   function setupEnvelopeEvents() {
     // -------------------------------------------------------------
-    // ١. حدث فتح ظرف يوم خطوبتنا (مستقل)
+    // ٠. حدث فتح ظرف أول خروجة - فرح مارتين (٢٥ مايو)
+    // -------------------------------------------------------------
+    function executeOpenOutingSequence() {
+      if (!isOutingUnlocked) {
+        return;
+      }
+      if (isOpeningEnvelope) return;
+      isOpeningEnvelope = true;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReduced) {
+        if (elements.outingEnvelopeOuter) {
+          elements.outingEnvelopeOuter.classList.add('is-open');
+        }
+        openAlbumModal('outing', 0);
+        isOpeningEnvelope = false;
+        return;
+      }
+
+      if (elements.outingEnvelopeOuter) {
+        elements.outingEnvelopeOuter.classList.add('is-breaking-seal');
+      }
+
+      setTimeout(() => {
+        if (elements.outingEnvelopeOuter) {
+          elements.outingEnvelopeOuter.classList.add('is-open');
+        }
+      }, 200);
+
+      setTimeout(() => {
+        launchRosePetals();
+      }, 350);
+
+      setTimeout(() => {
+        openAlbumModal('outing', 0);
+        isOpeningEnvelope = false;
+      }, 650);
+    }
+
+    if (elements.openOutingBtn) {
+      elements.openOutingBtn.addEventListener('click', executeOpenOutingSequence);
+    }
+    if (elements.outingEnvelopeOuter) {
+      elements.outingEnvelopeOuter.addEventListener('click', () => {
+        if (isOutingUnlocked) {
+          executeOpenOutingSequence();
+        }
+      });
+      elements.outingEnvelopeOuter.addEventListener('keydown', (e) => {
+        if (isOutingUnlocked && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          executeOpenOutingSequence();
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // ١. حدث فتح ظرف يوم خطوبتنا (مستقل - ٢٧ مايو)
     // -------------------------------------------------------------
     function executeOpenEngagementSequence() {
       // إذا كان الظرف مغلقاً لم يحن موعده، لا يفتح
@@ -760,6 +920,9 @@
    * جلب مصفوفة الصور للألبوم النشط
    */
   function getActivePhotos() {
+    if (activeAlbumType === 'outing') {
+      return config.outingPhotos || [];
+    }
     if (activeAlbumType === 'engagement') {
       return config.engagementPhotos || [];
     }
@@ -802,7 +965,29 @@
     const isSinglePhoto = photos.length <= 1;
 
     // ضبط نصوص وتفاصيل الـ Modal حسب نوع الظرف
-    if (albumType === 'engagement') {
+    if (albumType === 'outing') {
+      const env = config.outingEnvelope || {};
+      if (elements.albumModalHeaderTag) elements.albumModalHeaderTag.textContent = "🌹 أول خروجة لينا (فرح مارتين)";
+      if (elements.albumStampIcon) elements.albumStampIcon.innerHTML = '<span class="rose-emoji">🌹</span>';
+      if (elements.letterDedicationQuote) {
+        elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+      }
+      if (elements.albumScrollPromptText) {
+        elements.albumScrollPromptText.innerHTML = '<span class="prompt-text">صورة أول خروجة لينا وفرح مارتين المطبوعة جوا الجواب</span><span class="prompt-arrow">↓</span>';
+      }
+      if (elements.albumPhotoTitleHint) {
+        elements.albumPhotoTitleHint.textContent = "ذكرى أول خروجة لينا";
+      }
+      if (elements.albumDateBadgeText) {
+        elements.albumDateBadgeText.textContent = "٢٥ مايو";
+      }
+      if (elements.albumClosingMsg) {
+        elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
+      }
+      if (elements.albumSignatureText) {
+        elements.albumSignatureText.textContent = env.signature || "بحبك 🌹";
+      }
+    } else if (albumType === 'engagement') {
       const env = config.engagementEnvelope || {};
       if (elements.albumModalHeaderTag) elements.albumModalHeaderTag.textContent = "💍 ظرف يوم خطوبتنا";
       if (elements.albumStampIcon) elements.albumStampIcon.innerHTML = '<span class="rose-emoji">💍</span>';
@@ -810,15 +995,13 @@
         elements.letterDedicationQuote.textContent = `«${(env.letterDedication || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
       }
       if (elements.albumScrollPromptText) {
-        elements.albumScrollPromptText.innerHTML = isSinglePhoto
-          ? '<span class="prompt-text">صورة يوم خطوبتنا المطبوعة جوا الجواب</span><span class="prompt-arrow">↓</span>'
-          : '<span class="prompt-text">صور الخطوبة مطبوعة جوا الظرف… اقلبي وشوفيها واحدة واحدة</span><span class="prompt-arrow">↓</span>';
+        elements.albumScrollPromptText.innerHTML = '<span class="prompt-text">صورة يوم خطوبتنا المطبوعة جوا الجواب</span><span class="prompt-arrow">↓</span>';
       }
       if (elements.albumPhotoTitleHint) {
         elements.albumPhotoTitleHint.textContent = "ذكرى ليلة خطوبتنا";
       }
       if (elements.albumDateBadgeText) {
-        elements.albumDateBadgeText.textContent = "٢٥ مايو";
+        elements.albumDateBadgeText.textContent = "٢٧ مايو";
       }
       if (elements.albumClosingMsg) {
         elements.albumClosingMsg.textContent = `«${(env.closingMessage || '').replace(/^[«»\s]+|[«»\s]+$/g, '')}»`;
@@ -907,7 +1090,7 @@
     }
 
     if (elements.albumDateBadgeText) {
-      elements.albumDateBadgeText.textContent = photo.dateBadge || (activeAlbumType === 'engagement' ? "٢٥ مايو" : "٢٣ مايو");
+      elements.albumDateBadgeText.textContent = photo.dateBadge || (activeAlbumType === 'engagement' === "outing" ? "٢٥ مايو" : (activeAlbumType === "engagement" ? "٢٧ مايو" : "٢٣ مايو"));
     }
 
     // تخصيص العرض للصورة الجماعية لظهور كل الأشخاص
@@ -1242,23 +1425,36 @@
     const params = new URLSearchParams(window.location.search);
     const testMode = params.get('test') || params.get('preview') || params.get('state');
 
-    if (testMode === 'normal' || testMode === 'before_nov25') {
+    if (testMode === 'normal' || testMode === 'before_nov25' || testMode === 'before_may25') {
       simulatedBirthdayTime = null;
+      simulatedOutingTime = null;
       simulatedEngagementTime = null;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ مايو)";
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (الظرفان مقفولان)";
       setActiveDevButton(elements.btnTestNormal);
     } else if (testMode === 'nov25_live') {
-      // تجربة عبور ليل ٢٥ مايو بعد ٣ ثوانٍ
-      simulatedEngagementTime = Date.now() + 3000;
+      simulatedOutingTime = Date.now() + 3000;
+      simulatedEngagementTime = Date.now() + 600000;
       simulatedBirthdayTime = Date.now() + 600000;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: تجربة عبور منتصف ليل ٢٥ مايو بعد ٣ ثوانٍ";
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: عبور ليل ٢٥ مايو (٣ ثوانٍ لفتح ظرف ٢٥)";
       setActiveDevButton(elements.btnTestNov25Live);
-    } else if (testMode === 'nov25_unlocked' || testMode === 'after_nov25') {
-      // محاكاة ما بعد ٢٥ مايو وقبل ٢ ديسمبر
+    } else if (testMode === 'after_may25' || testMode === 'after_nov25' || testMode === 'nov25_unlocked') {
+      simulatedOutingTime = Date.now() - 1000;
+      simulatedEngagementTime = Date.now() + 600000;
+      simulatedBirthdayTime = Date.now() + 600000;
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ مايو (ظرف ٢٥ متاح، وظرف ٢٧ مقفول)";
+      setActiveDevButton(elements.btnTestMay25Unlocked);
+    } else if (testMode === 'after_may27' || testMode === 'after_nov27') {
+      simulatedOutingTime = Date.now() - 2000;
       simulatedEngagementTime = Date.now() - 1000;
       simulatedBirthdayTime = Date.now() + 600000;
-      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ مايو (ظرف الخطوبة متاح والعدّاد يعمل)";
-      setActiveDevButton(elements.btnTestNov25Unlocked);
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٧ مايو (الظرفان متاحان)";
+      setActiveDevButton(elements.btnTestMay27Unlocked);
+    } else if (testMode === 'open_outing' || testMode === 'outing') {
+      simulatedOutingTime = Date.now() - 1000;
+      unlockOutingEnvelope(false);
+      openAlbumModal('outing', 0);
+      if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: ظرف ٢٥ مايو مفتوح مباشرة";
+      setActiveDevButton(elements.btnTestOutingModal);
     } else if (testMode === 'dec2_live' || testMode === '3s') {
       // تجربة عبور ليل ٢ ديسمبر بعد ٣ ثوانٍ
       simulatedEngagementTime = Date.now() - 1000;
@@ -1322,30 +1518,54 @@
     if (elements.btnTestNormal) {
       elements.btnTestNormal.addEventListener('click', () => {
         simulatedBirthdayTime = null;
+        simulatedOutingTime = null;
         simulatedEngagementTime = null;
         setActiveDevButton(elements.btnTestNormal);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (قبل ٢٥ مايو - مقفول)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: التوقيت الفعلي (الظرفان مقفولان)";
         resetToCountdown();
       });
     }
 
     if (elements.btnTestNov25Live) {
       elements.btnTestNov25Live.addEventListener('click', () => {
-        simulatedEngagementTime = Date.now() + 3000;
+        simulatedOutingTime = Date.now() + 3000;
+        simulatedEngagementTime = Date.now() + 600000;
         simulatedBirthdayTime = Date.now() + 600000;
         setActiveDevButton(elements.btnTestNov25Live);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: عبور ليل ٢٥ مايو (٣ ثوانٍ للفتح التلقائي)";
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: عبور ليل ٢٥ مايو (٣ ثوانٍ لفتح ظرف ٢٥)";
         resetToCountdown();
       });
     }
 
-    if (elements.btnTestNov25Unlocked) {
-      elements.btnTestNov25Unlocked.addEventListener('click', () => {
+    if (elements.btnTestMay25Unlocked) {
+      elements.btnTestMay25Unlocked.addEventListener('click', () => {
+        simulatedOutingTime = Date.now() - 1000;
+        simulatedEngagementTime = Date.now() + 600000;
+        simulatedBirthdayTime = Date.now() + 600000;
+        setActiveDevButton(elements.btnTestMay25Unlocked);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ مايو (ظرف ٢٥ متاح، وظرف ٢٧ مقفول)";
+        resetToCountdown();
+      });
+    }
+
+    if (elements.btnTestMay27Unlocked) {
+      elements.btnTestMay27Unlocked.addEventListener('click', () => {
+        simulatedOutingTime = Date.now() - 2000;
         simulatedEngagementTime = Date.now() - 1000;
         simulatedBirthdayTime = Date.now() + 600000;
-        setActiveDevButton(elements.btnTestNov25Unlocked);
-        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٥ مايو (ظرف الخطوبة متاح)";
+        setActiveDevButton(elements.btnTestMay27Unlocked);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: بعد ٢٧ مايو (الظرفان متاحان)";
         resetToCountdown();
+      });
+    }
+
+    if (elements.btnTestOutingModal) {
+      elements.btnTestOutingModal.addEventListener('click', () => {
+        simulatedOutingTime = Date.now() - 1000;
+        unlockOutingEnvelope(false);
+        openAlbumModal('outing', 0);
+        setActiveDevButton(elements.btnTestOutingModal);
+        if (elements.devStatusText) elements.devStatusText.textContent = "الحالة: ظرف ٢٥ مايو مفتوح مباشرة";
       });
     }
 

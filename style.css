@@ -1642,6 +1642,58 @@ body {
   color: var(--gold-light);
 }
 
+/* شارات وظرف أول خروجة وفرح مارتين (٢٥ مايو) */
+.envelope-header-tag.outing-tag {
+  background: rgba(220, 68, 110, 0.15);
+  border-color: rgba(220, 68, 110, 0.35);
+}
+
+.envelope-header-tag.outing-tag .tag-title {
+  color: #ff99bb;
+}
+
+.outing-envelope-section {
+  margin-top: 1.5rem;
+}
+
+.envelope-outer.envelope-outing {
+  border: 1px solid rgba(220, 68, 110, 0.45);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(220, 68, 110, 0.2);
+}
+
+.envelope-outer.envelope-outing.is-locked {
+  cursor: default;
+  filter: saturate(0.92);
+}
+
+.envelope-outer.envelope-outing.is-locked:hover {
+  transform: none;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(220, 68, 110, 0.2);
+}
+
+.envelope-seal.seal-outing {
+  background: radial-gradient(circle at 35% 35%, #e8557e 0%, #ab2248 70%, #7d1030 100%);
+  border-color: rgba(255, 190, 215, 0.4);
+  box-shadow: 0 4px 15px rgba(171, 34, 72, 0.5);
+}
+
+.open-outing-btn {
+  background: linear-gradient(135deg, #d84572 0%, #aa2751 100%);
+  border: 1px solid rgba(255, 180, 205, 0.4);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(216, 69, 114, 0.4);
+}
+
+.open-outing-btn:hover {
+  background: linear-gradient(135deg, #e45582 0%, #b82f5b 100%);
+  box-shadow: 0 14px 30px rgba(216, 69, 114, 0.55);
+  transform: translateY(-2px);
+}
+
 /* ظرف الخطوبة المخصص */
 .envelope-outer.envelope-engagement {
   border: 1px solid rgba(229, 195, 120, 0.45);
